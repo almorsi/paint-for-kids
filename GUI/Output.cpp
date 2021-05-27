@@ -39,7 +39,7 @@ Output::Output()
 	pWind->ChangeTitle("Paint for Kids");
 	//draw the toolbar
 	drawToolBar();
-	//CreateStatusBar();
+	drawCleanStatusBar();
 }
 
 Input* Output::CreateInput() const
@@ -61,19 +61,16 @@ window* Output::CreateWind(int w, int h, int x, int y) const
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void Output::CreateStatusBar() const
-{
-	pWind->SetPen(UI.StatusBarColor, 1);
-	pWind->SetBrush(UI.StatusBarColor);
-	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
-}
-//////////////////////////////////////////////////////////////////////////////////////////
-void Output::ClearStatusBar() const
+void Output::drawCleanStatusBar() const
 {
 	//Clear Status bar by drawing a filled white rectangle
 	pWind->SetPen(UI.StatusBarColor, 1);
 	pWind->SetBrush(UI.StatusBarColor);
 	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
+
+	//draw black line above the bar
+	pWind->SetPen(BLACK, UI.BarPadding);
+	pWind->DrawLine(0, UI.height - UI.StatusBarHeight , UI.width, UI.height - UI.StatusBarHeight +1);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::drawToolBar() const
@@ -94,29 +91,28 @@ void Output::clearToolBar() const
 	pWind->SetBrush(UI.ToolBarColor);
 	pWind->DrawRectangle(0, 0, UI.width, UI.MenuItemHeight);
 
-	//Draw line below the bar
+	//Draw black line below the bar
 	pWind->SetPen(BLACK, UI.BarPadding);
-	pWind->DrawLine(0, UI.MenuItemHeight + 1, UI.width, UI.MenuItemHeight + 1);
+	pWind->DrawLine(0, UI.MenuItemHeight , UI.width, UI.MenuItemHeight + 1);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-
 void Output::ClearDrawArea() const
 {
 	pWind->SetPen(UI.BkGrndColor, 1);
 	pWind->SetBrush(UI.BkGrndColor);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
+	pWind->DrawRectangle(0, UI.ToolBarHeight , UI.width, UI.height - UI.StatusBarHeight);
 	
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void Output::PrintMessage(string msg) const	//Prints a message on status bar
 {
-	ClearStatusBar();	//First clear the status bar
+	drawCleanStatusBar();	//First clear the status bar
 	
 	pWind->SetPen(UI.MsgColor, 50);
 	pWind->SetFont(20, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(10, UI.height - (int)(UI.StatusBarHeight/1.5), msg);
+	pWind->DrawString(10, UI.height - (int)(UI.StatusBarHeight*0.8f), msg);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -166,6 +162,5 @@ Output::~Output()
 	delete pWind;
 	delete PToolBar;
 	delete DToolBar;
-
 }
 
