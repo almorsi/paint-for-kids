@@ -7,8 +7,7 @@ class Output	//The application manager should have a pointer to this class
 {
 private:	
 	window* pWind;		//Pointer to the Graphics Window
-	ToolBar* PToolBar;	//Pointer to the play toolbar
-	ToolBar* DToolBar;	//Pointer to the draw toolbar
+	ToolBar* toolBar;	//Pointer to the play toolbar
 public:
 	Output();		
 
