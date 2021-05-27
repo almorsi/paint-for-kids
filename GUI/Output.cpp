@@ -72,37 +72,12 @@ void Output::ClearStatusBar() const
 void Output::CreateDrawToolBar() const
 {
 	UI.InterfaceMode = MODE_DRAW;
-
-	//You can draw the tool bar icons in any way you want.
-	//Below is one possible way
-	
-	//First prepare List of images for each menu item
-	//To control the order of these images in the menu, 
-	//reoder them in UI_Info.h ==> enum DrawMenuItem
-	string MenuItemImages[DRAW_ITM_COUNT];
-	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
-	MenuItemImages[ITM_CIRC] = "images\\MenuItems\\Menu_Circ.jpg";
-	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
-
-	//TODO: Prepare images for each menu item and add it to the list
-
-	//Draw menu item one image at a time
-	for(int i=0; i<DRAW_ITM_COUNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i*UI.MenuItemWidth,0,UI.MenuItemWidth, UI.ToolBarHeight);
-
-
-
-	//Draw a line under the toolbar
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
-
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void Output::CreatePlayToolBar() const
 {
 	UI.InterfaceMode = MODE_PLAY;
-	///TODO: write code to create Play mode menu
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
