@@ -168,8 +168,10 @@
     <ClCompile Include="Figures\CRectangle.cpp" />
     <ClCompile Include="Actions\AddRectAction.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
+    <ClCompile Include="GUI\MenuItem.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="GUI\ToolBar.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +200,9 @@
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\AddRectAction.h" />
     <ClInclude Include="GUI\Input.h" />
+    <ClInclude Include="GUI\MenuItem.h" />
     <ClInclude Include="GUI\Output.h" />
+    <ClInclude Include="GUI\ToolBar.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />

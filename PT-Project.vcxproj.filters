@@ -145,6 +145,12 @@
       <Filter>Application Manager</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="GUI\ToolBar.cpp">
+      <Filter>GUI Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\MenuItem.cpp">
+      <Filter>GUI Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -232,6 +238,12 @@
       <Filter>Application Manager</Filter>
     </ClInclude>
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="GUI\MenuItem.h">
+      <Filter>GUI Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\ToolBar.h">
+      <Filter>GUI Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
