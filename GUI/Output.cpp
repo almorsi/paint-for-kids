@@ -3,37 +3,44 @@
 
 Output::Output()
 {
+	//Initialize the toolbars of the two modes
+	PToolBar = new ToolBar(PLAY_ITM_COUNT);
+	DToolBar = new ToolBar(DRAW_ITM_COUNT);
 	//Initialize user interface parameters
-	UI.InterfaceMode = MODE_DRAW;
-	
-	UI.width = 1300;
-	UI.height = 700;
-	UI.wx = 5;
-	UI.wy =5;
+	UI.InterfaceMode		= MODE_DRAW;
+	UI.MaxNItems			= (DRAW_ITM_COUNT > PLAY_ITM_COUNT) ? DRAW_ITM_COUNT : PLAY_ITM_COUNT;
+	UI.FreeSpaceInToolBar	= 5;
+	UI.MenuItemWidth		= 48;
+	UI.MenuItemHeight		= 48;
+	UI.BarPadding			= 2;
+
+	UI.width				= UI.MaxNItems * UI.MenuItemWidth + UI.FreeSpaceInToolBar * UI.MenuItemWidth;
+	UI.height				= UI.MenuItemHeight * UI.MaxNItems - UI.FreeSpaceInToolBar * UI.MenuItemWidth;
+	UI.wx					= 200;//the window x position relative to the screen
+	UI.wy					= 150;//the window y position relative to the screen
 
 	
-	UI.StatusBarHeight = 50;
-	UI.ToolBarHeight = 50;
-	UI.MenuItemWidth = 80;
-	
-	UI.DrawColor = BLUE;	//Drawing color
-	UI.FillColor = GREEN;	//Filling color
-	UI.MsgColor = RED;		//Messages color
-	UI.BkGrndColor = LIGHTGOLDENRODYELLOW;	//Background color
-	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
-	UI.StatusBarColor = TURQUOISE;
-	UI.PenWidth = 3;	//width of the figures frames
+	UI.StatusBarHeight		= UI.MenuItemHeight + UI.BarPadding;
+	UI.ToolBarHeight		= UI.MenuItemHeight + UI.BarPadding;
+
+	UI.ToolBarColor			= color(250, 255, 204);		//toolbar color
+	UI.DrawColor			= BLUE;						//Drawing color
+	UI.FillColor			= GREEN;					//Filling color
+	UI.MsgColor				= BLACK;					//Messages color
+	UI.BkGrndColor			= WHITE;					//Background color
+	UI.HighlightColor		= color(163, 255, 252);		//This color should NOT be used to draw figures. use if for highlight only
+	UI.StatusBarColor		= color(250, 255, 204);		//same as the tool bar color
+	UI.PenWidth				= 3;						//width of the figures frames
 
 	
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	//Change the title
-	pWind->ChangeTitle("Paint for Kids - Programming Techniques Project");
-	
-	CreateDrawToolBar();
-	CreateStatusBar();
+	pWind->ChangeTitle("Paint for Kids");
+	//draw the toolbar
+	drawToolBar();
+	//CreateStatusBar();
 }
-
 
 Input* Output::CreateInput() const
 {
@@ -69,15 +76,28 @@ void Output::ClearStatusBar() const
 	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void Output::CreateDrawToolBar() const
+void Output::drawToolBar() const
 {
-	UI.InterfaceMode = MODE_DRAW;
+	clearToolBar();
+	int nItems = UI.InterfaceMode == MODE_PLAY ? PLAY_ITM_COUNT : DRAW_ITM_COUNT;
+	for (int i = 0; i < nItems; i++)
+	{
+		std::string itemPath = DToolBar->getItem(i)->getPath();
+		pWind->DrawImage(itemPath, i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.MenuItemHeight);
+	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-
-void Output::CreatePlayToolBar() const
+void Output::clearToolBar() const
 {
-	UI.InterfaceMode = MODE_PLAY;
+	//Clear Tool bar by drawing a filled rectangle
+	pWind->SetPen(UI.ToolBarColor, 1);
+	pWind->SetBrush(UI.ToolBarColor);
+	pWind->DrawRectangle(0, 0, UI.width, UI.MenuItemHeight);
+
+	//Draw line below the bar
+	pWind->SetPen(BLACK, UI.BarPadding);
+	pWind->DrawLine(0, UI.MenuItemHeight + 1, UI.width, UI.MenuItemHeight + 1);
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -144,5 +164,8 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 Output::~Output()
 {
 	delete pWind;
+	delete PToolBar;
+	delete DToolBar;
+
 }
 
