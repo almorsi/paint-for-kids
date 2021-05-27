@@ -1,21 +1,21 @@
 #include "MenuItem.h"
 
+int MenuItem::counter = 0;
+
 MenuItem::MenuItem(int fName)
 	:
 	fileName(fName),
 	state(MENU_ITEM_STATE::NORMAL)
 {
-	std::cout << "LOG: MenuItem Inialized succesfully" << std::endl;
+	std::cout << "LOG" << counter++<< ": MenuItem Inialized succesfully" << std::endl;
 }
 
 const std::string MenuItem::BasePath = "images\\MenuItems\\";
 
 std::string MenuItem::getPath()
 {
-	int mode = UI.InterfaceMode;
-	int stat = state;
-	return std::string( BasePath + char(mode) + "\\" +
-						char(stat) + "\\" + std::to_string(fileName) + ".jpg");
+	return std::string( BasePath + char(UI.InterfaceMode) + "\\" +
+						char(state) + "\\" + std::to_string(fileName) + ".jpg");
 }
 
 void MenuItem::setState(MENU_ITEM_STATE state_val)
@@ -25,5 +25,5 @@ void MenuItem::setState(MENU_ITEM_STATE state_val)
 
 MenuItem::~MenuItem()
 {
-	std::cout << "LOG: MenuItem destructor called" << std::endl;
+	std::cout << "LOG"<<--counter<<": MenuItem destructor called" << std::endl;
 }

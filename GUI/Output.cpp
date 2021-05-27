@@ -4,11 +4,17 @@
 Output::Output()
 {
 	//Initialize the toolbars of the two modes
-	PToolBar = new ToolBar(PLAY_ITM_COUNT);
-	DToolBar = new ToolBar(DRAW_ITM_COUNT);
+	UI.MaxNItems			= (DRAW_ITM_COUNT > PLAY_ITM_COUNT) ? DRAW_ITM_COUNT : PLAY_ITM_COUNT;
+
+	//this is just one tool bar that will draw itself according to the program mode 
+	//it contains the max number of items that can be in draw or play mode so no need for doublicating
+	//items, each MenuItem in the tool bar can draw itself according to the index and state and mode,
+	//for more information see MenuItem.h
+	toolBar = new ToolBar(UI.MaxNItems);
+
+	//DToolBar = new ToolBar(DRAW_ITM_COUNT);
 	//Initialize user interface parameters
 	UI.InterfaceMode		= MODE_DRAW;
-	UI.MaxNItems			= (DRAW_ITM_COUNT > PLAY_ITM_COUNT) ? DRAW_ITM_COUNT : PLAY_ITM_COUNT;
 	UI.FreeSpaceInToolBar	= 5;
 	UI.MenuItemWidth		= 48;
 	UI.MenuItemHeight		= 48;
@@ -79,7 +85,7 @@ void Output::drawToolBar() const
 	int nItems = UI.InterfaceMode == MODE_PLAY ? PLAY_ITM_COUNT : DRAW_ITM_COUNT;
 	for (int i = 0; i < nItems; i++)
 	{
-		std::string itemPath = DToolBar->getItem(i)->getPath();
+		std::string itemPath = toolBar->getItem(i)->getPath();
 		pWind->DrawImage(itemPath, i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.MenuItemHeight);
 	}
 }
@@ -160,7 +166,6 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 Output::~Output()
 {
 	delete pWind;
-	delete PToolBar;
-	delete DToolBar;
+	delete toolBar;
 }
 
