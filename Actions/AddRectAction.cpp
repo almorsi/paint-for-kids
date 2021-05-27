@@ -31,7 +31,7 @@ void AddRectAction::ReadActionParameters()
 	RectGfxInfo.FillClr = pOut->getCrntFillColor();
 	RectGfxInfo.BorderWdth = pOut->getCrntPenWidth();
 
-	pOut->ClearStatusBar();
+	pOut->drawCleanStatusBar();
 
 }
 
