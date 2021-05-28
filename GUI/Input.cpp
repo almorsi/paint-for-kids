@@ -50,9 +50,26 @@ ActionType Input::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-			case ITM_RECT: return DRAW_RECT;
-			case ITM_CIRC: return DRAW_CIRC;
-			case ITM_EXIT: return EXIT;	
+			case ITM_TO_PLAY    : return TO_PLAY	  ;
+			case ITM_LINE		: return DRAW_LINE	  ;
+			case ITM_RECT		: return DRAW_RECT	  ;
+			case ITM_TRI		: return DRAW_TRI	  ;
+			case ITM_CIRC		: return DRAW_CIRC    ;
+			case ITM_DRAW_CLR	: return CHNG_DRAW_CLR;
+			case ITM_FILL_CLR	: return CHNG_FILL_CLR;
+			case ITM_BK_CLR		: return CHNG_BK_CLR  ;
+			case ITM_SELECT		: return SELECT		  ;
+			case ITM_DEL		: return DEL		  ;
+			case ITM_MOVE		: return MOVE		  ;
+			case ITM_RESIZE		: return RESIZE		  ;
+			case ITM_ROTATE		: return ROTATE		  ;
+			case ITM_SEND_BACK	: return SEND_BACK	  ;
+			case ITM_BRNG_FRNT	: return BRNG_FRNT    ; 
+			case ITM_SAVE		: return SAVE		  ;
+			case ITM_LOAD		: return LOAD		  ;
+			case ITM_UNDO		: return UNDO		  ;
+			case ITM_REDO		: return REDO		  ;
+			case ITM_EXIT		: return EXIT		  ;
 			
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -69,10 +86,33 @@ ActionType Input::GetUserAction() const
 	}
 	else	//GUI is in PLAY mode
 	{
-		///TODO:
-		//perform checks similar to Draw mode checks above
-		//and return the correspoding action
-		return TO_PLAY;	//just for now. This should be updated
+		//[1] If user clicks on the Toolbar
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
+			int ClickedItemOrder = (x / UI.MenuItemWidth);
+			switch (ClickedItemOrder)
+			{
+			case ITM_TO_DRAW	: return TO_DRAW	;
+			case ITM_RePLAY		: return RE_PLAY	;
+			case ITM_SHAPE_ONLY	: return SHAPE_ONLY	;
+			case ITM_CLR_ONLY	: return CLR_ONLY	;
+			case ITM_SHAPE_N_CLR: return SHAPE_N_CLR;
+			case ITM_AREA		: return AREA		;
+			case ITM_EXT		: return EXIT		;
+
+			default: return EMPTY; //A click on empty place in play toolbar
+			}
+
+		}
+
+		//[2] User clicks on the drawing area
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		{
+			return DRAWING_AREA;
+		}
+
+		//[3] User clicks on the status bar
+		return STATUS;
 	}	
 
 }
