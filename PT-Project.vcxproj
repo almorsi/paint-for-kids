@@ -173,6 +173,7 @@
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="GUI\ToolBar.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="utilities\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="utilities\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
