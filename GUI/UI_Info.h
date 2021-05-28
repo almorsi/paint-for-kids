@@ -53,11 +53,15 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
 	ITM_TO_DRAW,		//switch to draw mode
-	ITM_PLAY,			//choose to replay the game
+	ITM_RePLAY,			//choose to replay the game
 	ITM_SHAPE_ONLY,     //Choose shape only mode
 	ITM_CLR_ONLY,       //Choose color only mode
 	ITM_SHAPE_N_CLR,    //Choose shape and color mode
 	ITM_AREA,           //choose area mode
+
+	ITM_EXT,			//Exit item
+	//choosing a different name other than ITM::EXIT in DrawMenuItem
+	//is necessary because it is not an enum class
 
 	PLAY_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum
 	
