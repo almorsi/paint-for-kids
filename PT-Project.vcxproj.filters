@@ -19,6 +19,9 @@
     <Filter Include="Application Manager">
       <UniqueIdentifier>{be3a4e10-d854-4bf8-9add-2f85904b4103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utilities">
+      <UniqueIdentifier>{6cf5608d-a503-405b-bf27-cc0e1536ae30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
@@ -151,6 +154,9 @@
     <ClCompile Include="GUI\MenuItem.cpp">
       <Filter>GUI Classes</Filter>
     </ClCompile>
+    <ClCompile Include="utilities\Vec2.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -243,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="GUI\ToolBar.h">
       <Filter>GUI Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\Vec2.h">
+      <Filter>utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
