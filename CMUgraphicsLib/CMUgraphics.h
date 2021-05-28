@@ -18,6 +18,7 @@ This file was last modified on 05.16.1999
 #include "image.h"
 #include "colors.h"
 #include "version.h"
+#include "..\utilities\Vec2.h"
 
 // Aproximate value of Pi, used in some calculations
 const double cdPi = 3.141592653589793238462643383279;
@@ -70,10 +71,10 @@ enum angletype {
 
 class window {
 
-  private:
-  
+private:
+
     // Various Win32 Data structures
-	const HINSTANCE hInstance;
+    const HINSTANCE hInstance;
     WNDCLASS wndcWindow;
     HWND hwndWindow;
 
@@ -86,66 +87,66 @@ class window {
     // Bitmap for double buffering
     HBITMAP bmapBuffer;
     HBITMAP bmapBufferOld;
-    
+
     // Pen, brush, and font objects for drawing stuff
     HPEN penObject;
     HBRUSH brshObject;
-	HFONT fontObject;
-	
-	// To be a good neighboor and store previously selected objects
-	HPEN penOldObject;
-	HBRUSH brshOldObject;
-	HFONT fontOldObject;
+    HFONT fontObject;
+
+    // To be a good neighboor and store previously selected objects
+    HPEN penOldObject;
+    HBRUSH brshOldObject;
+    HFONT fontOldObject;
 
     color colBrsh;
     color colPen;
-    
+
     int iPenWidth;
 
     // Window size information
-	const int iWindowWidth, iWindowHeight;
+    const int iWindowWidth, iWindowHeight;
 
     // True if we're double buffering, false if we're not.
-	bool bDoubleBuffer;
-	
+    bool bDoubleBuffer;
+
     // Current mouse position
-	int iMouseX, iMouseY;
-	  
-	// Keyboard and mouse input queues
-	mqueue mqueInput;
-	kqueue kqueInput;
+    int iMouseX, iMouseY;
+
+    // Keyboard and mouse input queues
+    mqueue mqueInput;
+    kqueue kqueInput;
 
     // The current state of the left and right buttons
     buttonstate bsLeft;
     buttonstate bsRight;
 
     // Kludge to solve problems with the stupid way Win32 messaging system works
-    inline void ProcessMessage();  
+    inline void ProcessMessage();
 
     // Keep track of current drawing state to prevent unneccessay API calls
-   	void ChangeDrawStyle(drawstyle dsNewStyle);
-   	void SetFontStyle();
+    void ChangeDrawStyle(drawstyle dsNewStyle);
+    void SetFontStyle();
     // Function to be a good neighboor and put things back the way they were
-   	void RestoreDrawStyle();
-   	void RestoreFontStyle();
+    void RestoreDrawStyle();
+    void RestoreFontStyle();
 
     // Allow the windowinput class to muck with our data structures (needed to properly
     // handle input)
     friend class windowinput;
 
     // Prevent inadvertent copying... 
-    void operator=(window &); 
-    window(window &);
-    
-  public:
- 
+    void operator=(window&);
+    window(window&);
+
+public:
+
     // Create a new window! iWindWidth and iWindHeight will change the size of 
     // the window created. iWindXPos and iWindYPos is the position the window
     // will appear on the screen
     window(const int iWindWidth = ciDefWindWidth, const int iWindHeight = ciDefWindHeight, const int iWindXPos = ciDefWindXPos, const int iWindYPos = ciDefWindYPos);
 
     // Window destructor
-  	~window();
+    ~window();
 
     // If this window is the last window on screen, the default behavior is that in
     // the window destructor the program waits for a mouse click before closing 
@@ -156,51 +157,69 @@ class window {
     // Turn double buffering on or off.  The way things currently work the background
     // color of the double buffer defaults to black, whereas the normal screen defaults
     // to white.  Returns the old state.
-	bool SetBuffering(const bool bSetting);
-	  
-	// When double buffering is turned on this will copy the offscreen buffer to 
-	// the screen 
-	void UpdateBuffer();
+    bool SetBuffering(const bool bSetting);
+
+    // When double buffering is turned on this will copy the offscreen buffer to 
+    // the screen 
+    void UpdateBuffer();
 
     // Allows the user to change what the title of the window.  Accepts string
     // or C-strings for input
-    void ChangeTitle(const char *cpNewTitle);
+    void ChangeTitle(const char* cpNewTitle);
     void ChangeTitle(const string strNewTitle);
 
     // Functions to get information about the size of the window
     int GetWidth() const;
     int GetHeight() const;
-    void GetWindowSize(int &iX, int &iY) const;
+    void GetWindowSize(int& iX, int& iY) const;
 
     // Get information on the current state of the mouse buttons and it's position
-    buttonstate GetButtonState(const button btMouse, int &iX, int &iY);
- 
+    buttonstate GetButtonState(const button btMouse, int& iX, int& iY);
+
     // Gets the current mouse coordinates
-    void GetMouseCoord(int &iX, int &iY);
-    
+    void GetMouseCoord(int& iX, int& iY);
+    void GetMouseCoord(Vec2& vector)
+    {
+        int x, y;
+        GetMouseCoord(x, y);
+
+        vector.x = float(x);
+        vector.y = float(y);
+    }
+
+
     // Removes the next mouse click event from the queue
     // iX and iY will contain the location of the click
     // and the clicktype return willed allow the user to 
     // determine which mouse button was clicked, and 
     // if the click was a double click 
     // (see the clicktype enum in mousequeue.h)
- 	clicktype GetMouseClick(int &iX, int &iY);
+    clicktype GetMouseClick(int& iX, int& iY);
 
     // WaitMouseClick works the same as above but will only return 
     // if there is a mouse click event in the queue, otherwise
     // it will wait for one
-	clicktype WaitMouseClick(int &iX, int &iY);
- 	  
+    clicktype WaitMouseClick(int& iX, int& iY);
+    void WaitMouseClick(Vec2& vector)
+    {
+        int x, y;
+        WaitMouseClick(x, y);
+
+        vector.x = float(x);
+        vector.y = float(y);
+    }
+
+
     // Removes the next keyboard event from the queue
     // stuffs the key value into ucKey, and returns the
     // type of key that was pressed    
     // (see the keytype enum in keyqueue.h)
-	keytype GetKeyPress(char &cKey);
-	 
-	// Same as above, but won't return unless there is a key
-	// event in the queue.  As a result it will wait until
-	// there is one
-	keytype WaitKeyPress(char &cKey);
+    keytype GetKeyPress(char& cKey);
+
+    // Same as above, but won't return unless there is a key
+    // event in the queue.  As a result it will wait until
+    // there is one
+    keytype WaitKeyPress(char& cKey);
 
     // These two functions flush all waiting input out of the
     // mouse and keyboard input queues.  This is necessary
@@ -213,30 +232,30 @@ class window {
 
     // Sets the color of the current brush, which is used when drawing with
     // the FILLED style.  Returns the last selected color.
-	color SetBrush(const double dRed, const double dGreen, const double dBlue);
-	  
-	// Same as above, but allows you to use characters instead of doubles,
-	// which is faster.  Returns the last selected color.
-  	color SetBrush(const unsigned char ucRed, const unsigned char ucGreen, const unsigned char ucBlue);
+    color SetBrush(const double dRed, const double dGreen, const double dBlue);
 
-	// Set the brush color using a color object.  Returns the last selected color.
-  	color SetBrush(const color &colBrush);
-  	
-  	// Set the color and size (if you specify the size) of the current pen, which
-  	// is used with drawing with the FRAME style and outlines entities drawing in
-  	// the FILLED style.  Returns the last selected color.
-	color SetPen(const double dRed, const double dGreen, const double dBlue, const int iWidth = ciDefBrushSize);
-	  
-	// Same as above, just allowing the use of characters instead of doubles
-	// for speed.  Returns the last selected color.   
-	color SetPen(const unsigned char ucRed, const unsigned char ucGreen, const unsigned char ucBlue, const int iWidth = ciDefBrushSize);
+    // Same as above, but allows you to use characters instead of doubles,
+    // which is faster.  Returns the last selected color.
+    color SetBrush(const unsigned char ucRed, const unsigned char ucGreen, const unsigned char ucBlue);
+
+    // Set the brush color using a color object.  Returns the last selected color.
+    color SetBrush(const color& colBrush);
+
+    // Set the color and size (if you specify the size) of the current pen, which
+    // is used with drawing with the FRAME style and outlines entities drawing in
+    // the FILLED style.  Returns the last selected color.
+    color SetPen(const double dRed, const double dGreen, const double dBlue, const int iWidth = ciDefBrushSize);
+
+    // Same as above, just allowing the use of characters instead of doubles
+    // for speed.  Returns the last selected color.   
+    color SetPen(const unsigned char ucRed, const unsigned char ucGreen, const unsigned char ucBlue, const int iWidth = ciDefBrushSize);
 
     // Set the pen color and size using a color object.  Returns the last selected color.
-	color SetPen(const color &colPen, const int iWidth = ciDefBrushSize);
+    color SetPen(const color& colPen, const int iWidth = ciDefBrushSize);
 
     // Sets the current font.  See the enums at the top of this file for info on 
     // the fontstyle and fontfamily types.  C-String and String versions
-  	void SetFont(const int iSize, const unsigned short usStyle, const fontfamily ffFamily, const char* cpFontName = NULL);
+    void SetFont(const int iSize, const unsigned short usStyle, const fontfamily ffFamily, const char* cpFontName = NULL);
 
     // Draws a pixel at (iX, iY) in the current color
     void DrawPixel(const int iX, const int iY);
@@ -246,17 +265,30 @@ class window {
     // not to hardcode in +1's to make up for this fact.  Currently the only valid
     // drawstyle is FRAME.  If you try to use any of the others it will quit with 
     // a fatal error
-  	void DrawLine(const int iX1, const int iY1, const int iX2, const int iY2, const drawstyle dsStyle = FRAME);
-  	
-  	// Draws a rectangle from with the same sort of off by one as DrawLine
-  	// Valid drawstyles are FRAME, FILLED, and INVERTED.  Default drawing style
-  	// is FILLED.  If you want a rounded rectangle, use the last two parameters, 
-  	// iWidth and iHeight, to adjust the size of the fillets
-  	void DrawRectangle(const int iX1, const int iY1, const int iX2, const int iY2, const drawstyle dsStyle = FILLED, const int iWidth = 0, const int iHeight = 0);
+    void DrawLine(const int iX1, const int iY1, const int iX2, const int iY2, const drawstyle dsStyle = FRAME);
+
+    void DrawLine(const Vec2& start, const Vec2& end, const drawstyle dsStyle = FRAME)
+    {
+        DrawLine(int(start.x), int(start.y), int(end.x), int(end.y), dsStyle);
+    }
+
+    // Draws a rectangle from with the same sort of off by one as DrawLine
+    // Valid drawstyles are FRAME, FILLED, and INVERTED.  Default drawing style
+    // is FILLED.  If you want a rounded rectangle, use the last two parameters, 
+    // iWidth and iHeight, to adjust the size of the fillets
+    void DrawRectangle(const int iX1, const int iY1, const int iX2, const int iY2, const drawstyle dsStyle = FILLED, const int iWidth = 0, const int iHeight = 0);
+    void DrawRectangle(const Vec2& start, const Vec2& end, const drawstyle dsStyle = FILLED, const int iWidth = 0, const int iHeight = 0)
+    {
+        DrawRectangle(int(start.x), int(start.y), int(end.x), int(end.y), dsStyle, iWidth, iHeight);
+    }
 
     // Draws a triangle with vertices (iX1, iY1), (iX2, iY2), and (iX3, iY3)
     // Valid drawstyles are FRAME, FILLED, and INVERTED.
   	void DrawTriangle(const int iX1, const int iY1, const int iX2, const int iY2, const int iX3, const int iY3, const drawstyle dsStyle = FILLED);
+    void DrawTriangle(const Vec2& p1, const Vec2& p2, const Vec2& p3, const drawstyle dsStyle = FILLED)
+    {
+        DrawTriangle(int(p1.x), int(p1.y), int(p2.x), int(p2.y), int(p3.x), int(p3.y), dsStyle);
+    }
   	
   	// Works the same as DrawTriangle, but takes a pointer (or an array) of X and Y values
   	// The number of elements in ipX and ipY must be the same, and iVertices must be 
@@ -267,6 +299,11 @@ class window {
     // Draws a circle centered at (iX, iY) with a radius of iRadius.  Valid drawstyles 
     // are FRAME, FILLED, and INVERTED.
     void DrawCircle(const int iX, const int iY, const int iRadius, const drawstyle dsStyle = FILLED);
+    void DrawCircle(const Vec2& center, const int iRadius, const drawstyle dsStyle = FILLED)
+    {
+        DrawCircle(int(center.x), int(center.y), iRadius, dsStyle);
+    }
+
 
     // Draws an ellipse inside the rectangle bounded by (iX1, iY1) and (iX2, iY2)
     // Valid drawstyles are FRAME, FILLED, and INVERTED
