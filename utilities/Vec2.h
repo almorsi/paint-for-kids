@@ -7,6 +7,8 @@ public:
 
 	Vec2(float x_in, float y_in);
 
+	Vec2(int x_in, int y_in);
+
 	Vec2 operator+(const Vec2& rhs) const;
 
 	Vec2& operator+=(const Vec2& rhs);
