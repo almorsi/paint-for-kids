@@ -33,24 +33,101 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
-		case DRAW_RECT:
-			pAct = new AddRectAction(this);
-			break;
-
-		case DRAW_LINE:
-			///create AddLineAction here
-
-			break;
-
-		case EXIT:
-			///create ExitAction here
-			
-			break;
-		
-		case STATUS:	//a click on the status bar ==> no action
-			return;
+	case DRAWING_AREA:
+		std::cout << "Action: DRAWING_AREA" << std::endl;
+		break;
+	case STATUS:		//a click on the status bar ==> no action
+		std::cout << "Action: STATUS" << std::endl;
+		break;
+	case EMPTY:
+		std::cout << "Action: EMPTY" << std::endl;
+		break;
+	case TO_DRAW:
+		UI.InterfaceMode = MODE_DRAW;
+		pOut->drawToolBar();
+		std::cout << "Action: TO_DRAW" << std::endl;
+		break;
+	case TO_PLAY:
+		UI.InterfaceMode = MODE_PLAY;
+		pOut->drawToolBar();
+		std::cout << "Action: TO_PLAY" << std::endl;
+		break;
+	case DRAW_LINE:
+		std::cout << "Action: DRAW_LINE" << std::endl;
+		break;
+	case DRAW_RECT:
+		std::cout << "Action: DRAW_RECT" << std::endl;
+		pAct = new AddRectAction(this);
+		break;
+	case DRAW_TRI:
+		std::cout << "Action: DRAW_TRI" << std::endl;
+		break;
+	case DRAW_CIRC:
+		std::cout << "Action: DRAW_CIRC" << std::endl;
+		break;
+	case CHNG_DRAW_CLR:
+		std::cout << "Action: CHNG_DRAW_CLR" << std::endl;
+		break;
+	case CHNG_FILL_CLR:
+		std::cout << "Action: CHNG_FILL_CLR" << std::endl;
+		break;
+	case CHNG_BK_CLR:
+		std::cout << "Action: CHNG_BK_CLR" << std::endl;
+		break;
+	case SELECT:
+		std::cout << "Action: SELECT" << std::endl;
+		break;
+	case DEL:
+		std::cout << "Action: DEL" << std::endl;
+		break;
+	case MOVE:
+		std::cout << "Action: MOVE" << std::endl;
+		break;
+	case RESIZE:
+		std::cout << "Action: RESIZE" << std::endl;
+		break;
+	case ROTATE:
+		std::cout << "Action: ROTATE" << std::endl;
+		break;
+	case SEND_BACK:
+		std::cout << "Action: SEND_BACK" << std::endl;
+		break;
+	case BRNG_FRNT:
+		std::cout << "Action: BRNG_FRNT" << std::endl;
+		break;
+	case SAVE:
+		std::cout << "Action: SAVE" << std::endl;
+		break;
+	case LOAD:
+		std::cout << "Action: LOAD" << std::endl;
+		break;
+	case REDO:
+		std::cout << "Action: REDO" << std::endl;
+		break;
+	case UNDO:
+		std::cout << "Action: UNDO" << std::endl;
+		break;
+	case RE_PLAY:
+		std::cout << "Action: RE_PLAY" << std::endl;
+		break;
+	case SHAPE_ONLY:
+		std::cout << "Action: SHAPE_ONLY" << std::endl;
+		break;
+	case CLR_ONLY:
+		std::cout << "Action: CLR_ONLY" << std::endl;
+		break;
+	case SHAPE_N_CLR:
+		std::cout << "Action: SHAPE_N_CLR" << std::endl;
+		break;
+	case AREA:
+		std::cout << "Action: AREA" << std::endl;
+		break;
+	case EXIT:
+		std::cout << "Action: EXIT" << std::endl;
+		break;
+	default:
+		break;
 	}
-	
 	//Execute the created action
 	if(pAct != NULL)
 	{
