@@ -8,14 +8,18 @@ class Output	//The application manager should have a pointer to this class
 private:	
 	window* pWind;		//Pointer to the Graphics Window
 	ToolBar* toolBar;	//Pointer to the play toolbar
+
+	//private funcitons
+	void clearToolBar() const;			//clears the toolbar
 public:
 	Output();		
 
 	window* CreateWind(int, int, int , int) const; //creates the application window
 	Input* CreateInput()  const;		//creates a pointer to the Input object	
 
-	void drawToolBar()  const;			//drawing the toolbar according to the UI.InterfaceMode
-	void clearToolBar() const;			//clears the toolbar
+	//this funciton MUST be called whenever the user change the inerface mode.
+	//drawing the toolbar according to the UI.InterfaceMode
+	void drawToolBar()  const;			//this funciton MUST be called 
 	void drawCleanStatusBar() const;	//Clears the status bar
 	void ClearDrawArea()  const;		//Clears the drawing area
 
