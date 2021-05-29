@@ -50,7 +50,7 @@ void ColorWin::drawItems()
 	}
 }
 
-color ColorWin::getColorClicked()
+color ColorWin::getColorClicked() const
 {
 	int x,y;
 	pWin->WaitMouseClick(x, y);

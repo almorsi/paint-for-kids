@@ -29,7 +29,7 @@ public:
 
 	ColorWin(ColorType clrToChange = BACKGROUND); //non defualt constructor
 
-	color getColorClicked();	//return the color that the user choose to change to. 
+	color getColorClicked() const;	//return the color that the user choose to change to. 
 
 	~ColorWin();
 };
