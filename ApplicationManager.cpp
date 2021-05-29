@@ -3,7 +3,7 @@
 #include "Actions\ChangeColorActions\ChngBkgndClr.h"
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
-
+#include "Actions\Select.h"
 Point ApplicationManager::point = { 0, 0 };
 
 //Constructor
@@ -83,6 +83,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case SELECT:
 		std::cout << "Action: SELECT" << std::endl;
+		pAct = new Select(this);
 		break;
 	case DEL:
 		std::cout << "Action: DEL" << std::endl;
