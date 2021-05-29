@@ -1,4 +1,5 @@
 #include "ColorWin.h"
+#include <iostream>
 
 ColorWin::ColorWin(ColorType clrToChage)
 {
@@ -84,5 +85,6 @@ color ColorWin::getColorClicked() const
 ColorWin::~ColorWin()
 {
 	delete pWin;
+	std::cout << "window in change color window deleted" << std::endl;
 }
 

@@ -1,5 +1,5 @@
 #include "Output.h"
-
+#include <assert.h>
 
 Output::Output()
 {
@@ -46,12 +46,28 @@ Output::Output()
 	//draw the toolbar
 	drawToolBar();
 	drawCleanStatusBar();
+
+	//initialze the colorWin
+	clrWin = NULL;
 }
 
 Input* Output::CreateInput() const
 {
 	Input* pIn = new Input(pWind);
 	return pIn;
+}
+
+void Output::openClrWin(ColorType clrToChange)
+{
+	assert(clrWin == NULL);
+	clrWin = new ColorWin(clrToChange);
+}
+
+void Output::closeClrWin()
+{
+	delete clrWin;
+	std::cout << "color window deleted" << std::endl;
+	clrWin = NULL;
 }
 
 //======================================================================================//
@@ -132,6 +148,11 @@ color Output::getCrntFillColor() const	//get current filling color
 	
 int Output::getCrntPenWidth() const		//get current pen width
 {	return UI.PenWidth;	}
+
+color Output::getChangedColor() const
+{
+	return clrWin->getColorClicked();
+}
 
 //======================================================================================//
 //								Figures Drawing Functions								//
