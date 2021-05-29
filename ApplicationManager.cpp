@@ -1,5 +1,8 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectAction.h"
+#include "Actions\ChangeColorActions\ChngBkgndClr.h"
+#include "Actions\ChangeColorActions\ChngDrawClr.h"
+#include "Actions\ChangeColorActions\ChngFillClr.h"
 
 
 //Constructor
@@ -67,12 +70,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case CHNG_DRAW_CLR:
 		std::cout << "Action: CHNG_DRAW_CLR" << std::endl;
+		pAct = new ChngDrawClr(this);
 		break;
 	case CHNG_FILL_CLR:
 		std::cout << "Action: CHNG_FILL_CLR" << std::endl;
+		pAct = new ChngFillClr(this);
 		break;
 	case CHNG_BK_CLR:
 		std::cout << "Action: CHNG_BK_CLR" << std::endl;
+		pAct = new ChngBkgndClr(this);
 		break;
 	case SELECT:
 		std::cout << "Action: SELECT" << std::endl;
@@ -164,6 +170,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {	
+	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }

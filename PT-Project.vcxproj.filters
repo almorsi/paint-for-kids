@@ -22,6 +22,9 @@
     <Filter Include="utilities">
       <UniqueIdentifier>{6cf5608d-a503-405b-bf27-cc0e1536ae30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Action Classes\chngColorActions">
+      <UniqueIdentifier>{5f1d6d3f-39a9-4220-a9f1-354e1f7b7ef8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
@@ -160,6 +163,15 @@
     <ClCompile Include="GUI\ColorWin.cpp">
       <Filter>GUI Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\ChangeColorActions\ChngDrawClr.cpp">
+      <Filter>Action Classes\chngColorActions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\ChangeColorActions\ChngBkgndClr.cpp">
+      <Filter>Action Classes\chngColorActions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\ChangeColorActions\ChngFillClr.cpp">
+      <Filter>Action Classes\chngColorActions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -258,6 +270,15 @@
     </ClInclude>
     <ClInclude Include="GUI\ColorWin.h">
       <Filter>GUI Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ChangeColorActions\ChngDrawClr.h">
+      <Filter>Action Classes\chngColorActions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ChangeColorActions\ChngBkgndClr.h">
+      <Filter>Action Classes\chngColorActions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ChangeColorActions\ChngFillClr.h">
+      <Filter>Action Classes\chngColorActions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
