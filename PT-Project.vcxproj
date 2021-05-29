@@ -129,6 +129,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actions\AddCircleAction.cpp" />
+    <ClCompile Include="Actions\AddLineAction.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngBkgndClr.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngDrawClr.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngFillClr.cpp" />
@@ -167,7 +169,9 @@
     <ClCompile Include="CMUgraphicsLib\jpeg\jquant1.c" />
     <ClCompile Include="CMUgraphicsLib\jpeg\jquant2.c" />
     <ClCompile Include="CMUgraphicsLib\jpeg\jutils.c" />
+    <ClCompile Include="Figures\CCircle.cpp" />
     <ClCompile Include="Figures\CFigure.cpp" />
+    <ClCompile Include="Figures\CLine.cpp" />
     <ClCompile Include="Figures\CRectangle.cpp" />
     <ClCompile Include="Actions\AddRectAction.cpp" />
     <ClCompile Include="GUI\ColorWin.cpp" />
@@ -180,6 +184,8 @@
     <ClCompile Include="utilities\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actions\AddCIrcleAction.h" />
+    <ClInclude Include="Actions\AddLineAction.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngBkgndClr.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngDrawClr.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngFillClr.h" />
@@ -203,7 +209,9 @@
     <ClInclude Include="CMUgraphicsLib\jpeg\jpegint.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jpeglib.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jversion.h" />
+    <ClInclude Include="Figures\CCircle.h" />
     <ClInclude Include="Figures\CFigure.h" />
+    <ClInclude Include="Figures\CLine.h" />
     <ClInclude Include="Figures\CRectangle.h" />
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\AddRectAction.h" />
