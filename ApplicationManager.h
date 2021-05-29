@@ -6,11 +6,12 @@
 #include "GUI\input.h"
 #include "GUI\output.h"
 
+
 //Main class that manages everything in the application.
 class ApplicationManager
 {
-	enum { MaxFigCount = 200 };	//Max no of figures
-
+public:
+	static constexpr int MaxFigCount = 200 ;	//Max no of figures
 private:
 	int FigCount;		//Actual number of figures
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
@@ -20,6 +21,7 @@ private:
 	Output *pOut;
 
 public:	
+
 	ApplicationManager(); 
 	~ApplicationManager();
 	
@@ -30,7 +32,7 @@ public:
 	
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
-	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
+	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
 		
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input

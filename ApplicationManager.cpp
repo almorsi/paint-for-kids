@@ -153,13 +153,16 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;	
 }
 ////////////////////////////////////////////////////////////////////////////////////
-CFigure *ApplicationManager::GetFigure(int x, int y) const
+CFigure *ApplicationManager::GetFigure(Point p) const
 {
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return NULL
 
-
-	///Add your code here to search for a figure given a point x,y	
+	for (int i = FigCount - 1; i >= 0; i--)
+	{
+		if (FigList[i]->isInsideMe(p))
+			return FigList[i];
+	}
 
 	return NULL;
 }
