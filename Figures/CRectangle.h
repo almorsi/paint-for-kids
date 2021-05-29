@@ -12,6 +12,7 @@ public:
 	CRectangle(Point , Point, GfxInfo FigureGfxInfo );
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInsideMe(Point p) const;
+	virtual void PrintInfo(Output* pOut);
 };
 
 #endif
