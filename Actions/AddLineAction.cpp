@@ -17,12 +17,12 @@ void AddLineAction::ReadActionParameters()
 
 	pOut->PrintMessage("New Line: Click at start of the line");
 
-	//Read 1st corner and store in point P1
+	//Read starting point and store in point P1
 	pIn->GetPointClicked(P1.x, P1.y);
 
 	pOut->PrintMessage("New Line: Click at end of the line");
 
-	//Read 2nd corner and store in point P2
+	//Read endong point and store in point P2
 	pIn->GetPointClicked(P2.x, P2.y);
 
 	LineGfxInfo.isFilled = false;	//default is not filled

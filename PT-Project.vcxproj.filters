@@ -184,6 +184,12 @@
     <ClCompile Include="Actions\AddCircleAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Figures\CTriangle.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddTriAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -302,6 +308,12 @@
       <Filter>Figures Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddCIrcleAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CTriangle.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddTriAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

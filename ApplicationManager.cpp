@@ -2,6 +2,7 @@
 #include "Actions\AddRectAction.h"
 #include "Actions\AddLineAction.h"
 #include "Actions\AddCIrcleAction.h"
+#include "Actions\AddTriAction.h"
 #include "Actions\ChangeColorActions\ChngBkgndClr.h"
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
@@ -67,6 +68,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case DRAW_TRI:
 		std::cout << "Action: DRAW_TRI" << std::endl;
+		pAct = new AddTriAction(this);
 		break;
 	case DRAW_CIRC:
 		std::cout << "Action: DRAW_CIRC" << std::endl;

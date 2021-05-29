@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="Actions\AddCircleAction.cpp" />
     <ClCompile Include="Actions\AddLineAction.cpp" />
+    <ClCompile Include="Actions\AddTriAction.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngBkgndClr.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngDrawClr.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngFillClr.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Figures\CLine.cpp" />
     <ClCompile Include="Figures\CRectangle.cpp" />
     <ClCompile Include="Actions\AddRectAction.cpp" />
+    <ClCompile Include="Figures\CTriangle.cpp" />
     <ClCompile Include="GUI\ColorWin.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\MenuItem.cpp" />
@@ -186,6 +188,7 @@
   <ItemGroup>
     <ClInclude Include="Actions\AddCIrcleAction.h" />
     <ClInclude Include="Actions\AddLineAction.h" />
+    <ClInclude Include="Actions\AddTriAction.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngBkgndClr.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngDrawClr.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngFillClr.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="Figures\CRectangle.h" />
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\AddRectAction.h" />
+    <ClInclude Include="Figures\CTriangle.h" />
     <ClInclude Include="GUI\ColorWin.h" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\MenuItem.h" />
