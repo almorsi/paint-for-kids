@@ -4,6 +4,7 @@
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 
+Point ApplicationManager::point = { 0, 0 };
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -22,10 +23,10 @@ ApplicationManager::ApplicationManager()
 //==================================================================================//
 //								Actions Related Functions							//
 //==================================================================================//
-ActionType ApplicationManager::GetUserAction() const
+ActionType ApplicationManager::GetUserAction(Point& p) const
 {
 	//Ask the input to get the action from the user.
-	return pIn->GetUserAction();		
+	return pIn->GetUserAction(p);		
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Creates an action and executes it

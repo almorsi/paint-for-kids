@@ -20,6 +20,7 @@ private:
 	Input *pIn;
 	Output *pOut;
 
+	static Point point; // this to make GetUserAction take defualt Point
 public:	
 
 	ApplicationManager(); 
@@ -27,7 +28,7 @@ public:
 	
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
-	ActionType GetUserAction() const;
+	ActionType GetUserAction(Point& p = point) const;
 	void ExecuteAction(ActionType) ; //Creates an action and executes it
 	
 	// -- Figures Management Functions

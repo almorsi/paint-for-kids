@@ -2,6 +2,8 @@
 #include "Output.h"
 
 
+Point Input::point = { 0,0 };
+
 Input::Input(window* pW) 
 {
 	pWind = pW; //point to the passed window
@@ -32,11 +34,11 @@ string Input::GetSrting(Output *pO) const
 }
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction() const
+ActionType Input::GetUserAction(Point& p) const
 {	
 	int x,y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
+	p = { x, y };
 	if(UI.InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		//[1] If user clicks on the Toolbar
