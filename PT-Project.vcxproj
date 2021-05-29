@@ -167,6 +167,7 @@
     <ClCompile Include="Figures\CFigure.cpp" />
     <ClCompile Include="Figures\CRectangle.cpp" />
     <ClCompile Include="Actions\AddRectAction.cpp" />
+    <ClCompile Include="GUI\ColorWin.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\MenuItem.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Figures\CRectangle.h" />
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\AddRectAction.h" />
+    <ClInclude Include="GUI\ColorWin.h" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\MenuItem.h" />
     <ClInclude Include="GUI\Output.h" />

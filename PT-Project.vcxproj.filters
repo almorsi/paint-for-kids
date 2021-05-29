@@ -157,6 +157,9 @@
     <ClCompile Include="utilities\Vec2.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\ColorWin.cpp">
+      <Filter>GUI Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -252,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="utilities\Vec2.h">
       <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\ColorWin.h">
+      <Filter>GUI Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

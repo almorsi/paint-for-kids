@@ -67,16 +67,34 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	
 };
 
+enum ChngColorWindItem
+{
+	ITM_BLACK,	// color black
+	ITM_GRAY,	// color gray
+	ITM_BLUE,   // color blue
+	ITM_CYAN,	// color cyan
+	ITM_GREEN,	// color green
+	ITM_YELLOW,	// color yellow
+	ITM_BROWN,	// color brown
+	ITM_ORANGE,	// color orange
+	ITM_RED,	// color red
+	ITM_CANCEL,	// color cancel
 
+	CHNG_COLR_ITM_COUNT	//must be the last one, and prefered to be even number
+};
 
-
+enum ColorType
+{
+	BACKGROUND, //Background color
+	DRAW,		//drawing color
+	FILL		//filling color
+};
 
 __declspec(selectany) //This line to prevent "redefinition error"
 
 struct UI_Info	//User Interface Info.
 {
 	GUI_MODE InterfaceMode;
-	MENU_ITEM_STATE ToolBarItemState;
 
 	int	width, height,		//Window width and height
 		wx, wy,				//Window starting coordinates
