@@ -6,7 +6,8 @@
 #include "Actions\ChangeColorActions\ChngBkgndClr.h"
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
-
+#include "Actions\Select.h"
+Point ApplicationManager::point = { 0, 0 };
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -25,10 +26,10 @@ ApplicationManager::ApplicationManager()
 //==================================================================================//
 //								Actions Related Functions							//
 //==================================================================================//
-ActionType ApplicationManager::GetUserAction() const
+ActionType ApplicationManager::GetUserAction(Point& p) const
 {
 	//Ask the input to get the action from the user.
-	return pIn->GetUserAction();		
+	return pIn->GetUserAction(p);		
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Creates an action and executes it
@@ -88,6 +89,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case SELECT:
 		std::cout << "Action: SELECT" << std::endl;
+		pAct = new Select(this);
 		break;
 	case DEL:
 		std::cout << "Action: DEL" << std::endl;
@@ -159,15 +161,32 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;	
 }
 ////////////////////////////////////////////////////////////////////////////////////
-CFigure *ApplicationManager::GetFigure(int x, int y) const
+CFigure *ApplicationManager::GetFigure(Point p) const
 {
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return NULL
 
-
-	///Add your code here to search for a figure given a point x,y	
+	for (int i = FigCount - 1; i >= 0; i--)
+	{
+		if (FigList[i]->isInsideMe(p))
+			return FigList[i];
+	}
 
 	return NULL;
+}
+int ApplicationManager::getFigCount() const
+{
+	return FigCount;
+}
+int ApplicationManager::getIndexOf(CFigure* fig) const
+{
+	if (fig != NULL)
+	{
+		for (int i = 0; i < FigCount; i++)
+			if (fig == FigList[i])
+				return i;
+	}
+	return -1;
 }
 //==================================================================================//
 //							Interface Management Functions							//

@@ -20,7 +20,11 @@ public:
 	bool IsSelected() const;	//check whether fig is selected
 
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
-	
+	virtual bool isInsideMe(Point p) const = 0;			//check if the point is inside the figure
+
+	//this function should be reImplemented in each subclass to pring the proper information
+	virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
+
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 
@@ -37,7 +41,6 @@ public:
 	//virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 
-	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 };
 
 #endif
