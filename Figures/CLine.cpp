@@ -10,6 +10,6 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 
 void CLine::Draw(Output* pOut) const
 {
-	//Call Output::DrawLine to draw a rectangle on the screen	
+	//Call Output::DrawLine to draw a Line on the screen	
 	pOut->DrawLine(start,finish, FigGfxInfo, Selected);
 }

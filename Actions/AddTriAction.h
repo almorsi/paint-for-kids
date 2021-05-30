@@ -1,7 +1,7 @@
 #pragma once
 #include "Action.h"
 
-//Add Rectangle Action class
+//Add Triangle Action class
 class AddTriAction : public Action
 {
 private:
@@ -10,10 +10,10 @@ private:
 public:
 	AddTriAction(ApplicationManager* pApp);
 
-	//Reads rectangle parameters
+	//Reads Triangle parameters
 	virtual void ReadActionParameters();
 
-	//Add rectangle to the ApplicationManager
+	//Add Triangle to the ApplicationManager
 	virtual void Execute();
 
 };

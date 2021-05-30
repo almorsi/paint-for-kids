@@ -10,7 +10,7 @@ private:
 public:
 	AddLineAction(ApplicationManager* pApp);
 
-	//Reads rectangle parameters
+	//Reads Line parameters
 	virtual void ReadActionParameters();
 
 	//Add Line to the ApplicationManager

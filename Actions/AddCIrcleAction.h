@@ -5,7 +5,7 @@
 class AddCircleAction : public Action
 {
 private:
-	Point P1, P2; //Line start and end
+	Point P1, P2; //Circle start and end
 	GfxInfo CircleGfxInfo;
 public:
 	AddCircleAction(ApplicationManager* pApp);
