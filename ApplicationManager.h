@@ -34,6 +34,8 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
 	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
+	int getFigCount() const; //getting the current fig count
+	int getIndexOf(CFigure* fig) const; //getting the index of the passed figure in figList;
 		
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input

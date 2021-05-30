@@ -168,6 +168,20 @@ CFigure *ApplicationManager::GetFigure(Point p) const
 
 	return NULL;
 }
+int ApplicationManager::getFigCount() const
+{
+	return FigCount;
+}
+int ApplicationManager::getIndexOf(CFigure* fig) const
+{
+	if (fig != NULL)
+	{
+		for (int i = 0; i < FigCount; i++)
+			if (fig == FigList[i])
+				return i;
+	}
+	return -1;
+}
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
