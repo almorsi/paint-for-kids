@@ -21,6 +21,9 @@ private:
 	Output *pOut;
 
 	static Point point; // this to make GetUserAction take defualt Point
+
+private:
+	void reArrangeFigList(int deletedFigs);
 public:	
 
 	ApplicationManager(); 
@@ -33,6 +36,8 @@ public:
 	
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
+	//the array passed must be gauranteed it has the same number of figCount
+	void deleteFigures(CFigure** figsArray); 
 	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
 	int getFigCount() const; //getting the current fig count
 	int getIndexOf(CFigure* fig) const; //getting the index of the passed figure in figList;

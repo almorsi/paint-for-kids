@@ -9,6 +9,30 @@
 #include "Actions\Select.h"
 Point ApplicationManager::point = { 0, 0 };
 
+void ApplicationManager::reArrangeFigList(int deletedFigs)
+{
+	int nOfUnDeletedFigs = FigCount - deletedFigs;
+
+	//figList is called by deleteFigures and there are some figures need to be reArranged
+	//first getting the notNulled figures from figList
+	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
+	for (int i = 0, j = 0; i < FigCount && j < nOfUnDeletedFigs; i++)
+	{
+		if (FigList[i] != NULL)//store it in notNulledFigures
+		{
+			notNulledFigures[j] = FigList[i];
+			FigList[i] = NULL;
+			j++;
+		}
+	}
+	//reArrange figList to only contain the notNUlledfigures
+	for (int i = 0; i < nOfUnDeletedFigs; i++)
+	{
+		FigList[i] = notNulledFigures[i];
+	}
+	delete[] notNulledFigures;
+}
+
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -159,6 +183,24 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if(FigCount < MaxFigCount )
 		FigList[FigCount++] = pFig;	
+}
+void ApplicationManager::deleteFigures(CFigure** figsArray)
+{
+	int deletedCount = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (figsArray[i] != NULL)//the fig is selected
+		{
+			delete FigList[i];
+			FigList[i] = NULL;
+			figsArray[i] = NULL;//must be nulled here also 
+			deletedCount++;
+		}
+	}
+	//rearrange FigList
+	reArrangeFigList(deletedCount);
+	//need to resize the figList and figCount
+	FigCount -= deletedCount;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(Point p) const

@@ -13,6 +13,8 @@ private:
 private:
 	CFigure* getThatFigure() const; //getting the only figure that is selected "gauranteed that is one figure selected"
 
+	void executeActionAfterSelect(ActionType);
+
 public:
 	Select(ApplicationManager* mApp);
 	
@@ -21,6 +23,7 @@ public:
 
 	//Execute action (code depends on action type)
 	virtual void Execute();
+
 
 
 	virtual ~Select();
