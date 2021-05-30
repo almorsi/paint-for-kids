@@ -186,7 +186,7 @@
     <ClCompile Include="utilities\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actions\AddCIrcleAction.h" />
+    <ClInclude Include="Actions\AddCircleAction.h" />
     <ClInclude Include="Actions\AddLineAction.h" />
     <ClInclude Include="Actions\AddTriAction.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngBkgndClr.h" />

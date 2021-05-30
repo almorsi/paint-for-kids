@@ -1,7 +1,7 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectAction.h"
 #include "Actions\AddLineAction.h"
-#include "Actions\AddCIrcleAction.h"
+#include "Actions\AddCircleAction.h"
 #include "Actions\AddTriAction.h"
 #include "Actions\ChangeColorActions\ChngBkgndClr.h"
 #include "Actions\ChangeColorActions\ChngDrawClr.h"

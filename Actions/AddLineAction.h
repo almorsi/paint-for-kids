@@ -1,7 +1,7 @@
 #pragma once
 #include "Action.h"
 
-//Add Rectangle Action class
+//Add Line Action class
 class AddLineAction : public Action
 {
 private:

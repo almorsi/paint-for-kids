@@ -307,7 +307,7 @@
     <ClInclude Include="Figures\CCircle.h">
       <Filter>Figures Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\AddCIrcleAction.h">
+    <ClInclude Include="Actions\AddCircleAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Figures\CTriangle.h">

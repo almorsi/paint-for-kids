@@ -1,7 +1,7 @@
 #pragma once
 #include "Action.h"
 
-//Add Rectangle Action class
+//Add Circle Action class
 class AddCircleAction : public Action
 {
 private:
@@ -10,10 +10,10 @@ private:
 public:
 	AddCircleAction(ApplicationManager* pApp);
 
-	//Reads rectangle parameters
+	//Reads Circle parameters
 	virtual void ReadActionParameters();
 
-	//Add Line to the ApplicationManager
+	//Add Circle to the ApplicationManager
 	virtual void Execute();
 
 };
