@@ -181,6 +181,74 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 	
 }
+void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected ) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = LineGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, LineGfxInfo.BorderWdth);
+
+	drawstyle style;
+	if (LineGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(LineGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+
+	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
+
+}
+void Output::DrawCirc(Point P1, int r, GfxInfo CircleGfxInfo, bool selected) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = CircleGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, CircleGfxInfo.BorderWdth);
+
+	drawstyle style;
+	if (CircleGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(CircleGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+
+	pWind->DrawCircle(P1.x, P1.y, r, style);
+}
+void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = TriGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, TriGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (TriGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(TriGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+
+	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
+
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////

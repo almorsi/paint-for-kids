@@ -1,5 +1,8 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectAction.h"
+#include "Actions\AddLineAction.h"
+#include "Actions\AddCircleAction.h"
+#include "Actions\AddTriAction.h"
 #include "Actions\ChangeColorActions\ChngBkgndClr.h"
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
@@ -58,6 +61,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case DRAW_LINE:
 		std::cout << "Action: DRAW_LINE" << std::endl;
+		pAct = new AddLineAction(this);
 		break;
 	case DRAW_RECT:
 		std::cout << "Action: DRAW_RECT" << std::endl;
@@ -65,9 +69,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case DRAW_TRI:
 		std::cout << "Action: DRAW_TRI" << std::endl;
+		pAct = new AddTriAction(this);
 		break;
 	case DRAW_CIRC:
 		std::cout << "Action: DRAW_CIRC" << std::endl;
+		pAct = new AddCircleAction(this);
 		break;
 	case CHNG_DRAW_CLR:
 		std::cout << "Action: CHNG_DRAW_CLR" << std::endl;

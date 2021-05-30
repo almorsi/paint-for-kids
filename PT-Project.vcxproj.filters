@@ -173,6 +173,22 @@
       <Filter>Action Classes\chngColorActions</Filter>
     </ClCompile>
     <ClCompile Include="Actions\Select.cpp">
+    <ClCompile Include="Figures\CLine.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddLineAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\CCircle.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddCircleAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\CTriangle.cpp">
+      <Filter>Figures Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddTriAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,6 +300,22 @@
       <Filter>Action Classes\chngColorActions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Select.h">
+    <ClInclude Include="Figures\CLine.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddLineAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CCircle.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddCircleAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\CTriangle.h">
+      <Filter>Figures Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddTriAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>
