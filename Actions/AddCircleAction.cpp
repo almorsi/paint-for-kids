@@ -6,6 +6,7 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
+//
 AddCircleAction::AddCircleAction(ApplicationManager* pApp) :Action(pApp)
 {}
 
