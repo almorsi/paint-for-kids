@@ -7,7 +7,12 @@ class Select : public Action
 {
 private:
 	ActionType actAfterSelect;
-	CFigure* selectedFigures[ApplicationManager::MaxFigCount];
+	CFigure** selectedFigures; // array of selected figures that maps the figList in appManager 
+	int selectedFigCount;	//count of figure selected
+
+private:
+	CFigure* getThatFigure() const; //getting the only figure that is selected "gauranteed that is one figure selected"
+
 public:
 	Select(ApplicationManager* mApp);
 	
@@ -17,5 +22,7 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute();
 
+
+	virtual ~Select();
 
 };
