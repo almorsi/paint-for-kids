@@ -25,6 +25,7 @@ public:
 
 	//this function should be reImplemented in each subclass to pring the proper information
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
+	virtual Point getCriticalPoint() const = 0;
 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color

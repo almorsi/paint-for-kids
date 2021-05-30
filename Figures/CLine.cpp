@@ -56,3 +56,8 @@ bool CLine::isInsideMe(Point p) const
 	 Point newPoint = { int((strt + incr).x), int((strt + incr).y) };
 	 Move(newPoint);
  }
+
+ Point CLine::getCriticalPoint() const
+ {
+	 return start;
+ }

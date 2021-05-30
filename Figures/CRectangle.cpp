@@ -53,3 +53,8 @@ void CRectangle::moveBy(Vec2 incr)
 	Point newPoint = { int(newP.x), int(newP.y) };
 	Move(newPoint);
 }
+
+Point CRectangle::getCriticalPoint() const
+{
+	return Corner1;
+}

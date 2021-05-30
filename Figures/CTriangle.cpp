@@ -63,3 +63,8 @@ void CTriangle::moveBy(Vec2 incr)
 	Point newPoint = { int(newP.x), int(newP.y) };
 	Move(newPoint);
 }
+
+Point CTriangle::getCriticalPoint() const
+{
+	return point1;
+}

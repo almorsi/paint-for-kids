@@ -39,6 +39,11 @@ void CCircle::moveBy(Vec2 incr)
 	Move(newPoint);
 }
 
+Point CCircle::getCriticalPoint() const
+{
+	return center;
+}
+
 
 bool CCircle:: isInsideMe(Point p) const
 {
