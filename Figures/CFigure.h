@@ -23,7 +23,7 @@ public:
 	virtual bool isInsideMe(Point p) const = 0;			//check if the point is inside the figure
 
 	//this function should be reImplemented in each subclass to pring the proper information
-	virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
+	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color

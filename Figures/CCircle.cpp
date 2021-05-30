@@ -25,3 +25,10 @@ void CCircle::Draw(Output* pOut) const
 	//Call Output::DrawCircle to draw a Circle on the screen	
 	pOut->DrawCirc(center, radius, FigGfxInfo, Selected);
 }
+
+bool CCircle:: isInsideMe(Point p) const
+{
+	return false;
+}
+
+void CCircle::PrintInfo(Output* pOut) const{}

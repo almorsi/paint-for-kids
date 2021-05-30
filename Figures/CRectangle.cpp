@@ -23,7 +23,7 @@ bool CRectangle::isInsideMe(Point p) const
 
 
 //this function should be reImplemented to print the proper information
-void CRectangle::PrintInfo(Output* pOut)
+void CRectangle::PrintInfo(Output* pOut) const
 {
 	pOut->PrintMessage("I'm Selceted");
 }

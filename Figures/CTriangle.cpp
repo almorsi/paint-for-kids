@@ -15,3 +15,6 @@ void CTriangle::Draw(Output* pOut) const
 	//Call Output::DrawTri to draw a Triangle on the screen	
 	pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
 }
+bool CTriangle::isInsideMe(Point p) const { return false; }
+
+void CTriangle::PrintInfo(Output* pOut) const {}
