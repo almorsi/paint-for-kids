@@ -11,19 +11,22 @@ Point ApplicationManager::point = { 0, 0 };
 
 void ApplicationManager::reArrangeFigList(int deletedFigs)
 {
+	int nOfUnDeletedFigs = FigCount - deletedFigs;
+
 	//figList is called by deleteFigures and there are some figures need to be reArranged
 	//first getting the notNulled figures from figList
-	CFigure** notNulledFigures = new CFigure * [FigCount - deletedFigs]();//initialize them to NULL
+	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
 	for (int i = 0, j = 0; i < FigCount; i++)
 	{
 		if (FigList[i] != NULL)//store it in notNulledFigures
 		{
 			notNulledFigures[j] = FigList[i];
+			FigList[i] = NULL;
 			j++;
 		}
 	}
 	//reArrange figList to only contain the notNUlledfigures
-	for (int i = 0; i < FigCount - deletedFigs; i++)
+	for (int i = 0; i < nOfUnDeletedFigs; i++)
 	{
 		FigList[i] = notNulledFigures[i];
 	}
