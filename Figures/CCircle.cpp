@@ -28,7 +28,9 @@ void CCircle::Draw(Output* pOut) const
 
 bool CCircle:: isInsideMe(Point p) const
 {
-	return false;
+	Vec2 v1 = Vec2(p.x, p.y);
+	Vec2 v2 = Vec2(center.x, center.y);
+	return (int((v2 - v1).GetLength())) <= radius;
 }
 
 void CCircle::PrintInfo(Output* pOut) const{}
