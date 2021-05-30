@@ -1,6 +1,6 @@
 #include "Select.h"
 #include "..\GUI\Output.h"
-
+#include "Delete.h"
 
 Select::Select(ApplicationManager* mApp)
 	:
@@ -65,6 +65,7 @@ void Select::ReadActionParameters()
 void Select::Execute()
 {
 	ReadActionParameters();
+	executeActionAfterSelect(actAfterSelect);
 }
 
 CFigure* Select::getThatFigure() const
@@ -78,11 +79,87 @@ CFigure* Select::getThatFigure() const
 	return NULL;
 }
 
+void Select::executeActionAfterSelect(ActionType)
+{
+	Action* pAct = NULL;
+
+	switch (actAfterSelect)
+	{
+	case DRAWING_AREA:
+		break;
+	case STATUS:
+		break;
+	case EMPTY:
+		break;
+	case TO_DRAW:
+		break;
+	case TO_PLAY:
+		break;
+	case DRAW_LINE:
+		break;
+	case DRAW_RECT:
+		break;
+	case DRAW_TRI:
+		break;
+	case DRAW_CIRC:
+		break;
+	case CHNG_DRAW_CLR:
+		break;
+	case CHNG_FILL_CLR:
+		break;
+	case CHNG_BK_CLR:
+		break;
+	case SELECT:
+		break;
+	case DEL:
+		pAct = new Delete(pManager, selectedFigures);
+		break;
+	case MOVE:
+		break;
+	case RESIZE:
+		break;
+	case ROTATE:
+		break;
+	case SEND_BACK:
+		break;
+	case BRNG_FRNT:
+		break;
+	case SAVE:
+		break;
+	case LOAD:
+		break;
+	case REDO:
+		break;
+	case UNDO:
+		break;
+	case RE_PLAY:
+		break;
+	case SHAPE_ONLY:
+		break;
+	case CLR_ONLY:
+		break;
+	case SHAPE_N_CLR:
+		break;
+	case AREA:
+		break;
+	case EXIT:
+		break;
+	default:
+		break;
+	}
+	//Execute the created action
+	if (pAct != NULL)
+	{
+		pAct->Execute();//Execute
+		delete pAct;	//Action is not needed any more ==> delete it
+		pAct = NULL;
+	}
+}
+
 Select::~Select()
 {
 	//the action is done, unSelect the figures
-	int limit = pManager->getFigCount();
-	for (int i = 0; i < limit; i++)
+	for (int i = 0; i <	selectedFigCount; i++)
 		if (selectedFigures[i] != NULL)
 			selectedFigures[i]->SetSelected(false);
 
