@@ -5,12 +5,14 @@
 #include "..\GUI\Output.h"
 
 //Base class for all figures
+static int newID = 0; //used to increments ID's
+
 class CFigure
 {
 protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
-	float area;
+	float area;  
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	
 	/// Add more parameters if needed.
@@ -20,8 +22,10 @@ public:
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
 
+
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	virtual bool isInsideMe(Point p) const = 0;			//check if the point is inside the figure
+
 
 	//this function should be reImplemented in each subclass to pring the proper information
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
@@ -43,5 +47,6 @@ public:
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 
 };
+
 
 #endif
