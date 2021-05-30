@@ -13,6 +13,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInsideMe(Point p) const;
 	virtual void PrintInfo(Output* pOut)const;
+	virtual void Move(Point newPoint);
 };
 
 #endif

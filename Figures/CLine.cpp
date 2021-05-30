@@ -4,8 +4,16 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
-	start = p1;
-	finish = p2;
+	if (p1.x < p2.x)
+	{
+		start = p1;
+		finish = p2;
+	}
+	else
+	{
+		start = p2;
+		finish = p1;
+	}
 }
 
 void CLine::Draw(Output* pOut) const
@@ -28,4 +36,16 @@ bool CLine::isInsideMe(Point p) const
 
  void CLine::PrintInfo(Output* pOut) const
  {
+ }
+
+ void CLine::Move(Point newPoint)
+ {
+	 Vec2 strt = Vec2(start.x, start.y);
+	 Vec2 end = Vec2(finish.x, finish.y);
+	 Vec2 newP = Vec2(newPoint.x, newPoint.y);
+
+	 end += (newP - strt).GetNormalized() * (newP - strt).GetLength();
+
+	 start = newPoint;
+	 finish = { int(end.x), int(end.y) };
  }

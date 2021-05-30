@@ -4,8 +4,16 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
-	Corner1 = P1;
-	Corner2 = P2;
+	if (P1.x < P2.x)
+	{
+		Corner1 = P1;
+		Corner2 = P2;
+	}
+	else
+	{
+		Corner1 = P2;
+		Corner2 = P1;
+	}
 }
 	
 
@@ -26,4 +34,15 @@ bool CRectangle::isInsideMe(Point p) const
 void CRectangle::PrintInfo(Output* pOut) const
 {
 	pOut->PrintMessage("I'm Selceted");
+}
+
+void CRectangle::Move(Point newPoint)
+{
+	Vec2 cor1 = Vec2(Corner1.x, Corner1.y);
+	Vec2 cor2 = Vec2(Corner2.x, Corner2.y);
+	Vec2 newP = Vec2(newPoint.x, newPoint.y);
+	cor2 += (newP - cor1).GetNormalized() * (newP - cor1).GetLength();
+	Corner1 = newPoint;
+	Corner2.x = int(cor2.x);
+	Corner2.y = int(cor2.y);
 }
