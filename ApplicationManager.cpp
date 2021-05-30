@@ -16,7 +16,7 @@ void ApplicationManager::reArrangeFigList(int deletedFigs)
 	//figList is called by deleteFigures and there are some figures need to be reArranged
 	//first getting the notNulled figures from figList
 	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
-	for (int i = 0, j = 0; i < FigCount; i++)
+	for (int i = 0, j = 0; i < FigCount && j < nOfUnDeletedFigs; i++)
 	{
 		if (FigList[i] != NULL)//store it in notNulledFigures
 		{
