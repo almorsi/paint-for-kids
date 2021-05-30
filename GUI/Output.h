@@ -30,6 +30,9 @@ public:
 	
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
+	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const; //Draw a line
+	void DrawCirc(Point P1, int r, GfxInfo CircleGfxInfo, bool selected = false) const; //Draw a circle
+	void DrawTri(Point P1, Point P2,Point P3, GfxInfo TriGfxInfo, bool selected = false) const; //Draw a Triangle
 	
 	///Make similar functions for drawing all other figures.
 	
