@@ -46,3 +46,10 @@ void CRectangle::Move(Point newPoint)
 	Corner2.x = int(cor2.x);
 	Corner2.y = int(cor2.y);
 }
+
+void CRectangle::moveBy(Vec2 incr)
+{
+	Vec2 newP = Vec2(Corner1.x, Corner1.y) + incr;
+	Point newPoint = { int(newP.x), int(newP.y) };
+	Move(newPoint);
+}

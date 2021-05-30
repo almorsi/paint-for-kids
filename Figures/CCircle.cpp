@@ -32,6 +32,13 @@ void CCircle::Move(Point newPoint)
 	center.y = newPoint.y;
 }
 
+void CCircle::moveBy(Vec2 incr)
+{
+	Vec2 newP = Vec2(center.x, center.y) + incr;
+	Point newPoint = {int(newP.x), int(newP.y)};
+	Move(newPoint);
+}
+
 
 bool CCircle:: isInsideMe(Point p) const
 {

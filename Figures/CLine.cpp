@@ -49,3 +49,10 @@ bool CLine::isInsideMe(Point p) const
 	 start = newPoint;
 	 finish = { int(end.x), int(end.y) };
  }
+
+ void CLine::moveBy(Vec2 incr)
+ {
+	 Vec2 strt = Vec2(start.x, start.y);
+	 Point newPoint = { int((strt + incr).x), int((strt + incr).y) };
+	 Move(newPoint);
+ }

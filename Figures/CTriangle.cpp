@@ -56,3 +56,10 @@ void CTriangle::Move(Point newPoint)
 	point2 = {int(v2.x), int(v2.y)};
 	point3 = { int(v3.x), int(v3.y) };
 }
+
+void CTriangle::moveBy(Vec2 incr)
+{
+	Vec2 newP = Vec2(point1.x, point1.y) + incr;
+	Point newPoint = { int(newP.x), int(newP.y) };
+	Move(newPoint);
+}
