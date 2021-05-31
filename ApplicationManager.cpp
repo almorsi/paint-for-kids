@@ -7,6 +7,7 @@
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 #include "Actions\Select.h"
+
 Point ApplicationManager::point = { 0, 0 };
 
 void ApplicationManager::reArrangeFigList(int deletedFigs)
@@ -193,15 +194,15 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	if(FigCount < MaxFigCount )
 		FigList[FigCount++] = pFig;	
 }
-void ApplicationManager::deleteFigures(CFigure** figsArray)
+void ApplicationManager::deleteFigures(CFigure** figsArray, const int size)
 {
-	int deletedCount = 0;
-	for (int i = 0; i < FigCount; i++)
+	int deletedCount = 0;//counter to count the deleted figures
+	for (int i = 0; i < size; i++)
 	{
 		if (figsArray[i] != NULL)//the fig is selected
 		{
-			delete FigList[i];
-			FigList[i] = NULL;
+			delete GetFigure(figsArray[i]);
+			GetFigure(figsArray[i]) = NULL;
 			figsArray[i] = NULL;//must be nulled here also 
 			deletedCount++;
 		}
@@ -224,6 +225,19 @@ CFigure *ApplicationManager::GetFigure(Point p) const
 	}
 
 	return NULL;
+}
+CFigure* ApplicationManager::GetFigure(int index) const
+{
+	if(index < FigCount)
+		return FigList[index];
+}
+CFigure*& ApplicationManager::GetFigure(CFigure* fig) 
+{
+	
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i] == fig)
+			return FigList[i];
+
 }
 int ApplicationManager::getFigCount() const
 {

@@ -2,11 +2,13 @@
 #include "..\ApplicationManager.h"
 #include <assert.h>
 
-Move::Move(ApplicationManager* pApp, CFigure** selectedFigures, CFigure* firstSelected)
+Move::Move(ApplicationManager* pApp, CFigure** selectedFigures, const int size, CFigure* firstSelected)
 	:
 	Action(pApp),
 	figuresToMove(selectedFigures),
-	firstSelectedFig(firstSelected)
+	firstSelectedFig(firstSelected),
+	nToMove(size)
+
 {
 	newPointClicked = { 0,0 };//it will be updated in read action 
 	increamentalVec = { 0.0f, 0.0f };//it will be updated in read action
@@ -40,9 +42,9 @@ void Move::Execute()
 	firstSelectedFig->Move(newPointClicked);//move the first figure to the newPoint
 
 	//move each figure other than the first one by the incremental vec
-	for (int i = 0; i < pManager->getFigCount(); i++)
+	for (int i = 0; i < nToMove; i++)
 	{
-		if (figuresToMove[i] != firstSelectedFig && figuresToMove[i] != NULL)
+		if (figuresToMove[i] != firstSelectedFig)
 		{
 			figuresToMove[i]->moveBy(increamentalVec);
 		}

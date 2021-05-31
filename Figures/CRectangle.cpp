@@ -62,3 +62,8 @@ Point CRectangle::getCriticalPoint() const
 {
 	return Corner1;
 }
+
+CFigure* CRectangle::getCopy() const
+{
+	return new CRectangle(Corner1, Corner2, FigGfxInfo);
+}

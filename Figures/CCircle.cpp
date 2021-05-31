@@ -45,6 +45,11 @@ Point CCircle::getCriticalPoint() const
 	return center;
 }
 
+CFigure* CCircle::getCopy() const
+{
+	return new CCircle(point1, point2, FigGfxInfo);
+}
+
 
 bool CCircle:: isInsideMe(Point p) const
 {

@@ -4,9 +4,10 @@
 class Delete : public Action
 {
 private:
-	CFigure** figsToDelete;
+	CFigure** figsToDelete;//the deleted figures
+	const int nToDeleted;//number of figures that will be deleted
 public:
-	Delete(ApplicationManager* pApp, CFigure** selectedFigs);//constructor
+	Delete(ApplicationManager* pApp, CFigure** selectedFigs, const int size);//constructor
 
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters();

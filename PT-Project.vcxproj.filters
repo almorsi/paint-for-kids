@@ -59,6 +59,8 @@
     <ClCompile Include="utilities\Vec2.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\Move.cpp" />
+    <ClCompile Include="Actions\Copy.cpp" />
+    <ClCompile Include="Actions\Paste.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -106,6 +108,8 @@
     <ClInclude Include="utilities\Vec2.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\Move.h" />
+    <ClInclude Include="Actions\Copy.h" />
+    <ClInclude Include="Actions\Paste.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

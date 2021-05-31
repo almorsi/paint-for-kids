@@ -44,6 +44,7 @@ public:
 	//virtual void Resize() = 0;	//Resize the figure
 	virtual void Move(Point newPoint) = 0;		//Move the figure
 	virtual void moveBy(Vec2 incr) = 0;
+	virtual CFigure* getCopy()const = 0;
 
 	//virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file

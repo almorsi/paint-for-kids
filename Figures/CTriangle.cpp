@@ -78,6 +78,11 @@ Point CTriangle::getCriticalPoint() const
 	return point1;
 }
 
+CFigure* CTriangle::getCopy() const
+{
+	return new CTriangle(point1, point2, point3, FigGfxInfo);
+}
+
 void CTriangle::PrintInfo(Output* pOut) const 
 {
 	pOut->PrintMessage(std::string("<<ID: ")+std::to_string(ID)+" <<Vertices: ( " + std::to_string(point1.x)+", "+ std::to_string(point1.y)+ " ), ( " + std::to_string(point2.x)+ ", " + std::to_string(point2.y)+ " ), ( " + std::to_string(point3.x)+ ", " + std::to_string(point3.y)+" ) <<Area: "+std::to_string(int(area)));

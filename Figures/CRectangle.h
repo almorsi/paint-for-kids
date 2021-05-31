@@ -16,6 +16,7 @@ public:
 	virtual void Move(Point newPoint);
 	virtual void moveBy(Vec2 incr);
 	virtual Point getCriticalPoint() const;
+	virtual CFigure* getCopy() const;
 };
 
 #endif
