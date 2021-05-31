@@ -26,6 +26,9 @@ enum ActionType //The actions supported (you can add more if needed)
 	SELECT,         //Selects figure(s)
 	DEL,			//Delete a figure(s)
 	MOVE,			//Move a figure(s)
+	COPY,			//COPY FIGURES
+	CUT,			//Cut figures
+	PASTE,			//paste figures
 	RESIZE,			//Resize a figure(s)
 	ROTATE,			//Rotate a figure(s)
 	SEND_BACK,		//Send a figure to the back of all figures

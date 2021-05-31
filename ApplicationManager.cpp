@@ -121,6 +121,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case MOVE:
 		std::cout << "Action: MOVE" << std::endl;
 		break;
+	case COPY:
+		std::cout << "Action: COPY" << std::endl;
+		break;
+	case CUT:
+		std::cout << "Action: CUT" << std::endl;
+		break;
+	case PASTE:
+		std::cout << "Action: PASTE" << std::endl;
+		break;
 	case RESIZE:
 		std::cout << "Action: RESIZE" << std::endl;
 		break;

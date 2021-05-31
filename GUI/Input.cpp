@@ -68,6 +68,9 @@ ActionType Input::GetUserAction(Point& p) const
 			case ITM_SELECT		: return SELECT		  ;
 			case ITM_DEL		: return DEL		  ;
 			case ITM_MOVE		: return MOVE		  ;
+			case ITM_COPY		: return COPY		  ;
+			case ITM_CUT		: return CUT		  ;
+			case ITM_PASTE		: return PASTE		  ;
 			case ITM_RESIZE		: return RESIZE		  ;
 			case ITM_ROTATE		: return ROTATE		  ;
 			case ITM_SEND_BACK	: return SEND_BACK	  ;

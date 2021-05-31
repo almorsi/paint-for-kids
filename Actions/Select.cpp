@@ -138,7 +138,13 @@ void Select::executeActionAfterSelect(ActionType)
 		pAct = new Delete(pManager, selectedFigures);
 		break;
 	case MOVE:
-			pAct = new Move(pManager, selectedFigures, firstSelectedFigure);
+		pAct = new Move(pManager, selectedFigures, firstSelectedFigure);
+		break;
+	case COPY:
+		break;
+	case CUT:
+		break;
+	case PASTE:
 		break;
 	case RESIZE:
 		break;

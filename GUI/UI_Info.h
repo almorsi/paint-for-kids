@@ -34,6 +34,9 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_SELECT,     //Select shape
 	ITM_DEL,        //Delete selcted item
 	ITM_MOVE,       //Move selected item
+	ITM_COPY,		//copy selected items
+	ITM_CUT,		//cut selected items
+	ITM_PASTE,		//paste seleted items
 	ITM_RESIZE,     //Resize selected item
 	ITM_ROTATE,     //Rotate seleted item
 	ITM_SEND_BACK,  //Send back selected item
