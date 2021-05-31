@@ -66,3 +66,8 @@ bool CLine::isInsideMe(Point p) const
  {
 	 return start;
  }
+
+ CFigure* CLine::getCopy() const
+ {
+	 return new CLine(start,finish, FigGfxInfo);
+ }
