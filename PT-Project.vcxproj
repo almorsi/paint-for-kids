@@ -136,6 +136,7 @@
     <ClCompile Include="Actions\ChangeColorActions\ChngDrawClr.cpp" />
     <ClCompile Include="Actions\ChangeColorActions\ChngFillClr.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Actions\ChangeColorActions\ChngDrawClr.h" />
     <ClInclude Include="Actions\ChangeColorActions\ChngFillClr.h" />
     <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
