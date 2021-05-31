@@ -12,7 +12,8 @@ class CFigure
 protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
-	float area;  
+	float area;
+	Point center;
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	
 	/// Add more parameters if needed.
@@ -23,6 +24,7 @@ public:
 	bool IsSelected() const;	//check whether fig is selected
 
 
+	virtual void Resize(float r) = 0;                   //Resize figures
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	virtual bool isInsideMe(Point p) const = 0;			//check if the point is inside the figure
 

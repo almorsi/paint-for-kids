@@ -11,6 +11,10 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	ID = 1100 + newID++;
 	area = 3.1415f * radius * radius;
 }
+void CCircle::Resize(float r)
+{
+	radius = int(float(radius) * r);
+}
 void CCircle::setInfo()
 {
 	Vec2 v1 = Vec2(point1.x, point1.y);

@@ -10,6 +10,7 @@ private:
 	Point Corner2;
 public:
 	CRectangle(Point , Point, GfxInfo FigureGfxInfo );
+	virtual void Resize(float r);
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInsideMe(Point p) const;
 	virtual void PrintInfo(Output* pOut)const;
