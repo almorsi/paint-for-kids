@@ -29,6 +29,7 @@ public:
 
 	//this function should be reImplemented in each subclass to pring the proper information
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
+	virtual Point getCriticalPoint() const = 0;
 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
@@ -41,7 +42,8 @@ public:
 
 	//virtual void Rotate() = 0;	//Rotate the figure
 	//virtual void Resize() = 0;	//Resize the figure
-	//virtual void Move() = 0;		//Move the figure
+	virtual void Move(Point newPoint) = 0;		//Move the figure
+	virtual void moveBy(Vec2 incr) = 0;
 
 	//virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file

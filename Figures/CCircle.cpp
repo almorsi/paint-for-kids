@@ -27,6 +27,25 @@ void CCircle::Draw(Output* pOut) const
 	pOut->DrawCirc(center, radius, FigGfxInfo, Selected);
 }
 
+void CCircle::Move(Point newPoint)
+{
+	center.x = newPoint.x;
+	center.y = newPoint.y;
+}
+
+void CCircle::moveBy(Vec2 incr)
+{
+	Vec2 newP = Vec2(center.x, center.y) + incr;
+	Point newPoint = {int(newP.x), int(newP.y)};
+	Move(newPoint);
+}
+
+Point CCircle::getCriticalPoint() const
+{
+	return center;
+}
+
+
 bool CCircle:: isInsideMe(Point p) const
 {
 	Vec2 v1 = Vec2(p.x, p.y);

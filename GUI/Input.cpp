@@ -14,6 +14,11 @@ void Input::GetPointClicked(int &x, int &y) const
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
+void Input::GetPointClicked(Point& p)
+{
+	GetPointClicked(p.x, p.y);
+}
+
 string Input::GetSrting(Output *pO) const 
 {
 	string Label;
