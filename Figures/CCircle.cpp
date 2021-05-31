@@ -8,7 +8,8 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	point1 = p1;
 	point2 = p2;
 	setInfo();
-
+	ID = 1100 + newID++;
+	area = 3.1415 * radius * radius;
 }
 void CCircle::setInfo()
 {
@@ -52,4 +53,7 @@ bool CCircle:: isInsideMe(Point p) const
 	return (int((v2 - v1).GetLength())) <= radius;
 }
 
-void CCircle::PrintInfo(Output* pOut) const{}
+void CCircle::PrintInfo(Output* pOut) const
+{
+	pOut->PrintMessage(std::string("<<ID: ") + std::to_string(ID) + ">>Center: (" + std::to_string(center.x) + "," + std::to_string(center.y)+") " + ">>Radius: " + std::to_string(radius) + ">>Area: " + std::to_string(int(area)));
+}

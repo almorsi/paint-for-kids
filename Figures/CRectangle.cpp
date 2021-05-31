@@ -4,6 +4,7 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
+
 	if (P1.x < P2.x)
 	{
 		Corner1 = P1;
@@ -14,6 +15,9 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 		Corner1 = P2;
 		Corner2 = P1;
 	}
+
+	ID = 4400 + newID++;
+	area = abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y));
 }
 	
 
@@ -33,7 +37,7 @@ bool CRectangle::isInsideMe(Point p) const
 //this function should be reImplemented to print the proper information
 void CRectangle::PrintInfo(Output* pOut) const
 {
-	pOut->PrintMessage("I'm Selceted");
+	pOut->PrintMessage(std::string("<<ID: ")+std::to_string(ID)+" <<Width: "+ std::to_string(std::abs(Corner1.x - Corner2.x))+" <<Height: "+ std::to_string(std::abs(Corner1.y - Corner2.y))+" <<Area: "+ std::to_string(int(area)));
 }
 
 void CRectangle::Move(Point newPoint)

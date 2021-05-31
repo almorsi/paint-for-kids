@@ -8,6 +8,7 @@ class CLine : public CFigure
 private:
 	Point start;
 	Point finish;
+	int length;
 public:
 	CLine(Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
