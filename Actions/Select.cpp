@@ -1,20 +1,33 @@
 #include "Select.h"
 #include "..\GUI\Output.h"
 #include "Delete.h"
+#include "Move.h"
 
 Select::Select(ApplicationManager* mApp)
 	:
 	Action(mApp)
 {
-	selectedFigures = new CFigure* [pManager->getFigCount()]();//initialize them to NULL
+	int nCurrentlyDrawn = pManager->getFigCount(); //number of figures that currently drawn
+
+	selectedFigures = new CFigure* [nCurrentlyDrawn]();//initialize them to NULL
+	
+	numberedClicked = new int[nCurrentlyDrawn];
+	for (int i = 0; i < nCurrentlyDrawn; i++)
+	{
+		numberedClicked[i] = -1;
+	}
+
+	countClicked = 0;//it will increament each time the user select an unselected figure
+	selectedFigCount = 0;//it will increament and decreament each time the user select and unselect a figure
 	actAfterSelect = EMPTY;
-	selectedFigCount = 0;
+	firstSelectedFigure = NULL;
 }
 
 void Select::ReadActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Point pointClicked;
+	Output* pOut = pManager->GetOutput();//getting point to the output to print messages
+	Point pointClicked;//the clicked point by the user
+
 	//first make sure the action after select is a click in the drawing area to reduce the checks in GetFigure
 	do
 	{
@@ -44,8 +57,9 @@ void Select::ReadActionParameters()
 				selectedFigCount++;
 				fig->SetSelected(true);
 				selectedFigures[pManager->getIndexOf(fig)] = fig;
+				numberedClicked[pManager->getIndexOf(fig)] = countClicked++;
 			}
-			pManager->UpdateInterface();
+			pManager->UpdateInterface();//to highlight the selected figures
 		}
 
 		if (selectedFigCount > 1)
@@ -57,7 +71,13 @@ void Select::ReadActionParameters()
 
 		//getting the action after selecting the figure if it is another click on the drawing area adding the figure the selected figure
 		actAfterSelect = pManager->GetUserAction(pointClicked);
+
 	} while (actAfterSelect == DRAWING_AREA);
+
+	if (selectedFigCount > 0)//to ensure that there are figures selected
+	{
+		firstSelectedFigure = selectedFigures[getIndexOfFirstSelected()];
+	}
 
 	pOut->drawCleanStatusBar();
 }
@@ -65,7 +85,10 @@ void Select::ReadActionParameters()
 void Select::Execute()
 {
 	ReadActionParameters();
-	executeActionAfterSelect(actAfterSelect);
+	if (selectedFigCount > 0)//must there are some figure to do action on them
+	{
+		executeActionAfterSelect(actAfterSelect);
+	}
 }
 
 CFigure* Select::getThatFigure() const
@@ -115,6 +138,7 @@ void Select::executeActionAfterSelect(ActionType)
 		pAct = new Delete(pManager, selectedFigures);
 		break;
 	case MOVE:
+			pAct = new Move(pManager, selectedFigures, firstSelectedFigure);
 		break;
 	case RESIZE:
 		break;
@@ -156,13 +180,34 @@ void Select::executeActionAfterSelect(ActionType)
 	}
 }
 
+int Select::getIndexOfFirstSelected() const
+{
+	int min = countClicked; //because it is the largest number in the array
+	int minIndex = -1;
+	for (int i = 0; i < pManager->getFigCount(); i++)
+	{
+		//getting the index of the minimum number in the array and that is the first figure selected in selectedFigures
+		if (numberedClicked[i] < min && selectedFigures[i] != NULL)
+		{
+			min = numberedClicked[i];
+			minIndex = i;
+		}
+	}
+	return minIndex;
+}
+
 Select::~Select()
 {
 	//the action is done, unSelect the figures
-	for (int i = 0; i <	selectedFigCount; i++)
-		if (selectedFigures[i] != NULL)
-			selectedFigures[i]->SetSelected(false);
-
-	//freeing the pointers but not what it point to
+	//if the figure is slected it will added to slectedFigures, then if it deleted it will be deleted in FigLists
+	//and NULL in both selectedFigures and FigList so unselect it after deleting it makes no sence
+	if (actAfterSelect != DEL)
+	{
+		for (int i = 0; i < pManager->getFigCount(); i++)
+			if (selectedFigures[i] != NULL)
+				selectedFigures[i]->SetSelected(false);
+	}
+	//freeing the pointers 
 	delete[] selectedFigures;
+	delete[] numberedClicked;
 }
