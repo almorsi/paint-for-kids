@@ -1,9 +1,10 @@
 #include "Delete.h"
 #include "..\ApplicationManager.h"
-Delete::Delete(ApplicationManager* pApp, CFigure** selectedFigs)
+Delete::Delete(ApplicationManager* pApp, CFigure** selectedFigs, const int size)
 	:
 	Action(pApp),
-	figsToDelete(selectedFigs)
+	figsToDelete(selectedFigs), 
+	nToDeleted(size)
 {
 }
 
@@ -14,5 +15,5 @@ void Delete::ReadActionParameters()
 
 void Delete::Execute()
 {
-	pManager->deleteFigures(figsToDelete);
+	pManager->deleteFigures(figsToDelete, nToDeleted);
 }

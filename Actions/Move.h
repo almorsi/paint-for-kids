@@ -12,8 +12,10 @@ private:
 
 	Vec2 increamentalVec;//the relative incremental amount that each figure other than the first one should move by
 
+	const int nToMove;// number of figures to move
+
 public:
-	Move(ApplicationManager* pApp, CFigure** selectedFigures, CFigure* firstSelected);//constructor
+	Move(ApplicationManager* pApp, CFigure** selectedFigures, const int size, CFigure* firstSelected);//constructor
 
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters();
