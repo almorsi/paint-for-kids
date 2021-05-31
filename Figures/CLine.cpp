@@ -6,6 +6,8 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 {
 	start = p1;
 	finish = p2;
+	ID = 2200 + newID++;
+	length = sqrt(float((start.x-finish.x)*(start.x - finish.x))-float((start.y - finish.y)*(start.y - finish.y)));
 }
 
 void CLine::Draw(Output* pOut) const
@@ -28,4 +30,5 @@ bool CLine::isInsideMe(Point p) const
 
  void CLine::PrintInfo(Output* pOut) const
  {
+	 pOut->PrintMessage(std::string("<<ID: ") + std::to_string(ID) + " <<Start Point & End Point: " + "( " + std::to_string(start.x) + ", " + std::to_string(start.y) + " ), ( " + std::to_string(finish.x) + ", " + std::to_string(finish.y) + " )  <<Line Length: " + std::to_string(int(length)));
  }

@@ -8,6 +8,7 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	point2 = P2;
 	point3 = P3;
 	area = getArea(point1, point2, point3);
+	ID=3300+newID++;
 }
 
 
@@ -32,4 +33,7 @@ bool CTriangle::isInsideMe(Point p) const
 	return std::abs(sumArea - area) >= 0.0f && std::abs(sumArea - area) <= 0.1f;
 }
 
-void CTriangle::PrintInfo(Output* pOut) const {}
+void CTriangle::PrintInfo(Output* pOut) const 
+{
+	pOut->PrintMessage(std::string("<<ID: ")+std::to_string(ID)+" <<Vertices: ( " + std::to_string(point1.x)+", "+ std::to_string(point1.y)+ " ), ( " + std::to_string(point2.x)+ ", " + std::to_string(point2.y)+ " ), ( " + std::to_string(point3.x)+ ", " + std::to_string(point3.y)+" ) <<Area: "+std::to_string(int(area)));
+}
