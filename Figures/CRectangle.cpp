@@ -17,7 +17,7 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	}
 
 	ID = 4400 + newID++;
-	area = abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y));
+	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
 }
 	
 

@@ -9,7 +9,7 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	point2 = p2;
 	setInfo();
 	ID = 1100 + newID++;
-	area = 3.1415 * radius * radius;
+	area = 3.1415f * radius * radius;
 }
 void CCircle::setInfo()
 {
