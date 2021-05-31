@@ -10,12 +10,12 @@
 //Main class that manages everything in the application.
 class ApplicationManager
 {
+	friend class Select;//to get Access of getFigure functions
 public:
 	static constexpr int MaxFigCount = 200 ;	//Max no of figures
 private:
 	int FigCount;		//Actual number of figures
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
-
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -24,6 +24,9 @@ private:
 
 private:
 	void reArrangeFigList(int deletedFigs);
+	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
+	CFigure *GetFigure(int index) const; //Search for a figure given an index 
+	CFigure*& GetFigure(CFigure* fig) ; //Search for a figure return it 
 public:	
 
 	ApplicationManager(); 
@@ -38,9 +41,6 @@ public:
 	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
 	//the array passed must be gauranteed it has the same number of figCount
 	void deleteFigures(CFigure** figsArray, const int size); //delete the figures passed
-	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
-	CFigure *GetFigure(int index) const; //Search for a figure given an index 
-	CFigure*& GetFigure(CFigure* fig) ; //Search for a figure return it 
 	int getFigCount() const; //getting the current fig count
 	int getIndexOf(CFigure* fig) const; //getting the index of the passed figure in figList;
 		
