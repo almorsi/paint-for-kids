@@ -14,9 +14,10 @@ void Resize::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+
 	pOut->PrintMessage(std::string("<< Input resize ratio as a decimal >>"));
 	rsize=std::stof( pIn->GetSrting(pOut));
-
+	pOut->drawCleanStatusBar();
 }
 
 void Resize::Execute()
