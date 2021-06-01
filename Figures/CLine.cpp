@@ -63,10 +63,7 @@ bool CLine::isInsideMe(Point p) const
 		float r2 = (v2 - v3).GetLength();//Calculate distance between finish and point
 		float rt = r1 + r2;
 		//The point is selected if the sum of distances equal total distance
-		if (std::abs(r-rt)>=0.0&& std::abs(r - rt)<=0.1)
-			return true;
-		else
-			return false;
+		return (std::abs(r - rt) >= 0.0f && std::abs(r - rt) <= 0.1f);
 }
 
  void CLine::PrintInfo(Output* pOut) const
