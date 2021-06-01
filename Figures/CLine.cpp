@@ -50,7 +50,7 @@ void CLine::Resize(float r)
 void CLine::Draw(Output* pOut) const
 {
 	//Call Output::DrawLine to draw a Line on the screen	
-	if(!isHidden)
+	if(!isHidden())
 		pOut->DrawLine(start,finish, FigGfxInfo, Selected);
 }
 
