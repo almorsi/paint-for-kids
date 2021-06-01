@@ -29,8 +29,15 @@ void CCircle::Draw(Output* pOut) const
 
 void CCircle::Move(Point newPoint)
 {
+	//bug fix
+	Vec2 incr = Vec2(newPoint.x, newPoint.y) - Vec2(center.x, center.y);
+	Vec2 p1 = Vec2(point1.x, point1.y) + incr.GetNormalized() * incr.GetLength();
+	Vec2 p2 = Vec2(point2.x, point2.y) + incr.GetNormalized() * incr.GetLength();
+	//
 	center.x = newPoint.x;
 	center.y = newPoint.y;
+	point1 = { int(p1.x), int(p1.y) };
+	point2 = { int(p2.x), int(p2.y) };
 }
 
 void CCircle::moveBy(Vec2 incr)
