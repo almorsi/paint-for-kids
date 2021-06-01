@@ -127,7 +127,7 @@ CFigure* CTriangle::getCopy() const
 
 void CTriangle::Save(ofstream& OutFile)
 {
-	OutFile << figtype << "," << (ID) << "," << point1.x<<","<<point1.y<<"," << "," << point2.x << "," << point2.y << "," << "," << point3.x << "," << point3.y << "," << "," << drawclr << "," << fillclr << std::endl;
+	OutFile << figtype << "," << (ID) << "," << point1.x<<","<<point1.y<<","  << point2.x << "," << point2.y << ","  << point3.x << "," << point3.y << "," << drawclr << "," << fillclr << std::endl;
 }
 
 void CTriangle::PrintInfo(Output* pOut) const 

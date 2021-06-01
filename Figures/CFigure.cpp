@@ -34,8 +34,10 @@ int CFigure::FromClrToInt(color c)
 		return 6;
 	else if (c.ucBlue == ORANGE.ucBlue && c.ucGreen == ORANGE.ucGreen && c.ucRed == ORANGE.ucRed)
 		return 7;
-	else
+	else if (c.ucBlue == RED.ucBlue && c.ucGreen == RED.ucGreen && c.ucRed == RED.ucRed)
 		return 8;
+	else
+		return 9;
 }
 
 void CFigure::ChngDrawClr(color Dclr)

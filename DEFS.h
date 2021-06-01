@@ -74,6 +74,7 @@ enum fillColorType //To determine fill color type of figures
 	F_BROWN,	// color brown
 	F_ORANGE,	// color orange
 	F_RED,	    // color red
+	NOFILL,
 };
 
 enum figureType //to determine figure types of figures
