@@ -71,3 +71,8 @@ bool CLine::isInsideMe(Point p) const
  {
 	 return new CLine(start,finish, FigGfxInfo);
  }
+
+ void CLine::ChngFillClr(color Fclr)
+ {
+	 FigGfxInfo.DrawClr = Fclr;
+ }

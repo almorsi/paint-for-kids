@@ -11,6 +11,7 @@ private:
 	int length;
 public:
 	CLine(Point, Point, GfxInfo FigureGfxInfo);
+	virtual void ChngFillClr(color Fclr);	//override this function in Cline only to make the use change the drawing color when he/she change the line fill color
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInsideMe(Point p) const;
 	virtual void PrintInfo(Output* pOut) const;

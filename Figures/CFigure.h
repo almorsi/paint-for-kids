@@ -31,8 +31,8 @@ public:
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
 	virtual Point getCriticalPoint() const = 0;
 
-	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
-	void ChngFillClr(color Fclr);	//changes the figure's filling color
+	virtual void ChngDrawClr(color Dclr);	//changes the figure's drawing color
+	virtual void ChngFillClr(color Fclr);	//changes the figure's filling color
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
