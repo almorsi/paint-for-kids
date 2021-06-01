@@ -1,9 +1,11 @@
 #include "ChngDrawClr.h"
 #include "..\..\ApplicationManager.h"
 
-ChngDrawClr::ChngDrawClr(ApplicationManager* pApp)
+ChngDrawClr::ChngDrawClr(ApplicationManager* pApp, CFigure** selectedFigures, const int size)
 	:
-	Action(pApp)
+	Action(pApp), 
+	figuresToChangeTheirColor(selectedFigures), 
+	nOfFigures(size)
 {
 }
 
@@ -23,5 +25,13 @@ void ChngDrawClr::Execute()
 {
 	ReadActionParameters();
 
-	UI.DrawColor = clrToChng;
+	UI.DrawColor = clrToChng;//request without selecting, for the upComming figures
+
+	if(nOfFigures > 0)//request after select
+	{
+		for (int i = 0; i < nOfFigures; i++)
+		{
+			figuresToChangeTheirColor[i]->ChngDrawClr(clrToChng);
+		}
+	}
 }

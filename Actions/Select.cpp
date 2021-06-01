@@ -5,6 +5,8 @@
 #include "Copy.h"
 #include "Paste.h"
 #include "Delete.h"
+#include "ChangeColorActions\ChngDrawClr.h"
+#include "ChangeColorActions\ChngFillClr.h"
 Select::Select(ApplicationManager* mApp)
 	:
 	Action(mApp), 
@@ -162,8 +164,10 @@ void Select::executeActionAfterSelect(ActionType)
 	case DRAW_CIRC:
 		break;
 	case CHNG_DRAW_CLR:
+		pAct = new ChngDrawClr(pManager, selectedFigures, selectedFigCount);
 		break;
 	case CHNG_FILL_CLR:
+		pAct = new ChngFillClr(pManager, selectedFigures, selectedFigCount);
 		break;
 	case CHNG_BK_CLR:
 		break;
