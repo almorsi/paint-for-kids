@@ -62,7 +62,16 @@ bool CCircle:: isInsideMe(Point p) const
 {
 	Vec2 v1 = Vec2(p.x, p.y);
 	Vec2 v2 = Vec2(center.x, center.y);
-	return (int((v2 - v1).GetLength())) <= radius;
+	int length = (int((v2 - v1).GetLength()));
+	if (FigGfxInfo.isFilled)
+	{
+		 return float(length)/radius <= 1.0f;
+	}
+	else //not filled
+	{
+		//ration of length over radius must approach one
+		return float(length)/ radius >= 0.95f && float(length)/radius <= 1.05f;
+	}
 }
 
 void CCircle::PrintInfo(Output* pOut) const

@@ -8,6 +8,8 @@ class CRectangle : public CFigure
 private:
 	Point Corner1;	
 	Point Corner2;
+private:
+	bool isOnRect(Point p) const;//check if the point on the border of the rectangle
 public:
 	CRectangle(Point , Point, GfxInfo FigureGfxInfo );
 	virtual void Draw(Output* pOut) const;
