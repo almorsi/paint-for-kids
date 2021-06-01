@@ -22,6 +22,7 @@ void Input::GetPointClicked(Point& p)
 
 string Input::GetSrting(Output *pO) const 
 {
+	pWind->FlushKeyQueue();
 	string Label;
 	char Key;
 	while(1)
