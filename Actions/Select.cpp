@@ -5,6 +5,7 @@
 #include "Copy.h"
 #include "Paste.h"
 #include "Delete.h"
+#include "Resize.h"
 Select::Select(ApplicationManager* mApp)
 	:
 	Action(mApp), 
@@ -214,6 +215,7 @@ void Select::executeActionAfterSelect(ActionType)
 		break;
 	}
 	case RESIZE:
+		pAct = new Resize(pManager, selectedFigures, selectedFigCount);
 		break;
 	case ROTATE:
 		break;
