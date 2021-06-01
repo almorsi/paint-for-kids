@@ -55,16 +55,18 @@ void CLine::Draw(Output* pOut) const
 
 bool CLine::isInsideMe(Point p) const 
 { 
-	if (p.x <= finish.x && p.x >= start.x)
-	{
-		float grad1 = (float(finish.y - start.y) / (finish.x - start.x));
-		float grad2 = (float(p.y - start.y) / (p.x - start.x));
-		//bug
-		return std::abs(grad1 - grad2) >= 0.0f && std::abs(grad1 - grad2) <= 0.1f;
-		//
-	}
-	return false;
-	
+		Vec2 v1 = Vec2(start.x, start.y);
+		Vec2 v2 = Vec2(finish.x, finish.y);
+		Vec2 v3 = Vec2(p.x, p.y);
+		float r = (v1 - v2).GetLength(); //Calculate distance between start and finish point
+		float r1 = (v1 - v3).GetLength();//Calculate distance between start and point
+		float r2 = (v2 - v3).GetLength();//Calculate distance between finish and point
+		float rt = r1 + r2;
+		//The point is selected if the sum of distances equal total distance
+		if (std::abs(r-rt)>=0.0&& std::abs(r - rt)<=0.1)
+			return true;
+		else
+			return false;
 }
 
  void CLine::PrintInfo(Output* pOut) const
