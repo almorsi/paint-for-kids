@@ -11,6 +11,7 @@ Input::Input(window* pW)
 
 void Input::GetPointClicked(int &x, int &y) const
 {
+	pWind->FlushMouseQueue();
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
