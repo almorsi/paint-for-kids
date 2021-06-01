@@ -13,6 +13,16 @@ void CFigure::SetSelected(bool s)
 bool CFigure::IsSelected() const
 {	return Selected; }
 
+void CFigure::setHidden(bool h)
+{
+	hidden = h;
+}
+
+bool CFigure::isHidden() const
+{
+	return hidden;
+}
+
 void CFigure::ChngDrawClr(color Dclr)
 {	FigGfxInfo.DrawClr = Dclr; }
 

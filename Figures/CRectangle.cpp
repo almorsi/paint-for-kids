@@ -55,11 +55,15 @@ void CRectangle::Resize(float r)
 void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen	
-	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
+	if(!isHidden())
+		pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 }
 
 bool CRectangle::isInsideMe(Point p) const
 {
+	if (isHidden())
+		return false;
+
 	if (FigGfxInfo.isFilled)
 	{
 		//must be inside the corneres

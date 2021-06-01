@@ -66,12 +66,16 @@ void CTriangle::Resize(float r)
 void CTriangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawTri to draw a Triangle on the screen	
-	pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
+	if(!isHidden())
+		pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
 }
 
 
 bool CTriangle::isInsideMe(Point p) const 
 {
+	if (isHidden())
+		return false;
+
 	float Area1 = getArea(point1,point2,p);
 	float Area2 = getArea(point1,point3,p);
 	float Area3 = getArea(point2,point3,p);

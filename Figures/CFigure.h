@@ -12,6 +12,7 @@ class CFigure
 protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
+	bool hidden; // ture if the figure is hidden
 	float area;
 	Point center;
 	GfxInfo FigGfxInfo;	//Figure graphis info
@@ -22,6 +23,9 @@ public:
 	CFigure(GfxInfo FigureGfxInfo);
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
+
+	void setHidden(bool h);
+	bool isHidden() const;
 
 
 	virtual void Resize(float r) = 0;                   //Resize figures

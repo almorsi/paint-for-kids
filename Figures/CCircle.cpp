@@ -27,8 +27,9 @@ void CCircle::setInfo()
 
 void CCircle::Draw(Output* pOut) const
 {
-	//Call Output::DrawCircle to draw a Circle on the screen	
-	pOut->DrawCirc(center, radius, FigGfxInfo, Selected);
+	//Call Output::DrawCircle to draw a Circle on the screen
+	if (!isHidden())
+		pOut->DrawCirc(center, radius, FigGfxInfo, Selected);
 }
 
 void CCircle::Move(Point newPoint)
@@ -64,6 +65,9 @@ CFigure* CCircle::getCopy() const
 
 bool CCircle:: isInsideMe(Point p) const
 {
+	if (isHidden())
+		return false;
+
 	Vec2 v1 = Vec2(p.x, p.y);
 	Vec2 v2 = Vec2(center.x, center.y);
 	int length = (int((v2 - v1).GetLength()));
