@@ -4,7 +4,14 @@ Save::Save(ApplicationManager* pApp) :Action(pApp)
 }
 void Save::ReadActionParameters()
 {
-	OutFile.open("Save.csv");
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	pOut->PrintMessage(std::string("<< Input file name here >>"));
+	name = pIn->GetSrting(pOut);
+	namecsv = (name + ".csv");
+	OutFile.open(namecsv);
+	pOut->drawCleanStatusBar();
 }
 
 void Save::Execute()

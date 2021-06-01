@@ -173,8 +173,23 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		std::cout << "Action: AREA" << std::endl;
 		break;
 	case EXIT:
-		std::cout << "Action: EXIT" << std::endl;
-		break;
+	{
+		pOut = GetOutput();
+		pIn = GetInput();
+		pOut->PrintMessage(std::string("<< choose 1 if you want to save and choose 0 if you want to close >>"));//checks if user will save or close
+		bool choice = std::stoi(pIn->GetSrting(pOut));
+		pOut->drawCleanStatusBar();
+		if (choice == true)
+		{
+			pAct = new Save(this);
+			break;
+		}
+		else
+		{
+			std::cout << "Action: EXIT" << std::endl;
+			break;
+		}
+	}
 	default:
 		break;
 	}
