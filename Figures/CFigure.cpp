@@ -3,7 +3,11 @@
 CFigure::CFigure(GfxInfo FigureGfxInfo)
 { 
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
+	ID = 0;
+	area = 0.0f;
+	center = { 0, 0 };
 	Selected = false;
+	hidden = false;
 }
 
 
