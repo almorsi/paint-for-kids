@@ -15,6 +15,10 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 		Corner1 = P2;
 		Corner2 = P1;
 	}
+	if (Corner1.y > Corner2.y)
+	{
+		swap(Corner1.y, Corner2.y);
+	}
 
 	ID = 4400 + newID++;
 	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
@@ -56,8 +60,16 @@ void CRectangle::Draw(Output* pOut) const
 
 bool CRectangle::isInsideMe(Point p) const
 {
-	return p.x >= Corner1.x && p.x <= Corner2.x
-		&& p.y >= Corner1.y && p.y <= Corner2.y;
+	if (FigGfxInfo.isFilled)
+	{
+		//must be inside the corneres
+		return p.x >= Corner1.x && p.x <= Corner2.x
+			&& p.y >= Corner1.y && p.y <= Corner2.y;
+	}
+	else //not filled
+	{
+		return isOnRect(p) ;
+	}
 }
 
 
@@ -93,4 +105,18 @@ Point CRectangle::getCriticalPoint() const
 CFigure* CRectangle::getCopy() const
 {
 	return new CRectangle(Corner1, Corner2, FigGfxInfo);
+}
+
+bool CRectangle::isOnRect(Point p) const
+{
+	//the point that the user click must be inside two rectangle
+	//one with dimension less than this by 3px and the other greather than this by 3px
+	// 3 is the allowable error when the user click on the frame rectangle
+	return ( (p.x <= Corner2.x + 3 && p.x >= Corner1.x - 3) 
+		&& ( (p.y >= Corner1.y - 3 && p.y <= Corner1.y + 3) 
+		  || (p.y >= Corner2.y - 3 && p.y <= Corner2.y + 3) )
+								||
+		 ( (p.y <= Corner2.y + 3 && p.y >= Corner1.y - 3) 
+			&& ( (p.x >= Corner1.x - 3 && p.x <= Corner1.x + 3) 
+			  || (p.x >= Corner2.x - 3 && p.x <= Corner2.x + 3) ) ) );
 }

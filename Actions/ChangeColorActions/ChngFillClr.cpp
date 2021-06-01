@@ -1,9 +1,11 @@
 #include "ChngFillClr.h"
 #include "..\..\ApplicationManager.h"
 
-ChngFillClr::ChngFillClr(ApplicationManager* pApp)
+ChngFillClr::ChngFillClr(ApplicationManager* pApp, CFigure** selectedFigures, const int size)
 	:
-	Action(pApp)
+	Action(pApp),
+	figuresToChangeTheirColor(selectedFigures),
+	nOfFigures(size)
 {
 }
 
@@ -24,4 +26,10 @@ void ChngFillClr::Execute()
 	ReadActionParameters();
 
 	UI.FillColor = clrToChng;
+
+	for (int i = 0; i < nOfFigures; i++)
+	{
+		figuresToChangeTheirColor[i]->ChngFillClr(clrToChng);
+	}
+
 }

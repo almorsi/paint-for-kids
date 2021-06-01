@@ -192,14 +192,8 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected ) c
 
 	pWind->SetPen(DrawingClr, LineGfxInfo.BorderWdth);
 
-	drawstyle style;
-	if (LineGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(LineGfxInfo.FillClr);
-	}
-	else
-		style = FRAME;
+	
+	drawstyle style = FRAME;
 
 
 	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
