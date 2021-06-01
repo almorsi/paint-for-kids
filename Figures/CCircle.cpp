@@ -5,6 +5,7 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
+	figtype = CIRCLE;
 	point1 = p1;
 	point2 = p2;
 	setInfo();
@@ -61,8 +62,13 @@ CFigure* CCircle::getCopy() const
 	return new CCircle(point1, point2, FigGfxInfo);
 }
 
+void CCircle::Save(ofstream& OutFile)
+{
+	OutFile << figtype << "," << ID << "," << center.x << "," << center.y << "," << radius << "," << drawclr << "," << fillclr<<std::endl;
+}
 
-bool CCircle:: isInsideMe(Point p) const
+
+bool CCircle::isInsideMe(Point p) const
 {
 	Vec2 v1 = Vec2(p.x, p.y);
 	Vec2 v2 = Vec2(center.x, center.y);

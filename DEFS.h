@@ -50,6 +50,41 @@ enum ActionType //The actions supported (you can add more if needed)
 
 };
 
+enum drawColorType //To determine drawing color type of figures
+{
+	D_BLACK,	// color black
+	D_GRAY,	    // color gray
+	D_BLUE,     // color blue
+	D_CYAN,	    // color cyan
+	D_GREEN,	// color green
+	D_YELLOW,	// color yellow
+	D_BROWN,	// color brown
+	D_ORANGE,	// color orange
+	D_RED,	    // color red
+};
+
+enum fillColorType //To determine fill color type of figures
+{
+	F_BLACK,    // color black
+	F_GRAY,	    // color gray
+	F_BLUE,     // color blue
+	F_CYAN,	    // color cyan
+	F_GREEN,	// color green
+	F_YELLOW,   // color yellow
+	F_BROWN,	// color brown
+	F_ORANGE,	// color orange
+	F_RED,	    // color red
+};
+
+enum figureType //to determine figure types of figures
+{
+	LINE,
+	RECTANGLE,
+	TRIANGLE,
+	CIRCLE,
+};
+
+
 struct Point	//To be used for figures points
 { int x,y; };
 

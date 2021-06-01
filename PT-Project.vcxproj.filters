@@ -62,6 +62,7 @@
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Resize.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Actions\Copy.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Resize.h" />
+    <ClInclude Include="Actions\Save.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
