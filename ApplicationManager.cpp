@@ -376,7 +376,7 @@ void ApplicationManager::loadData(ifstream& Infile)
 		if (rownum == 0)
 		{
 			UI.DrawColor = FromIntToClr(std::stoi(Data[0]));
-			//UI.FillColor = FromIntToClr(std::stoi(Data[1]));
+			UI.FillColor = FromIntToClr(std::stoi(Data[1]));
 			//if loaded it fill all un filled shapes with this color
 			UI.BkGrndColor = FromIntToClr(std::stoi(Data[2]));
 		}
