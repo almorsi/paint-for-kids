@@ -7,6 +7,7 @@
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 #include "Actions\Select.h"
+#include "Actions\ToPlay.h"
 
 Point ApplicationManager::point = { 0, 0 };
 
@@ -82,6 +83,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_PLAY:
 		UI.InterfaceMode = MODE_PLAY;
 		pOut->drawToolBar();
+		pAct = new ToPlay(this, FigList, FigCount);
 		std::cout << "Action: TO_PLAY" << std::endl;
 		break;
 	case DRAW_LINE:
@@ -260,6 +262,7 @@ int ApplicationManager::getIndexOf(CFigure* fig) const
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {	
+	pOut->drawToolBar();
 	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
