@@ -23,7 +23,7 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	point1 = P1;
 	point2 = P2;
 	point3 = P3;
-
+	figType = TYPE_TRIANGLE;
 	area = getArea(point1, point2, point3);
 	ID=3300+newID++;
 	center.x = int(float(point1.x + point2.x + point3.x) / 3);

@@ -5,6 +5,7 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
+	figType = TYPE_CIRCLE;
 	point1 = p1;
 	point2 = p2;
 	setInfo();

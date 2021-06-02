@@ -8,6 +8,7 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	center = { 0, 0 };
 	Selected = false;
 	hidden = false;
+	figType = NONE;
 }
 
 
@@ -25,6 +26,11 @@ void CFigure::setHidden(bool h)
 bool CFigure::isHidden() const
 {
 	return hidden;
+}
+
+bool CFigure::isMyType(FigureType type) const
+{
+	return type == figType;
 }
 
 void CFigure::ChngDrawClr(color Dclr)

@@ -62,4 +62,13 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 
 };
 
+enum FigureType
+{
+	TYPE_LINE,
+	TYPE_TRIANGLE,
+	TYPE_CIRCLE,
+	TYPE_RECTANGLE,
+	NONE
+};
+
 #endif

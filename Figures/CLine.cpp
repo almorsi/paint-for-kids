@@ -16,6 +16,7 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 		finish = p1;
 	}
     
+	figType = TYPE_LINE;
 	ID = 2200 + newID++;
 	length = int( sqrt(float( (start.x-finish.x)*(start.x - finish.x) )-float( (start.y - finish.y)*(start.y - finish.y) ) ) );
 	Vec2 v1 = Vec2(start.x, start.y);

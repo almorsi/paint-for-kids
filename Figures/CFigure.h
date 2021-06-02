@@ -16,6 +16,7 @@ protected:
 	float area;
 	Point center;
 	GfxInfo FigGfxInfo;	//Figure graphis info
+	FigureType figType;
 	
 	/// Add more parameters if needed.
 
@@ -31,6 +32,7 @@ public:
 	virtual void Resize(float r) = 0;                   //Resize figures
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	virtual bool isInsideMe(Point p) const = 0;			//check if the point is inside the figure
+	virtual bool isMyType(FigureType type) const;
 
 
 	//this function should be reImplemented in each subclass to pring the proper information
