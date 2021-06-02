@@ -110,7 +110,6 @@ ActionType Input::GetUserAction(Point& p) const
 			case ITM_CLR_ONLY	: return CLR_ONLY	;
 			case ITM_SHAPE_N_CLR: return SHAPE_N_CLR;
 			case ITM_AREA		: return AREA		;
-			case ITM_EXT		: return EXIT		;
 
 			default: return EMPTY; //A click on empty place in play toolbar
 			}

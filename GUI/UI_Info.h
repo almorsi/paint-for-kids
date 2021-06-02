@@ -62,10 +62,6 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	ITM_SHAPE_N_CLR,    //Choose shape and color mode
 	ITM_AREA,           //choose area mode
 
-	ITM_EXT,			//Exit item
-	//choosing a different name other than ITM::EXIT in DrawMenuItem
-	//is necessary because it is not an enum class
-
 	PLAY_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum
 	
 };

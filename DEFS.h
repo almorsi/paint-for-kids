@@ -98,4 +98,32 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 
 };
 
+enum FigureType
+{
+	TYPE_LINE,
+	TYPE_TRIANGLE,
+	TYPE_CIRCLE,
+	TYPE_RECTANGLE,
+	NON
+};
+
+enum FigureColorType
+{
+	TYPE_BLACK,	// color black
+	TYPE_GRAY,	// color gray
+	TYPE_BLUE,   // color blue
+	TYPE_CYAN,	// color cyan
+	TYPE_GREEN,	// color green
+	TYPE_YELLOW,	// color yellow
+	TYPE_BROWN,	// color brown
+	TYPE_ORANGE,	// color orange
+	TYPE_RED,	// color red
+	TYPE_NO_FILL
+};
+
+enum AreaType
+{
+	TYPE_LARGEST,
+	TYPE_SMALLEST
+};
 #endif

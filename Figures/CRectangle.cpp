@@ -19,7 +19,7 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	{
 		swap(Corner1.y, Corner2.y);
 	}
-
+	figType = TYPE_RECTANGLE;
 	ID = 4400 + newID++;
 	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
 	Vec2 v1 = Vec2(Corner1.x, Corner1.y);
@@ -56,11 +56,15 @@ void CRectangle::Resize(float r)
 void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen	
-	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
+	if(!isHidden())
+		pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 }
 
 bool CRectangle::isInsideMe(Point p) const
 {
+	if (isHidden())
+		return false;
+
 	if (FigGfxInfo.isFilled)
 	{
 		//must be inside the corneres

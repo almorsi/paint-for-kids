@@ -1,5 +1,4 @@
 #include "CTriangle.h"
-
 CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
@@ -23,8 +22,8 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	point1 = P1;
 	point2 = P2;
 	point3 = P3;
-
-	area = getArea(point1, point2, point3);
+	figType = TYPE_TRIANGLE;
+	area = getTriArea(point1, point2, point3);
 	ID=3300+newID++;
 	center.x = int(float(point1.x + point2.x + point3.x) / 3);
 	center.y = int(float(point1.y + point2.y + point3.y) / 3);
@@ -32,7 +31,7 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 }
 
 
-float CTriangle::getArea(Point p1, Point p2, Point p3) const
+float CTriangle::getTriArea(Point p1, Point p2, Point p3) const
 {
 	return std::abs(0.5f * (float((p1.x - p2.x) * (p1.y - p3.y)) - float((p1.x - p3.x) * (p1.y - p2.y))));
 }
@@ -43,6 +42,7 @@ void CTriangle::Resize(float r)
 	Vec2 v2 = Vec2(point2.x, point2.y);
 	Vec2 v3 = Vec2(point3.x, point3.y);
 	Vec2 cent = Vec2(center.x, center.y);
+	//change from int to float
 	if (r >= 0 && r < 1)
 	{
 		v1 = ((cent - v1) * (1 - r)) + v1;
@@ -61,34 +61,45 @@ void CTriangle::Resize(float r)
 	point2.y = int(v2.y);
 	point3.x = int(v3.x);
 	point3.y = int(v3.y);
-
+	//bug
+	area = getTriArea(point1, point2, point3);
+	//
 }
 
 void CTriangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawTri to draw a Triangle on the screen	
-	pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
+	if(!isHidden())
+		pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
 }
 
 
 bool CTriangle::isInsideMe(Point p) const 
 {
-	float Area1 = getArea(point1,point2,p);
-	float Area2 = getArea(point1,point3,p);
-	float Area3 = getArea(point2,point3,p);
+	if (isHidden())
+		return false;
+
+	float Area1 = getTriArea(point1,point2,p);
+	float Area2 = getTriArea(point1,point3,p);
+	float Area3 = getTriArea(point2,point3,p);
+	float sumArea = Area1 + Area2 + Area3;
 	if (FigGfxInfo.isFilled)
 	{
-		float sumArea = Area1 + Area2 + Area3;
-		return std::abs(sumArea - area) >= 0.0f && std::abs(sumArea - area) <= 0.1f;
+		return min(sumArea, area) / max(sumArea, area) >= 0.9 && min(sumArea, area) / max(sumArea, area) <= 1.1;
+		//return std::abs(sumArea - area) >= 0.0f && std::abs(sumArea - area) <= 0.1f;
 	}
 	else //not filled
 	{
+		//fixed
+		//bug, if p is in the same line as any one of the bases it will return incorrect value
 		//the point is on triangle if one of the areas approaches zero
 		float minArea = min(Area1, min(Area2, Area3));
 		//after getting the minArea calculating the ratio of minArea with respect to the other areas
 		float areaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
 		//this ratio must approach one for the point to be on the triangle
-		return areaRatio >= 0.9f && areaRatio <= 1.1f;
+		return (areaRatio >= 0.9f && areaRatio <= 1.1f) 
+			&& (min(sumArea, area) / max(sumArea, area) >= 0.9 && min(sumArea, area) / max(sumArea, area) <= 1.1);
+		//
 	}
 }
 

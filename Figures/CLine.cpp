@@ -16,6 +16,7 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 		finish = p1;
 	}
     
+	figType = TYPE_LINE;
 	ID = 2200 + newID++;
 	length = int( sqrt(float( (start.x-finish.x)*(start.x - finish.x) )-float( (start.y - finish.y)*(start.y - finish.y) ) ) );
 	Vec2 v1 = Vec2(start.x, start.y);
@@ -23,7 +24,11 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
 	center.x = int(cent.x);
 	center.y = int(cent.y);
+
+	area = 0.0f;//always zero
+
 	figtype = LINE;
+
 }
 
 void CLine::Resize(float r)
@@ -50,20 +55,24 @@ void CLine::Resize(float r)
 void CLine::Draw(Output* pOut) const
 {
 	//Call Output::DrawLine to draw a Line on the screen	
-	pOut->DrawLine(start,finish, FigGfxInfo, Selected);
+	if(!isHidden())
+		pOut->DrawLine(start,finish, FigGfxInfo, Selected);
 }
 
 bool CLine::isInsideMe(Point p) const 
 { 
-		Vec2 v1 = Vec2(start.x, start.y);
-		Vec2 v2 = Vec2(finish.x, finish.y);
-		Vec2 v3 = Vec2(p.x, p.y);
-		float r = (v1 - v2).GetLength(); //Calculate distance between start and finish point
-		float r1 = (v1 - v3).GetLength();//Calculate distance between start and point
-		float r2 = (v2 - v3).GetLength();//Calculate distance between finish and point
-		float rt = r1 + r2;
-		//The point is selected if the sum of distances equal total distance
-		return (std::abs(r - rt) >= 0.0f && std::abs(r - rt) <= 0.1f);
+	if (isHidden())
+		return false;
+	
+	Vec2 v1 = Vec2(start.x, start.y);
+	Vec2 v2 = Vec2(finish.x, finish.y);
+	Vec2 v3 = Vec2(p.x, p.y);
+	float r = (v1 - v2).GetLength(); //Calculate distance between start and finish point
+	float r1 = (v1 - v3).GetLength();//Calculate distance between start and point
+	float r2 = (v2 - v3).GetLength();//Calculate distance between finish and point
+	float rt = r1 + r2;
+	//The point is selected if the sum of distances equal total distance
+	return (std::abs(r - rt) >= 0.0f && std::abs(r - rt) <= 0.1f);
 }
 
  void CLine::PrintInfo(Output* pOut) const

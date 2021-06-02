@@ -7,7 +7,11 @@
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 #include "Actions\Select.h"
+
+#include "Actions\ToPlay.h"
+
 #include "Actions\Save.h"
+
 
 Point ApplicationManager::point = { 0, 0 };
 
@@ -83,6 +87,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_PLAY:
 		UI.InterfaceMode = MODE_PLAY;
 		pOut->drawToolBar();
+		pAct = new ToPlay(this, FigList, FigCount);
 		std::cout << "Action: TO_PLAY" << std::endl;
 		break;
 	case DRAW_LINE:
@@ -310,9 +315,24 @@ void ApplicationManager::saveData(ofstream &OutFile)
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {	
+	pOut->drawToolBar();
 	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+}
+bool ApplicationManager::isSmallestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if(!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
+			return false;
+	return true;
+}
+bool ApplicationManager::isLargestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if ( !FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea() )
+			return false;
+	return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
