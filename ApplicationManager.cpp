@@ -174,14 +174,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case EXIT:
 	{
-		pOut = GetOutput();
-		pIn = GetInput();
 		pOut->PrintMessage(std::string("<< choose 1 if you want to save and choose 0 if you want to close >>"));//checks if user will save or close
-		bool choice = std::stoi(pIn->GetSrting(pOut));
+		bool choice = bool (std::stoi(pIn->GetSrting(pOut)));
 		pOut->drawCleanStatusBar();
 		if (choice == true)
 		{
 			pAct = new Save(this);
+			pAct->Execute();//Execute
+			delete pAct;	//Action is not needed any more ==> delete it
+			pAct = NULL;
 			break;
 		}
 		else
@@ -290,7 +291,7 @@ int ApplicationManager::FromClrToInt(color c)
 		return 7;
 	else if (c.ucBlue == RED.ucBlue && c.ucGreen == RED.ucGreen && c.ucRed == RED.ucRed)
 		return 8;
-	else
+	else //if called by color then 9 means white if it is called by fill the it is nofill
 		return 9;
 }
 void ApplicationManager::saveData(ofstream &OutFile)
