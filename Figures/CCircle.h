@@ -11,6 +11,7 @@ private:
 	void setInfo();
 public:
 	CCircle(Point, Point, GfxInfo FigureGfxInfo);
+	CCircle::CCircle(int ,Point , int , GfxInfo FigureGfxInfo);
 	virtual void Resize(float r);
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInsideMe(Point p) const;

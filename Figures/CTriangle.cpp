@@ -30,6 +30,37 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	figtype = TRIANGLE;
 }
 
+CTriangle::CTriangle(int id,Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
+	:
+	CFigure(FigureGfxInfo)
+{
+	if (P1.y > P3.y)
+	{
+		std::swap(P1.y, P3.y);
+		std::swap(P1.x, P3.x);
+	}
+	if (P1.y > P2.y)
+	{
+		std::swap(P1.y, P2.y);
+		std::swap(P1.x, P2.x);
+	}
+	//Now the smallest element is the 1st one. Just check the 2nd and 3rd
+	if (P2.y > P3.y)
+	{
+		std::swap(P2.y, P3.y);
+		std::swap(P2.x, P3.x);
+	}
+	point1 = P1;
+	point2 = P2;
+	point3 = P3;
+	figType = TYPE_TRIANGLE;
+	area = getTriArea(point1, point2, point3);
+	ID = id;
+	center.x = int(float(point1.x + point2.x + point3.x) / 3);
+	center.y = int(float(point1.y + point2.y + point3.y) / 3);
+	figtype = TRIANGLE;
+}
+
 
 float CTriangle::getTriArea(Point p1, Point p2, Point p3) const
 {

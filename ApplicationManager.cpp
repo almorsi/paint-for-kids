@@ -7,11 +7,12 @@
 #include "Actions\ChangeColorActions\ChngDrawClr.h"
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 #include "Actions\Select.h"
+#include "Actions\Load.h"
 
 #include "Actions\ToPlay.h"
 
 #include "Actions\Save.h"
-
+#include "Actions\Delete.h"
 
 Point ApplicationManager::point = { 0, 0 };
 
@@ -154,8 +155,35 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Save(this);
 		break;
 	case LOAD:
+	{
 		std::cout << "Action: LOAD" << std::endl;
-		break;
+		pOut->PrintMessage(std::string("<< choose 1 if you want to save before loading files and choose 0 if you want to load without saving >>"));//checks if user will save or close
+		bool choice = bool(std::stoi(pIn->GetSrting(pOut)));
+		pOut->drawCleanStatusBar();
+		if (choice == true)
+		{
+			pAct = new Save(this);
+			pAct->Execute();
+			delete pAct;
+			pAct = NULL;
+			pAct = new Delete(this, FigList, FigCount);
+			pAct->Execute();
+			delete pAct;
+			pAct = NULL;
+			pAct = new Load(this);
+			break;
+		}
+		else
+		{
+			pAct = new Delete(this, FigList, FigCount);
+			pAct->Execute();
+			delete pAct;
+			pAct = NULL;
+			pAct = new Load(this);
+			std::cout << "Action: EXIT" << std::endl;
+			break;
+		}
+	}
 	case REDO:
 		std::cout << "Action: REDO" << std::endl;
 		break;
@@ -306,6 +334,149 @@ void ApplicationManager::saveData(ofstream &OutFile)
 	for (int i = 0; i < FigCount; i++)
 	{
 		FigList[i]->Save(OutFile);
+	}
+}
+color ApplicationManager::FromIntToClr(int n)
+{
+	if (n == 0)
+		return BLACK;
+	else if (n == 1)
+		return GRAY;
+	else if (n == 2)
+		return BLUE;
+	else if (n == 3)
+		return CYAN;
+	else if (n == 4)
+		return GREEN;
+	else if (n == 5)
+		return YELLOW;
+	else if (n == 6)
+		return BROWN;
+	else if (n == 7)
+		return ORANGE;
+	else if (n == 8)
+		return RED;
+	else
+		return WHITE;
+}
+void ApplicationManager::loadData(ifstream& Infile)
+{
+	std::string line;
+	int rownum = 0; //row number counter
+	while (std::getline(Infile, line)) //takes file data row by row 
+	{
+		vector<string> Data;
+		std::istringstream s(line);
+		std::string field;
+		while (getline(s, field, ','))
+		{
+			Data.push_back(field); //put each string indivually in a vector
+			std::cout << field << endl;
+		}
+		if (rownum == 0)
+		{
+			UI.DrawColor = FromIntToClr(std::stoi(Data[0]));
+			UI.FillColor = FromIntToClr(std::stoi(Data[1]));
+			UI.BkGrndColor = FromIntToClr(std::stoi(Data[2]));
+		}
+		else if (rownum == 1)
+		{
+			//FigCount = std::stoi(Data[0]);
+		}
+		else
+		{
+			loadDataFigs(Data);
+		}
+		rownum++;
+	}
+}
+//The following function rearrange data from the saved file to match figure constructor according to type then creates a figure
+void ApplicationManager::loadDataFigs(vector<string>& data)
+{
+	if (std::stoi(data[0]) == 0)
+	{
+		Point start, finish;
+		GfxInfo FigGfxInfo;
+		int ID;
+		ID = std::stoi(data[1]);
+		start.x = std::stoi(data[2]);
+		start.y = std::stoi(data[3]);
+		finish.x = std::stoi(data[4]);
+		finish.y = std::stoi(data[5]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		FigGfxInfo.FillClr = pOut->getCrntFillColor();
+		FigGfxInfo.isFilled = false;
+		CFigure* fig = new CLine(ID,start, finish, FigGfxInfo);
+		AddFigure(fig);
+	}
+	else if (std::stoi(data[0]) == 1)
+	{
+		Point Corner1, Corner2;
+		GfxInfo FigGfxInfo;
+		int ID;
+		ID = std::stoi(data[1]);
+		Corner1.x = std::stoi(data[2]);
+		Corner1.y = std::stoi(data[3]);
+		Corner2.x = std::stoi(data[4]);
+		Corner2.y = std::stoi(data[5]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
+		if (std::stoi(data[7]) == 9)
+			FigGfxInfo.isFilled = false;
+		else
+		{
+			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[7]));
+			FigGfxInfo.isFilled = true;
+		}
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		CFigure* fig = new CRectangle(ID,Corner1, Corner2, FigGfxInfo);
+		AddFigure(fig);
+	}
+	else if (std::stoi(data[0]) == 2)
+	{
+		Point point1, point2, point3;
+		GfxInfo FigGfxInfo;
+		int ID;
+		ID = std::stoi(data[1]);
+		point1.x = std::stoi(data[2]);
+		point1.y = std::stoi(data[3]);
+		point2.x = std::stoi(data[4]);
+		point2.y = std::stoi(data[5]);
+		point3.x = std::stoi(data[6]);
+		point3.y = std::stoi(data[7]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[8]));
+		if (std::stoi(data[9]) == 9)
+			FigGfxInfo.isFilled = false;
+		else
+		{
+			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[9]));
+			FigGfxInfo.isFilled = true;
+		}
+
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		CFigure* fig = new CTriangle(ID,point1, point2, point3,FigGfxInfo);
+		AddFigure(fig);
+	}
+	else
+	{
+		Point center;
+		int radius,ID;
+		GfxInfo FigGfxInfo;
+		ID = std::stoi(data[1]);
+		center.x = std::stoi(data[2]);
+		center.y = std::stoi(data[3]);
+		radius = std::stoi(data[4]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[5]));
+		if (std::stoi(data[6]) == 9)
+			FigGfxInfo.isFilled = false;
+		else
+		{
+			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[6]));
+			FigGfxInfo.isFilled = true;
+		}
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		CFigure* fig = new CCircle(ID,center, radius, FigGfxInfo);
+		AddFigure(fig);
 	}
 }
 //==================================================================================//

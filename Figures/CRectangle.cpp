@@ -29,6 +29,35 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	center.y = int(cent.y);
 	figtype = RECTANGLE;
 }
+CRectangle::CRectangle(int id, Point P1, Point P2, GfxInfo FigureGfxInfo)
+	:
+	CFigure(FigureGfxInfo)
+{
+
+	if (P1.x < P2.x)
+	{
+		Corner1 = P1;
+		Corner2 = P2;
+	}
+	else
+	{
+		Corner1 = P2;
+		Corner2 = P1;
+	}
+	if (Corner1.y > Corner2.y)
+	{
+		swap(Corner1.y, Corner2.y);
+	}
+	figType = TYPE_RECTANGLE;
+	ID = id;
+	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
+	Vec2 v1 = Vec2(Corner1.x, Corner1.y);
+	Vec2 v2 = Vec2(Corner2.x, Corner2.y);
+	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
+	center.x = int(cent.x);
+	center.y = int(cent.y);
+	figtype = RECTANGLE;
+}
 
 void CRectangle::Resize(float r)
 {

@@ -30,6 +30,36 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	figtype = LINE;
 
 }
+CLine::CLine(int id,Point p1, Point p2, GfxInfo FigureGfxInfo)
+	:
+	CFigure(FigureGfxInfo)
+{
+
+	if (p1.x < p2.x)
+	{
+		start = p1;
+		finish = p2;
+	}
+	else
+	{
+		start = p2;
+		finish = p1;
+	}
+
+	figType = TYPE_LINE;
+	ID = id;
+	length = int(sqrt(float((start.x - finish.x) * (start.x - finish.x)) - float((start.y - finish.y) * (start.y - finish.y))));
+	Vec2 v1 = Vec2(start.x, start.y);
+	Vec2 v2 = Vec2(finish.x, finish.y);
+	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
+	center.x = int(cent.x);
+	center.y = int(cent.y);
+
+	area = 0.0f;//always zero
+
+	figtype = LINE;
+
+}
 
 void CLine::Resize(float r)
 {
