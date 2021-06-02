@@ -24,7 +24,6 @@ private:
 
 private:
 	void reArrangeFigList(int deletedFigs);
-	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
 	CFigure *GetFigure(int index) const; //Search for a figure given an index 
 	CFigure*& GetFigure(CFigure* fig) ; //Search for a figure return it 
 public:	
@@ -38,6 +37,7 @@ public:
 	void ExecuteAction(ActionType) ; //Creates an action and executes it
 	
 	// -- Figures Management Functions
+	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
 	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
 	//the array passed must be gauranteed it has the same number of figCount
 	void deleteFigures(CFigure** figsArray, const int size); //delete the figures passed
@@ -47,7 +47,12 @@ public:
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
-	void UpdateInterface() const;	//Redraws all the drawing window	
+	void UpdateInterface() const;	//Redraws all the drawing window
+
+	// -- play mode functions
+
+	bool isSmallestArea(CFigure* fig) const;
+	bool isLargestArea(CFigure* fig) const;
 };
 
 #endif

@@ -267,6 +267,20 @@ void ApplicationManager::UpdateInterface() const
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
+bool ApplicationManager::isSmallestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if(!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
+			return false;
+	return true;
+}
+bool ApplicationManager::isLargestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if ( !FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea() )
+			return false;
+	return true;
+}
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
 Input *ApplicationManager::GetInput() const
