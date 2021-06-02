@@ -63,6 +63,11 @@
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Resize.cpp" />
     <ClCompile Include="Actions\ToPlay.cpp" />
+    <ClCompile Include="Actions\GameShapeOnly.cpp" />
+    <ClCompile Include="Actions\GameAction.cpp" />
+    <ClCompile Include="Actions\GameColorOnly.cpp" />
+    <ClCompile Include="Actions\GameArea.cpp" />
+    <ClCompile Include="Actions\GameColorShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -114,6 +119,11 @@
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Resize.h" />
     <ClInclude Include="Actions\ToPlay.h" />
+    <ClInclude Include="Actions\GameShapeOnly.h" />
+    <ClInclude Include="Actions\GameColorOnly.h" />
+    <ClInclude Include="Actions\GameAction.h" />
+    <ClInclude Include="Actions\GameArea.h" />
+    <ClInclude Include="Actions\GameColorShape.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

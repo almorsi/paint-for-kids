@@ -137,6 +137,11 @@
     <ClCompile Include="Actions\ChangeColorActions\ChngFillClr.cpp" />
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\GameAction.cpp" />
+    <ClCompile Include="Actions\GameArea.cpp" />
+    <ClCompile Include="Actions\GameColorOnly.cpp" />
+    <ClCompile Include="Actions\GameColorShape.cpp" />
+    <ClCompile Include="Actions\GameShapeOnly.cpp" />
     <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Resize.cpp" />
@@ -201,6 +206,11 @@
     <ClInclude Include="Actions\ChangeColorActions\ChngFillClr.h" />
     <ClInclude Include="Actions\Copy.h" />
     <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\GameAction.h" />
+    <ClInclude Include="Actions\GameArea.h" />
+    <ClInclude Include="Actions\GameColorOnly.h" />
+    <ClInclude Include="Actions\GameColorShape.h" />
+    <ClInclude Include="Actions\GameShapeOnly.h" />
     <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Resize.h" />

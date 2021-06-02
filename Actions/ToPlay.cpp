@@ -1,5 +1,9 @@
 #include "ToPlay.h"
 #include "..\ApplicationManager.h"
+#include "GameShapeOnly.h"
+#include "GameColorOnly.h"
+#include "GameArea.h"
+#include "GameColorShape.h"
 ToPlay::ToPlay(ApplicationManager* pApp, CFigure** figsDrawn, const int size)
 	:
 	Action(pApp),
@@ -42,10 +46,7 @@ void ToPlay::Execute()
 				break;
 			}
 
-			pOut->PrintMessage("nice game you can rePlay or start another game or change to draw Mode");
-			actionAfterPlay = pIn->GetUserAction();
-			pOut->drawCleanStatusBar();
-
+			pManager->UpdateInterface();
 		} while (actionAfterPlay == RE_PLAY);
 
 		playAction = actionAfterPlay;
@@ -66,7 +67,7 @@ bool ToPlay::isOperationalAction(ActionType act) const
 		|| act == AREA || act == CLR_ONLY || act == TO_DRAW;
 }
 
-void ToPlay::doPlayAction(ActionType act) const
+void ToPlay::doPlayAction(ActionType act) 
 {
 	Action* pAct = NULL;
 	switch (act)
@@ -80,6 +81,7 @@ void ToPlay::doPlayAction(ActionType act) const
 	case TO_DRAW:
 		std::cout << "ToPlay Action : change to Draw Mode" << std::endl;
 		UI.InterfaceMode = MODE_DRAW;
+		actionAfterPlay = TO_DRAW;
 		break;
 	case TO_PLAY:
 		break;
@@ -131,14 +133,18 @@ void ToPlay::doPlayAction(ActionType act) const
 		break;
 	case SHAPE_ONLY:
 		std::cout << "ToPlay Action : shpae only game mode" << std::endl;
+		pAct = new GameShapeOnly(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	case CLR_ONLY:
 		std::cout << "ToPlay Action : color only game mode" << std::endl;
+		pAct = new GameColorOnly(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	case SHAPE_N_CLR:
 		std::cout << "ToPlay Action : shape and color only game mode" << std::endl;
+		pAct = new GameColorShape(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	case AREA:
+		pAct = new GameArea(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		std::cout << "ToPlay Action : Area only game mode" << std::endl;
 		break;
 	case EXIT:

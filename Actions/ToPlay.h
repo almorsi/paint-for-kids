@@ -11,7 +11,7 @@ private:
 
 private:
 	bool isOperationalAction(ActionType act) const;
-	void doPlayAction(ActionType act) const;
+	void doPlayAction(ActionType act);
 public:
 	ToPlay(ApplicationManager* pApp, CFigure** figsDrawn = NULL, const int size = 0);//constructor
 
