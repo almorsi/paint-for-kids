@@ -141,6 +141,7 @@
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Resize.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\ToPlay.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Resize.h" />
     <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\ToPlay.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
