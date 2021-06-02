@@ -3,8 +3,17 @@
 
 #include "DEFS.h"
 #include "Figures\CFigure.h"
+#include "Figures\CLine.h"
+#include "Figures\CRectangle.h"
+#include "Figures\CTriangle.h"
+#include "Figures\CCircle.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream> // std::stringstream
 
 
 //Main class that manages everything in the application.
@@ -44,7 +53,10 @@ public:
 	int getFigCount() const; //getting the current fig count
 	int getIndexOf(CFigure* fig) const; //getting the index of the passed figure in figList;
 	int FromClrToInt(color c);
+	color FromIntToClr(int n);
 	void saveData(ofstream &OutFile);
+	void loadData(ifstream& Infile);
+	void loadDataFigs(vector<string>& data);
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output

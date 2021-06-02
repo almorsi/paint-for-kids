@@ -16,9 +16,23 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	ID = 1100 + newID++;
 	area = 3.1415f * radius * radius;
 }
+CCircle::CCircle(int id,Point p1, int r, GfxInfo FigureGfxInfo)
+	:
+	CFigure(FigureGfxInfo)
+{
+	figType = TYPE_CIRCLE;
+
+	figtype = CIRCLE;
+
+	center = p1;
+	radius = r;
+	ID = id;
+	area = 3.1415f * radius * radius;
+}
 void CCircle::Resize(float r)
 {
 	radius = int(float(radius) * r);
+	area = 3.1415f * radius * radius;
 }
 void CCircle::setInfo()
 {

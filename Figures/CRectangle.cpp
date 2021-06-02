@@ -29,27 +29,60 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	center.y = int(cent.y);
 	figtype = RECTANGLE;
 }
+CRectangle::CRectangle(int id, Point P1, Point P2, GfxInfo FigureGfxInfo)
+	:
+	CFigure(FigureGfxInfo)
+{
+
+	if (P1.x < P2.x)
+	{
+		Corner1 = P1;
+		Corner2 = P2;
+	}
+	else
+	{
+		Corner1 = P2;
+		Corner2 = P1;
+	}
+	if (Corner1.y > Corner2.y)
+	{
+		swap(Corner1.y, Corner2.y);
+	}
+	figType = TYPE_RECTANGLE;
+	ID = id;
+	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
+	Vec2 v1 = Vec2(Corner1.x, Corner1.y);
+	Vec2 v2 = Vec2(Corner2.x, Corner2.y);
+	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
+	center.x = int(cent.x);
+	center.y = int(cent.y);
+	figtype = RECTANGLE;
+}
 
 void CRectangle::Resize(float r)
 {
 	Vec2 v1 = Vec2(Corner1.x, Corner1.y);
 	Vec2 v2 = Vec2(Corner2.x, Corner2.y);
 	Vec2 cent = Vec2(center.x,center.y);
-	if (r >= 0 && r < 1)
+	if (r >= 0.0f && r < 1.0f)
 	{
-		v1 = ((cent - v1) * (1 - r)) + v1;
-		v2 = ((cent - v2) * (1 - r)) + v2;
+		v1 = ((cent - v1) * (1.0 - r)) + v1;
+		v2 = ((cent - v2) * (1.0 - r)) + v2;
 	}
 	else
 	{
 		v1 = cent - ((cent - v1) * r);
 		v2 = cent - ((cent - v2) * r);
 	}
-
+	//new resized data
 	Corner1.x = int(v1.x);
 	Corner1.y = int(v1.y);
 	Corner2.x = int(v2.x);
 	Corner2.y = int(v2.y);
+	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
+	cent = ((v1 - v2) * 0.5) + v2;
+	center.x = int(cent.x);
+	center.y = int(cent.y);
 }
 	
 
