@@ -66,7 +66,7 @@ void CLine::Resize(float r)
 	Vec2 v1 = Vec2(start.x, start.y);
 	Vec2 v2 = Vec2(finish.x, finish.y);
 	Vec2 cent = Vec2(center.x, center.y);
-	if (r >= 0 && r < 1)
+	if (r >= 0.0f && r < 1.0f)
 	{
 		v1 = ((cent - v1) * (1 - r)) + v1;
 		v2 = ((cent - v2) * (1 - r)) + v2;
@@ -76,10 +76,15 @@ void CLine::Resize(float r)
 		v1 = cent - ((cent - v1) * r);
 		v2 = cent - ((cent - v2) * r);
 	}
+	//resized data
 	start.x = int(v1.x);
 	start.y = int(v1.y);
 	finish.x = int(v2.x);
 	finish.y = int(v2.y);
+	length = int(sqrt(float((start.x - finish.x) * (start.x - finish.x)) - float((start.y - finish.y) * (start.y - finish.y))));
+	cent = ((v1 - v2) * 0.5) + v2;
+	center.x = int(cent.x);
+	center.y = int(cent.y);
 }
 
 void CLine::Draw(Output* pOut) const

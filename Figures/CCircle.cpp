@@ -32,6 +32,7 @@ CCircle::CCircle(int id,Point p1, int r, GfxInfo FigureGfxInfo)
 void CCircle::Resize(float r)
 {
 	radius = int(float(radius) * r);
+	area = 3.1415f * radius * radius;
 }
 void CCircle::setInfo()
 {

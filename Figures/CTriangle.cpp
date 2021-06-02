@@ -56,8 +56,8 @@ CTriangle::CTriangle(int id,Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	figType = TYPE_TRIANGLE;
 	area = getTriArea(point1, point2, point3);
 	ID = id;
-	center.x = int(float(point1.x + point2.x + point3.x) / 3);
-	center.y = int(float(point1.y + point2.y + point3.y) / 3);
+	center.x = int(float(point1.x + point2.x + point3.x) / 3.0f);
+	center.y = int(float(point1.y + point2.y + point3.y) / 3.0f);
 	figtype = TRIANGLE;
 }
 
@@ -74,11 +74,11 @@ void CTriangle::Resize(float r)
 	Vec2 v3 = Vec2(point3.x, point3.y);
 	Vec2 cent = Vec2(center.x, center.y);
 	//change from int to float
-	if (r >= 0 && r < 1)
+	if (r >= 0.0f && r < 1.0f)
 	{
-		v1 = ((cent - v1) * (1 - r)) + v1;
-		v2 = ((cent - v2) * (1 - r)) + v2;
-		v3 = ((cent - v3) * (1 - r)) + v3;
+		v1 = ((cent - v1) * (1.0f - r)) + v1;
+		v2 = ((cent - v2) * (1.0f - r)) + v2;
+		v3 = ((cent - v3) * (1.0f - r)) + v3;
 	}
 	else
 	{
