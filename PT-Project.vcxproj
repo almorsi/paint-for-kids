@@ -145,6 +145,7 @@
     <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Resize.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="Actions\ToPlay.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Resize.h" />
+    <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="Actions\ToPlay.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />

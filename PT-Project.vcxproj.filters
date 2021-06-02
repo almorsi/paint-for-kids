@@ -68,6 +68,7 @@
     <ClCompile Include="Actions\GameColorOnly.cpp" />
     <ClCompile Include="Actions\GameArea.cpp" />
     <ClCompile Include="Actions\GameColorShape.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddCircleAction.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Actions\GameAction.h" />
     <ClInclude Include="Actions\GameArea.h" />
     <ClInclude Include="Actions\GameColorShape.h" />
+    <ClInclude Include="Actions\Save.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

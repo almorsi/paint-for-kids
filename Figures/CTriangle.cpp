@@ -27,6 +27,7 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	ID=3300+newID++;
 	center.x = int(float(point1.x + point2.x + point3.x) / 3);
 	center.y = int(float(point1.y + point2.y + point3.y) / 3);
+	figtype = TRIANGLE;
 }
 
 
@@ -133,6 +134,11 @@ Point CTriangle::getCriticalPoint() const
 CFigure* CTriangle::getCopy() const
 {
 	return new CTriangle(point1, point2, point3, FigGfxInfo);
+}
+
+void CTriangle::Save(ofstream& OutFile)
+{
+	OutFile << figtype << "," << (ID) << "," << point1.x<<","<<point1.y<<","  << point2.x << "," << point2.y << ","  << point3.x << "," << point3.y << "," << drawclr << "," << fillclr << std::endl;
 }
 
 void CTriangle::PrintInfo(Output* pOut) const 

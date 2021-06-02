@@ -27,6 +27,7 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
 	center.x = int(cent.x);
 	center.y = int(cent.y);
+	figtype = RECTANGLE;
 }
 
 void CRectangle::Resize(float r)
@@ -109,6 +110,11 @@ Point CRectangle::getCriticalPoint() const
 CFigure* CRectangle::getCopy() const
 {
 	return new CRectangle(Corner1, Corner2, FigGfxInfo);
+}
+
+void CRectangle::Save(ofstream& OutFile)
+{
+	OutFile << int(figtype) << "," << ID << "," << Corner1.x << "," << Corner1.y << "," << Corner2.x << "," << Corner2.y << "," << drawclr << "," << fillclr << std::endl;
 }
 
 bool CRectangle::isOnRect(Point p) const

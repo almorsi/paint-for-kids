@@ -19,4 +19,5 @@ public:
 	virtual void moveBy(Vec2 incr);
 	virtual Point getCriticalPoint() const;
 	virtual CFigure* getCopy() const;
+	virtual void Save(ofstream& OutFile);
 };

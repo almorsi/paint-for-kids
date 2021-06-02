@@ -32,7 +32,7 @@ Output::Output()
 
 	UI.ToolBarColor			= color(250, 255, 204);		//toolbar color
 	UI.DrawColor			= BLUE;						//Drawing color
-	UI.FillColor			= GREEN;					//Filling color
+	UI.FillColor			= WHITE;					//Filling color
 	UI.MsgColor				= BLACK;					//Messages color
 	UI.BkGrndColor			= WHITE;					//Background color
 	UI.HighlightColor		= color(163, 255, 252);		//This color should NOT be used to draw figures. use if for highlight only
