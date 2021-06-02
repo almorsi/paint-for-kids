@@ -10,7 +10,7 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 
 	hidden = false;
-	colortype = TYPE_NO_FILL;
+	changeColorType(FigGfxInfo.FillClr);
 	figType = NON;
 
 	drawclr = static_cast <drawColorType>(FromClrToInt(FigGfxInfo.DrawClr));
