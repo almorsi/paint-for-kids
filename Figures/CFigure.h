@@ -3,6 +3,7 @@
 
 #include "..\defs.h"
 #include "..\GUI\Output.h"
+#include "fstream"
 
 //Base class for all figures
 static int newID = 0; //used to increments ID's
@@ -15,6 +16,9 @@ protected:
 	float area;
 	Point center;
 	GfxInfo FigGfxInfo;	//Figure graphis info
+	drawColorType drawclr;
+	fillColorType fillclr;
+	figureType figtype;
 	
 	/// Add more parameters if needed.
 
@@ -22,6 +26,7 @@ public:
 	CFigure(GfxInfo FigureGfxInfo);
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
+	int FromClrToInt(color c);
 
 
 	virtual void Resize(float r) = 0;                   //Resize figures
@@ -48,7 +53,7 @@ public:
 	virtual void moveBy(Vec2 incr) = 0;
 	virtual CFigure* getCopy()const = 0;
 
-	//virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
+	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 
 };

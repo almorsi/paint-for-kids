@@ -23,7 +23,7 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
 	center.x = int(cent.x);
 	center.y = int(cent.y);
-	
+	figtype = LINE;
 }
 
 void CLine::Resize(float r)
@@ -100,7 +100,13 @@ bool CLine::isInsideMe(Point p) const
 	 return new CLine(start,finish, FigGfxInfo);
  }
 
+ void CLine::Save(ofstream& OutFile)
+ {
+	 OutFile << figtype << "," << (ID) << "," << start.x << "," << start.y << "," << finish.x << "," << finish.y << "," << drawclr <<std::endl;
+ }
+
  void CLine::ChngFillClr(color Fclr)
  {
 	 FigGfxInfo.DrawClr = Fclr;
+	 fillclr = static_cast<fillColorType>(FromClrToInt(Fclr));
  }

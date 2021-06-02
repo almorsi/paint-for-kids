@@ -43,7 +43,8 @@ public:
 	void deleteFigures(CFigure** figsArray, const int size); //delete the figures passed
 	int getFigCount() const; //getting the current fig count
 	int getIndexOf(CFigure* fig) const; //getting the index of the passed figure in figList;
-		
+	int FromClrToInt(color c);
+	void saveData(ofstream &OutFile);
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
