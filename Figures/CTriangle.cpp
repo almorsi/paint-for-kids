@@ -24,14 +24,14 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	point2 = P2;
 	point3 = P3;
 	figType = TYPE_TRIANGLE;
-	area = getArea(point1, point2, point3);
+	area = getTriArea(point1, point2, point3);
 	ID=3300+newID++;
 	center.x = int(float(point1.x + point2.x + point3.x) / 3);
 	center.y = int(float(point1.y + point2.y + point3.y) / 3);
 }
 
 
-float CTriangle::getArea(Point p1, Point p2, Point p3) const
+float CTriangle::getTriArea(Point p1, Point p2, Point p3) const
 {
 	return std::abs(0.5f * (float((p1.x - p2.x) * (p1.y - p3.y)) - float((p1.x - p3.x) * (p1.y - p2.y))));
 }
@@ -76,9 +76,9 @@ bool CTriangle::isInsideMe(Point p) const
 	if (isHidden())
 		return false;
 
-	float Area1 = getArea(point1,point2,p);
-	float Area2 = getArea(point1,point3,p);
-	float Area3 = getArea(point2,point3,p);
+	float Area1 = getTriArea(point1,point2,p);
+	float Area2 = getTriArea(point1,point3,p);
+	float Area3 = getTriArea(point2,point3,p);
 	if (FigGfxInfo.isFilled)
 	{
 		float sumArea = Area1 + Area2 + Area3;
@@ -86,12 +86,14 @@ bool CTriangle::isInsideMe(Point p) const
 	}
 	else //not filled
 	{
+		//bug, if p is in the same line as any one of the bases it will return incorrect value
 		//the point is on triangle if one of the areas approaches zero
 		float minArea = min(Area1, min(Area2, Area3));
 		//after getting the minArea calculating the ratio of minArea with respect to the other areas
 		float areaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
 		//this ratio must approach one for the point to be on the triangle
 		return areaRatio >= 0.9f && areaRatio <= 1.1f;
+		//
 	}
 }
 

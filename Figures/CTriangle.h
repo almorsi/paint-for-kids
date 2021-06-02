@@ -9,7 +9,7 @@ private:
 	Point point3; //third corner
 public:
 	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
-	float getArea(Point p1, Point p2, Point p3)const;
+	float getTriArea(Point p1, Point p2, Point p3)const;//return area of triangle
 	virtual void Resize(float r);
 	virtual void Draw(Output* pOut) const;
 	virtual bool isInsideMe(Point p) const;

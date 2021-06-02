@@ -23,6 +23,11 @@ class color {
     unsigned char ucGreen;
     unsigned char ucBlue;
 
+    bool operator==(const color& rhs) const 
+    {
+        return ucRed == rhs.ucRed && ucBlue == rhs.ucBlue && ucGreen == rhs.ucGreen;
+    }
+
 };
 
 bool operator==(color a, color b);

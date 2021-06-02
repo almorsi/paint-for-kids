@@ -24,7 +24,7 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
 	center.x = int(cent.x);
 	center.y = int(cent.y);
-	
+	area = 0.0f;//always zero
 }
 
 void CLine::Resize(float r)

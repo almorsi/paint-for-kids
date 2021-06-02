@@ -12,14 +12,17 @@ class CFigure
 protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
-	bool hidden; // ture if the figure is hidden
-	float area;
+	float area;	
 	Point center;
 	GfxInfo FigGfxInfo;	//Figure graphis info
-	FigureType figType;
+	//play mode members
+	bool hidden; // ture if the figure is hidden
+	FigureType figType;//figure type see DEFS.h
+	FigureColorType colortype;//figureColorType see DEFS.h
 	
 	/// Add more parameters if needed.
-
+private:
+	void changeColorType(color clr); // takes color and change colorType according to that clr
 public:
 	CFigure(GfxInfo FigureGfxInfo);
 	void SetSelected(bool s);	//select/unselect the figure
@@ -32,8 +35,12 @@ public:
 	virtual void Resize(float r) = 0;                   //Resize figures
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	virtual bool isInsideMe(Point p) const = 0;			//check if the point is inside the figure
-	virtual bool isMyType(FigureType type) const;
 
+	//play mode member methodes
+	virtual bool isMyType(FigureType type) const;		//check if is the same type
+	virtual bool isMyFigColorType(FigureColorType figClrType) const; //check is the same color type
+	virtual float getArea()const;						//return area
+	//
 
 	//this function should be reImplemented in each subclass to pring the proper information
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
