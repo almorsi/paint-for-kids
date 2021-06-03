@@ -8,20 +8,24 @@ class CRectangle : public CFigure
 private:
 	Point Corner1;	
 	Point Corner2;
+public:
+	CRectangle(Point, Point, GfxInfo);
+	virtual void Draw(Output*) const;
+
+	//ammmar functions
+	virtual bool isInsideMe(Point) const;
+	virtual void Move(Point);
+	virtual Point getCriticalPoint() const;//center is the critical point for Circle
+	virtual CFigure* getCopy() const;//return a copy of the current object
 private:
 	bool isOnRect(Point p) const;//check if the point on the border of the rectangle
+
 public:
-	CRectangle(Point , Point, GfxInfo FigureGfxInfo );
-	CRectangle(int ,Point, Point, GfxInfo FigureGfxInfo);
-	virtual void Resize(float r);
-	virtual void Draw(Output* pOut) const;
-	virtual bool isInsideMe(Point p) const;
-	virtual void PrintInfo(Output* pOut)const;
-	virtual void Move(Point newPoint);
-	virtual void moveBy(Vec2 incr);
-	virtual Point getCriticalPoint() const;
-	virtual CFigure* getCopy() const;
-	virtual void Save(ofstream& OutFile);
+	//mohammed functions
+	CRectangle(int, Point, Point, GfxInfo);
+	virtual void Save(ofstream&);
+	virtual void PrintInfo(Output*) const;
+	virtual void Resize(float);
 };
 
 #endif
