@@ -30,7 +30,6 @@ class color {
 
 };
 
-bool operator==(color a, color b);
 bool operator!=(color a, color b);
 
 /*
