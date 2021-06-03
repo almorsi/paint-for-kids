@@ -26,9 +26,9 @@ void AddLineAction::ReadActionParameters()
 	pIn->GetPointClicked(P2.x, P2.y);
 
 	LineGfxInfo.isFilled = false;	//default is not filled
-	//get drawing, filling colors and pen width from the interface
+	LineGfxInfo.FillClr = WHITE;	//default to White, to make the colorType notFilled, this is a must
+	//get drawing color and pen width from the interface
 	LineGfxInfo.DrawClr = pOut->getCrntDrawColor();
-	LineGfxInfo.FillClr = pOut->getCrntFillColor();
 	LineGfxInfo.BorderWdth = pOut->getCrntPenWidth();
 
 	pOut->drawCleanStatusBar();

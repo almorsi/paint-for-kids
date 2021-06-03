@@ -27,9 +27,9 @@ void AddCircleAction::ReadActionParameters()
 	pIn->GetPointClicked(P2.x, P2.y);
 
 	CircleGfxInfo.isFilled = false;	//default is not filled
-	//get drawing, filling colors and pen width from the interface
+	CircleGfxInfo.FillClr = WHITE;	//default to White, to make the colorType notFilled, this is a must
+	//get drawing color and pen width from the interface
 	CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
-	CircleGfxInfo.FillClr = pOut->getCrntFillColor();
 	CircleGfxInfo.BorderWdth = pOut->getCrntPenWidth();
 
 	pOut->drawCleanStatusBar();

@@ -26,9 +26,9 @@ void AddRectAction::ReadActionParameters()
 	pIn->GetPointClicked(P2.x, P2.y);
 
 	RectGfxInfo.isFilled = false;	//default is not filled
-	//get drawing, filling colors and pen width from the interface
+	RectGfxInfo.FillClr = WHITE;	//default to White, to make the colorType notFilled, this is a must
+	//get drawing color and pen width from the interface
 	RectGfxInfo.DrawClr = pOut->getCrntDrawColor();
-	RectGfxInfo.FillClr = pOut->getCrntFillColor();
 	RectGfxInfo.BorderWdth = pOut->getCrntPenWidth();
 
 	pOut->drawCleanStatusBar();
