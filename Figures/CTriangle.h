@@ -8,16 +8,21 @@ private:
 	Point point2; //second corner
 	Point point3; //third corner
 public:
-	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
-	CTriangle(int,Point, Point, Point, GfxInfo FigureGfxInfo);
+	CTriangle(Point, Point, Point, GfxInfo);
+	virtual void Draw(Output*) const;
+
+	//ammmar functions
+	virtual bool isInsideMe(Point) const;
+	virtual void Move(Point);
+	virtual Point getCriticalPoint() const;//center is the critical point for Circle
+	virtual CFigure* getCopy() const;//return a copy of the current object
+private:
 	float getTriArea(Point p1, Point p2, Point p3)const;//return area of triangle
-	virtual void Resize(float r);
-	virtual void Draw(Output* pOut) const;
-	virtual bool isInsideMe(Point p) const;
-	virtual void PrintInfo(Output* pOut) const;
-	virtual void Move(Point newPoint);
-	virtual void moveBy(Vec2 incr);
-	virtual Point getCriticalPoint() const;
-	virtual CFigure* getCopy() const;
-	virtual void Save(ofstream& OutFile);
+
+public:
+	//mohammed functions
+	CTriangle(int, Point, Point, Point, GfxInfo);
+	virtual void Save(ofstream&);
+	virtual void PrintInfo(Output*) const;
+	virtual void Resize(float);
 };
