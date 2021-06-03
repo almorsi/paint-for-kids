@@ -13,18 +13,18 @@ private:
 	void setCenterRadius();//setting the center and the radius of circle
 
 public:
-	CCircle(Point, Point, GfxInfo FigureGfxInfo);
-	virtual void Draw(Output* pOut) const;
+	CCircle(Point, Point, GfxInfo);
+	virtual void Draw(Output*) const;
 
 	//ammmar functions
-	virtual bool isInsideMe(Point p) const;
-	virtual void Move(Point newPoint);
+	virtual bool isInsideMe(Point) const;
+	virtual void Move(Point);
 	virtual Point getCriticalPoint() const;//center is the critical point for Circle
 	virtual CFigure* getCopy() const;//return a copy of the current object
 
 	//mohammed functions
-	CCircle::CCircle(int ,Point , int , GfxInfo FigureGfxInfo);
-	virtual void Save(ofstream& OutFile);
-	virtual void PrintInfo(Output* pOut) const;
-	virtual void Resize(float r);
+	CCircle(int ,Point , int , GfxInfo);
+	virtual void Save(ofstream&);
+	virtual void PrintInfo(Output*) const;
+	virtual void Resize(float);
 };
