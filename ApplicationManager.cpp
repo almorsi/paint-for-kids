@@ -377,12 +377,14 @@ void ApplicationManager::loadData(ifstream& Infile)
 		{
 			UI.DrawColor = FromIntToClr(std::stoi(Data[0]));
 			UI.FillColor = FromIntToClr(std::stoi(Data[1]));
-			//if loaded it fill all un filled shapes with this color
 			UI.BkGrndColor = FromIntToClr(std::stoi(Data[2]));
 		}
 		else if (rownum == 1)
 		{
-			//FigCount = std::stoi(Data[0]);
+			//bug must be fixed this will diff if the user choose to delecte then load
+			//or save the current and load the file (drawing the loaded with the current drawn)
+			//this line->//FigCount = std::stoi(Data[0]);
+			//
 		}
 		else
 		{
@@ -406,7 +408,7 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		finish.y = std::stoi(data[5]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
 		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
-		FigGfxInfo.FillClr = pOut->getCrntFillColor();
+		FigGfxInfo.FillClr = WHITE;
 		FigGfxInfo.isFilled = false;
 		CFigure* fig = new CLine(ID,start, finish, FigGfxInfo);
 		AddFigure(fig);
@@ -423,7 +425,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		Corner2.y = std::stoi(data[5]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
 		if (std::stoi(data[7]) == 9)
+		{
 			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
 		else
 		{
 			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[7]));
@@ -447,7 +452,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		point3.y = std::stoi(data[7]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[8]));
 		if (std::stoi(data[9]) == 9)
+		{
 			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
 		else
 		{
 			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[9]));
@@ -469,7 +477,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		radius = std::stoi(data[4]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[5]));
 		if (std::stoi(data[6]) == 9)
+		{
 			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
 		else
 		{
 			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[6]));
