@@ -8,6 +8,7 @@
 #include "ChangeColorActions\ChngDrawClr.h"
 #include "ChangeColorActions\ChngFillClr.h"
 #include "Resize.h"
+#include <assert.h>
 
 Select::Select(ApplicationManager* mApp)
 	:
@@ -27,18 +28,21 @@ Select::Select(ApplicationManager* mApp)
 	}
 
 	countClicked = 0;//it will increament each time the user select an unselected figure
-	selectedFigCount = 0;//it will increament and decreament each time the user select and unselect a figure
+
+	selectedFigCount = 0;//it will increament or decreament each time the user select or unselect a figure
+
 	actAfterSelect = EMPTY;
 	actBeforePaste = EMPTY;
+
 	firstSelectedFigure = NULL;
 }
 
 void Select::ReadActionParameters()
 {
-	Output* pOut = pManager->GetOutput();//getting point to the output to print messages
+	Output* pOut = pManager->GetOutput();//pointer to output 
 	Point pointClicked;//the clicked point by the user
 
-	//first make sure the action after select is a click in the drawing area to reduce the checks in GetFigure
+	//first make sure the action after select is a click in the drawing area
 	do
 	{
 		pOut->PrintMessage("Please select a figure");
@@ -54,22 +58,23 @@ void Select::ReadActionParameters()
 
 		if (fig != NULL) 
 		{
+			int indexOfFigureClickedOn = pManager->getIndexOf(fig);
 			if (fig->IsSelected())
 			{
 				//unselect because it is already selected and NULL it in the array
 				selectedFigCount--;
 				fig->SetSelected(false);
-				selectedFigures[pManager->getIndexOf(fig)] = NULL;
-				isSelectedArr[pManager->getIndexOf(fig)] = false;
+				selectedFigures[indexOfFigureClickedOn] = NULL;
+				isSelectedArr[indexOfFigureClickedOn] = false;
 			}
 			else	//not selected
 			{
 				//select figure and add it to the selected array
 				selectedFigCount++;
 				fig->SetSelected(true);
-				selectedFigures[pManager->getIndexOf(fig)] = fig;
-				isSelectedArr[pManager->getIndexOf(fig)] = true;
-				numberedClicked[pManager->getIndexOf(fig)] = countClicked++;
+				selectedFigures[indexOfFigureClickedOn] = fig;
+				isSelectedArr[indexOfFigureClickedOn] = true;
+				numberedClicked[indexOfFigureClickedOn] = countClicked++;
 			}
 			pManager->UpdateInterface();//to highlight the selected figures
 		}
@@ -83,27 +88,27 @@ void Select::ReadActionParameters()
 			pOut->PrintMessage("Please select a figure");
 		//
 
-		//getting the action after selecting the figure if it is another click on the drawing area adding the figure the selected figure
+		//getting the action after selecting the figure if it is another click on the drawing area adding the figure to the selected figure
 		actAfterSelect = pManager->GetUserAction(pointClicked);
 
 	} while (actAfterSelect == DRAWING_AREA);
 	//
 
-	//getting the first selected fig, must be over the make selectedFigures sorted section
+	//getting the first selected fig
 	if (selectedFigCount > 0)//to ensure that there are figures selected
 	{
 		firstSelectedFigure = selectedFigures[getIndexOfFirstSelected()];
 	}
 	//
 
-	//make selectedFigures sorted, this should be the last section in this fucken function
+	//make selectedFigures stored without null pointers between them, this should be the last section in this function
 	delete[] selectedFigures;//the first use is to get the firstSelectedFigure, now it will used to store the selected figures
 	selectedFigures = new CFigure * [selectedFigCount];
 	for (int i = 0, j = 0; i < nCurrentlyDrawn && j < selectedFigCount; i++)
 	{
 		if (isSelectedArr[i])
 		{
-			selectedFigures[j] = pManager->GetFigure(i);
+			selectedFigures[j] = pManager->GetFigure(i);//return the ith figure in figList
 			j++;
 		}
 	}
@@ -124,7 +129,7 @@ void Select::Execute()
 	}
 	//
 
-	if (selectedFigCount > 0)//must there are figures selected to do action on them
+	if (selectedFigCount > 0)//must be some selected figure to do action on them
 	{
 		executeActionAfterSelect(actAfterSelect);
 	}
@@ -132,8 +137,8 @@ void Select::Execute()
 
 CFigure* Select::getThatFigure() const
 {
-	//guaranteed that is only one figure selected
-	//search for it
+	assert(selectedFigCount == 1);
+	//guaranteed that is only one figure selected, return it
 	for (int i = 0; i < pManager->getFigCount(); i++)
 		if (selectedFigures[i] != NULL)
 			return selectedFigures[i];
@@ -147,43 +152,17 @@ void Select::executeActionAfterSelect(ActionType)
 
 	switch (actAfterSelect)
 	{
-	case DRAWING_AREA:
-		break;
-	case STATUS:
-		break;
-	case EMPTY:
-		break;
-	case TO_DRAW:
-		break;
-	case TO_PLAY:
-		break;
-	case DRAW_LINE:
-		break;
-	case DRAW_RECT:
-		break;
-	case DRAW_TRI:
-		break;
-	case DRAW_CIRC:
-		break;
 	case CHNG_DRAW_CLR:
 		pAct = new ChngDrawClr(pManager, selectedFigures, selectedFigCount);
 		break;
 	case CHNG_FILL_CLR:
 		pAct = new ChngFillClr(pManager, selectedFigures, selectedFigCount);
 		break;
-	case CHNG_BK_CLR:
-		break;
-	case SELECT:
-		break;
 	case DEL:
 		pAct = new Delete(pManager, selectedFigures, selectedFigCount);
 		break;
 	case MOVE:
 		pAct = new Move(pManager, selectedFigures, selectedFigCount,  firstSelectedFigure);
-		break;
-	case COPY:
-		break;
-	case CUT:
 		break;
 	case PASTE:
 	{
@@ -192,65 +171,46 @@ void Select::executeActionAfterSelect(ActionType)
 			//create copy action, and execute it
 			Copy* copyAction = new Copy(pManager, selectedFigures, selectedFigCount, firstSelectedFigure);
 			copyAction->Execute();
+
 			//create Paste Action, that take its parameters from copy action
 			pAct = new Paste(pManager, copyAction->getCopiedFigures(), copyAction->getNOfFigsToCopy(), copyAction->getFirstSelectedCopy());
+
 			//delete copy action
 			delete copyAction;
 			copyAction = NULL;
 		}
-		if (actBeforePaste == CUT)//select -> copy -> paste -> move -> delete
+		if (actBeforePaste == CUT)//select -> copy -> paste -> move -> delete, or just move them ****
 		{
 			//create copy action, and execute it
 			Copy* copyAction = new Copy(pManager, selectedFigures, selectedFigCount, firstSelectedFigure);
 			copyAction->Execute();
+
 			//create Paste Action, that take its parameters from copy action
 			pAct = new Paste(pManager, copyAction->getCopiedFigures(), copyAction->getNOfFigsToCopy(), copyAction->getFirstSelectedCopy());
+
 			//delete copy action
 			delete copyAction;
 			copyAction = NULL;
+
 			//create delete action, to delete the selected figures
 			Delete* delAction = new Delete(pManager, selectedFigures, selectedFigCount);
 			delAction->Execute();
+
 			//delete delete action :D
 			delete delAction;
 			delAction = NULL;
 
-			actAfterSelect = DEL;//this to avoide unselect null figures, must be here
+			actAfterSelect = DEL;//this to avoide unselect null figures
 		}
 		break;
 	}
 	case RESIZE:
 		pAct = new Resize(pManager, selectedFigures, selectedFigCount);
 		break;
-	case ROTATE:
-		break;
-	case SEND_BACK:
-		break;
-	case BRNG_FRNT:
-		break;
-	case SAVE:
-		break;
-	case LOAD:
-		break;
-	case REDO:
-		break;
-	case UNDO:
-		break;
-	case RE_PLAY:
-		break;
-	case SHAPE_ONLY:
-		break;
-	case CLR_ONLY:
-		break;
-	case SHAPE_N_CLR:
-		break;
-	case AREA:
-		break;
-	case EXIT:
-		break;
 	default:
 		break;
 	}
+
 	//Execute the created action
 	if (pAct != NULL)
 	{
