@@ -11,7 +11,7 @@ private:
 
 	int menuItemsFileName[CHNG_COLR_ITM_COUNT]; //array of color items , the user will choose from them
 
-	ColorType colorToChange;	//the type of color that will be changed (background, fill, draw)
+	WindowColorType colorToChange;	//the type of color that will be changed (background, fill, draw)
 
 	struct colorWindInfo	//window information
 	{
@@ -27,7 +27,7 @@ private:
 
 public:
 
-	ColorWin(ColorType clrToChange = BACKGROUND); //non defualt constructor
+	ColorWin(WindowColorType clrToChange = BACKGROUND); //non defualt constructor
 
 	color getColorClicked() const;	//return the color that the user choose to change to. 
 

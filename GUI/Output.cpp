@@ -58,7 +58,7 @@ Input* Output::CreateInput() const
 	return pIn;
 }
 
-void Output::openClrWin(ColorType clrToChange)
+void Output::openClrWin(WindowColorType clrToChange)
 {
 	assert(clrWin == NULL);
 	clrWin = new ColorWin(clrToChange);
