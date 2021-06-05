@@ -4,7 +4,7 @@
 class ChngBkgndClr : public Action
 {
 private:
-	color clrToChng;
+	color newColor;
 public:
 	ChngBkgndClr(ApplicationManager* pApp);
 

@@ -13,7 +13,7 @@ void ChngBkgndClr::ReadActionParameters()
 
 	pOut->openClrWin(BACKGROUND);
 	pOut->PrintMessage("please choose a color from the window above");
-	clrToChng = pOut->getChangedColor();
+	newColor = pOut->getChangedColor();
 	pOut->closeClrWin();
 
 	pOut->drawCleanStatusBar();
@@ -23,5 +23,5 @@ void ChngBkgndClr::Execute()
 {
 	ReadActionParameters();
 
-	UI.BkGrndColor = clrToChng;
+	UI.BkGrndColor = newColor;//setting the background color to the choosen color
 }
