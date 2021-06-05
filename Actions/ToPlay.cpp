@@ -10,8 +10,11 @@ ToPlay::ToPlay(ApplicationManager* pApp, CFigure** figsDrawn, const int size)
 	figuresDrawn(figsDrawn),
 	nOfFiguresDrawn(size)
 {
+
 	playAction = EMPTY;
+
 	actionAfterPlay = EMPTY;
+
 }
 
 void ToPlay::ReadActionParameters()
@@ -21,10 +24,12 @@ void ToPlay::ReadActionParameters()
 
 	pOut->PrintMessage("Please choose an operational game mode(figures only, shape only, shape and color only, area only");
 
+	//make sure the user choose an operational action to exectue
 	do
 	{
 		playAction = pIn->GetUserAction();
 	} while (!isOperationalAction(playAction));
+	//
 
 	pOut->drawCleanStatusBar();
 }
@@ -33,29 +38,23 @@ void ToPlay::Execute()
 {
 	ReadActionParameters();
 
-	Input* pIn = pManager->GetInput();
-	Output* pOut = pManager->GetOutput();
-
 	do
 	{
-		do
-		{
-			doPlayAction(playAction);
-			if (playAction == TO_DRAW)
-			{
-				break;
-			}
-
-			pManager->UpdateInterface();
-		} while (actionAfterPlay == RE_PLAY);
-
-		playAction = actionAfterPlay;
-
+		//check to see if the user change to the draw mode
 		if (playAction == TO_DRAW)
 		{
 			doPlayAction(playAction);
-			break;
+			break;//break play mode and go back to draw mode
 		}
+
+		do
+		{
+			doPlayAction(playAction);//actionAfterPlay will update it self throw this function, i.e. passed by refrence
+			pManager->UpdateInterface();
+
+		} while (actionAfterPlay == RE_PLAY);
+
+		playAction = actionAfterPlay;
 
 	} while (isOperationalAction(playAction));
 
@@ -72,63 +71,12 @@ void ToPlay::doPlayAction(ActionType act)
 	Action* pAct = NULL;
 	switch (act)
 	{
-	case DRAWING_AREA:
-		break;
-	case STATUS:
-		break;
-	case EMPTY:
-		break;
 	case TO_DRAW:
 		std::cout << "ToPlay Action : change to Draw Mode" << std::endl;
 		UI.InterfaceMode = MODE_DRAW;
-		actionAfterPlay = TO_DRAW;
-		break;
-	case TO_PLAY:
-		break;
-	case DRAW_LINE:
-		break;
-	case DRAW_RECT:
-		break;
-	case DRAW_TRI:
-		break;
-	case DRAW_CIRC:
-		break;
-	case CHNG_DRAW_CLR:
-		break;
-	case CHNG_FILL_CLR:
-		break;
-	case CHNG_BK_CLR:
-		break;
-	case SELECT:
-		break;
-	case DEL:
-		break;
-	case MOVE:
-		break;
-	case COPY:
-		break;
-	case CUT:
-		break;
-	case PASTE:
-		break;
-	case RESIZE:
-		break;
-	case ROTATE:
-		break;
-	case SEND_BACK:
-		break;
-	case BRNG_FRNT:
-		break;
-	case SAVE:
-		break;
-	case LOAD:
-		break;
-	case REDO:
-		break;
-	case UNDO:
 		break;
 	case RE_PLAY:
-		//never get here
+		//replay the choosen game, never get here
 		std::cout << "ToPlay Action : re play action" << std::endl;
 		break;
 	case SHAPE_ONLY:
@@ -146,8 +94,6 @@ void ToPlay::doPlayAction(ActionType act)
 	case AREA:
 		pAct = new GameArea(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		std::cout << "ToPlay Action : Area only game mode" << std::endl;
-		break;
-	case EXIT:
 		break;
 	default:
 		break;
