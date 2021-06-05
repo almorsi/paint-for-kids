@@ -20,7 +20,7 @@ void Copy::ReadActionParameters()
 
 	for (int i = 0; i < nOfFigsToCopy; i++)
 	{
-		//assiging a copy copiedFigures if it is not the first copied
+		//assiging a copy to copiedFigures if it is not the first copied
 		if (selectedFigures[i] != firstSelectedFig)
 		{
 			copiedFigures[i] = selectedFigures[i]->getCopy();
@@ -35,6 +35,7 @@ void Copy::ReadActionParameters()
 void Copy::Execute()
 {
 	ReadActionParameters();
+	//now the copied figures are ready to be passed to paste action consturctor
 }
 
 CFigure** Copy::getCopiedFigures() const
@@ -54,6 +55,8 @@ int Copy::getNOfFigsToCopy() const
 
 Copy::~Copy()
 {
+	//must to not delete the copied figures becaue they will be passed to ApplicationManager::FigList
+	//and appManager will take care of delteing them
 }
 
 

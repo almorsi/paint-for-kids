@@ -4,11 +4,17 @@
 class Copy : public Action
 {
 private:
+
 	CFigure** selectedFigures;//pointer to the selected figure that will be copied
-	CFigure** copiedFigures;//pointer to the copied figures
-	CFigure* copyOfFirstSelectedFigure;//pointer to the COPY OF first selected figure
+
 	CFigure* firstSelectedFig;//pointer to the first selected figure to copy
+
+	CFigure** copiedFigures;//pointer to the copied figures
+
+	CFigure* copyOfFirstSelectedFigure;//pointer to the COPY OF first selected figure
+
 	const int nOfFigsToCopy;//number of figures to copy
+
 public:
 	//constructor
 	Copy(ApplicationManager* pApp, CFigure** selectedFigures, const int size, CFigure* firstFigure);
