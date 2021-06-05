@@ -4,24 +4,25 @@ Paste::Paste(ApplicationManager* pApp, CFigure** copiedFigs, const int nCopied, 
 	:
 	Action(pApp),
 	copiedFigures(copiedFigs),
-	firstCopiedfig(firstCopied)
+	firstCopiedfig(firstCopied),
+	nOfCopiedFigs(nCopied)
 {
 	//create move action 
 	moveAction = new Move(pApp, copiedFigures, nCopied, firstCopiedfig);
-	nOfCopiedFigs = nCopied;//inialize the size
 }
 
 void Paste::ReadActionParameters()
 {
-	//alredy done when moveAction execute it self
+	//execute move action, getting the destination point from the user and move the copied figures to that destination
+	moveAction->Execute();
 }
 
 void Paste::Execute()
 {
-	//execute move action, getting the destination point from the user and move the copied figures to that destination
-	moveAction->Execute();
 
-	//the copied figure is copied when they are selected so the copied one needs to be unselected, then pushing them to figList
+	ReadActionParameters();
+
+	//the copied figure is copied when they are selected (selected state = true) so the copied one needs to be unselected, then pushing them to figList
 	for (int i = 0; i < nOfCopiedFigs; i++)
 	{
 		copiedFigures[i]->SetSelected(false);
