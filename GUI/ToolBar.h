@@ -6,12 +6,18 @@
 class ToolBar
 {
 private:
-	const int nOfItems;
-	MenuItem** Items;
+
+	const int nOfItems;//number of items in tool bar
+
+	MenuItem** Items;//pointer to the items
+
 public:
 	ToolBar() = delete;
+
 	ToolBar(int);
-	MenuItem* getItem(int) const;
+
+	MenuItem* getItem(int) const;//return the item with the given index
+
 	~ToolBar();
 };
 
