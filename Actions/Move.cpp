@@ -17,6 +17,7 @@ Move::Move(ApplicationManager* pApp, CFigure** selectedFigures, const int size, 
 void Move::ReadActionParameters()
 {
 	assert(firstSelectedFig != NULL);//to send and error if it is null accedantly
+
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
