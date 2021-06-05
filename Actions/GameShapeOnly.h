@@ -3,7 +3,7 @@
 class GameShapeOnly : public virtual GameAction 
 {
 private:
-	FigureType figType;//class dependent
+	FigureType figType;
 protected:
 	void setFigType();
 public:

@@ -18,7 +18,7 @@ void GameColorOnly::setFigClrType()
 {
 	std::random_device rd;
 	std::mt19937 rng(rd());
-	std::uniform_int_distribution<int> dist(0, 9);//9 color types are allowed
+	std::uniform_int_distribution<int> dist(0, 9);//10 color types are allowed
 
 	do
 	{

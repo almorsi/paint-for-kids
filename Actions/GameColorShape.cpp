@@ -3,20 +3,20 @@
 GameColorShape::GameColorShape(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay)
 	:
 	GameAction(pApp, figs, size, actionAfterPlay),
-	GameColorOnly(pApp, figs, size, actionAfterPlay),
-	GameShapeOnly(pApp, figs, size, actionAfterPlay)
+	GameColorOnly(pApp, figs, size, actionAfterPlay),//THE CALL TO GAMEACTION CONSTRUCTOR IS SKIPPED BY THE COMPILER
+	GameShapeOnly(pApp, figs, size, actionAfterPlay) //THE CALL TO GAMEACTION CONSTRUCTOR IS SKIPPED BY THE COMPILER
 {
 	assert(size > 0);
 	do
 	{
 		shapeColorLabel = "";
 
-		setFigClrType();
+		GameColorOnly::setFigClrType();
 		shapeColorLabel += gameLable;
 
 		shapeColorLabel += " ";
 
-		setFigType();
+		GameShapeOnly::setFigType();
 		shapeColorLabel += gameLable;
 
 	} while (isGameOver());

@@ -3,7 +3,7 @@
 class GameColorOnly : public virtual GameAction
 {
 private:
-	FigureColorType figClrType;//class dependent
+	FigureColorType figClrType;
 protected:
 	void setFigClrType();
 public:
