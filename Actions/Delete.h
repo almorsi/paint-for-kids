@@ -4,8 +4,11 @@
 class Delete : public Action
 {
 private:
+
 	CFigure** figsToDelete;//the deleted figures
+
 	const int nToDeleted;//number of figures that will be deleted
+
 public:
 	Delete(ApplicationManager* pApp, CFigure** selectedFigs, const int size);//constructor
 
@@ -15,5 +18,5 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute();
 
-	virtual ~Delete() {}
+	virtual ~Delete();
 };
