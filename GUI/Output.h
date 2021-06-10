@@ -30,6 +30,8 @@ public:
 	void zoomIn() const;
 	void zoomOut() const;
 
+	void highlightItem(int);
+	void UnhighlightItem(int);
 	
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle

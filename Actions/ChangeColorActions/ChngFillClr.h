@@ -22,4 +22,6 @@ public:
 
 	//Add rectangle to the ApplicationManager
 	virtual void Execute();
+
+	virtual ~ChngFillClr();
 };

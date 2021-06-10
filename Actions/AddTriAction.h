@@ -16,4 +16,5 @@ public:
 	//Add Triangle to the ApplicationManager
 	virtual void Execute();
 
+	virtual ~AddTriAction();
 };

@@ -33,3 +33,8 @@ void ChngDrawClr::Execute()
 		figuresToChangeTheirColor[i]->ChngDrawClr(newColor);
 	}
 }
+
+ChngDrawClr::~ChngDrawClr()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_DRAW_CLR);
+}

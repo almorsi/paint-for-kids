@@ -27,3 +27,8 @@ bool GameColorShape::isRightChoise(CFigure* fig) const
 {
 	return GameColorOnly::isRightChoise(fig) && GameShapeOnly::isRightChoise(fig);
 }
+
+GameColorShape::~GameColorShape()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_SHAPE_N_CLR);
+}

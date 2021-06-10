@@ -35,3 +35,8 @@ void ChngFillClr::Execute()
 	}
 
 }
+
+ChngFillClr::~ChngFillClr()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_FILL_CLR);
+}

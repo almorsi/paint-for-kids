@@ -81,19 +81,27 @@ void ToPlay::doPlayAction(ActionType act)
 		break;
 	case SHAPE_ONLY:
 		std::cout << "ToPlay Action : shpae only game mode" << std::endl;
+		pManager->GetOutput()->highlightItem(ITM_SHAPE_ONLY);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new GameShapeOnly(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	case CLR_ONLY:
 		std::cout << "ToPlay Action : color only game mode" << std::endl;
+		pManager->GetOutput()->highlightItem(ITM_CLR_ONLY);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new GameColorOnly(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	case SHAPE_N_CLR:
 		std::cout << "ToPlay Action : shape and color only game mode" << std::endl;
+		pManager->GetOutput()->highlightItem(ITM_SHAPE_N_CLR);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new GameColorShape(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	case AREA:
-		pAct = new GameArea(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		std::cout << "ToPlay Action : Area only game mode" << std::endl;
+		pManager->GetOutput()->highlightItem(ITM_AREA);
+		pManager->GetOutput()->drawToolBar();
+		pAct = new GameArea(pManager, figuresDrawn, nOfFiguresDrawn, actionAfterPlay);
 		break;
 	default:
 		break;

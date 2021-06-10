@@ -16,4 +16,5 @@ public:
 	//Add Line to the ApplicationManager
 	virtual void Execute();
 
+	virtual ~AddLineAction();
 };
