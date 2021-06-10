@@ -76,7 +76,7 @@ void ToPlay::doPlayAction(ActionType act)
 		UI.InterfaceMode = MODE_DRAW;
 		break;
 	case RE_PLAY:
-		//replay the choosen game, never get here
+		//replay the choosen game, never be the case
 		std::cout << "ToPlay Action : re play action" << std::endl;
 		break;
 	case SHAPE_ONLY:
