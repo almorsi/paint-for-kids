@@ -19,6 +19,16 @@ MenuItem* ToolBar::getItem(int index) const
 	return Items[index];
 }
 
+void ToolBar::hightlightItem(int index)
+{
+	getItem(index)->setState(HIGHLIGHTED);
+}
+
+void ToolBar::UnhightlightItem(int index)
+{
+	getItem(index)->setState(NORMAL);
+}
+
 ToolBar::~ToolBar()
 {
 
