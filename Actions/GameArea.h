@@ -7,4 +7,5 @@ private:
 public:
 	GameArea(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay);
 	virtual bool isRightChoise(CFigure* fig) const;
+	virtual ~GameArea();
 };

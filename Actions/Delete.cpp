@@ -20,4 +20,5 @@ void Delete::Execute()
 
 Delete::~Delete()
 {
+	pManager->GetOutput()->UnhighlightItem(ITM_DEL);
 }

@@ -32,6 +32,7 @@ void Paste::Execute()
  
 Paste::~Paste()
 {
+	pManager->GetOutput()->UnhighlightItem(ITM_PASTE);
 	//delete move action
 	delete moveAction;
 	moveAction = NULL;

@@ -81,7 +81,7 @@ bool CCircle::isInsideMe(Point clickedPoint) const
 	else //not filled
 	{
 		//ratio of distance over radius must approach one
-		return distance/ radius >= 0.95f && distance/radius <= 1.05f;
+		return distance/ radius >= 0.9f && distance/radius <= 1.1f;
 	}
 
 }

@@ -18,6 +18,9 @@ public:
 
 	MenuItem* getItem(int) const;//return the item with the given index
 
+	void hightlightItem(int);
+	void UnhightlightItem(int);
+
 	~ToolBar();
 };
 

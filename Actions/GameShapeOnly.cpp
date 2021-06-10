@@ -17,6 +17,11 @@ bool GameShapeOnly::isRightChoise(CFigure* fig) const
     return fig->isMyType(figType);
 }
 
+GameShapeOnly::~GameShapeOnly()
+{
+    pManager->GetOutput()->UnhighlightItem(ITM_SHAPE_ONLY);
+}
+
 
 void GameShapeOnly::setFigType()
 {

@@ -49,3 +49,8 @@ void AddCircleAction::Execute()
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(R);
 }
+
+AddCircleAction::~AddCircleAction()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_CIRC);
+}

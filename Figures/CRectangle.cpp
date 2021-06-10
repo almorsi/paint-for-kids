@@ -94,16 +94,16 @@ void CRectangle::Save(ofstream& OutFile)
 
 bool CRectangle::isOnRect(Point pointClicked) const
 {
-	//+3px or -3px is the allowable error
-	//imagine two rectangles one with dim greater than this by 3 and the other with dim less than this by 3
+	//+8px or -8px is the allowable error
+	//imagine two rectangles one with dim greater than this by 8 and the other with dim less than this by 8
 	//the point clicked must be between these to rectangles
-	return ( (pointClicked.x <= Corner2.x + 3 && pointClicked.x >= Corner1.x - 3) 
-		&& ( (pointClicked.y >= Corner1.y - 3 && pointClicked.y <= Corner1.y + 3) 
-		  || (pointClicked.y >= Corner2.y - 3 && pointClicked.y <= Corner2.y + 3) )
+	return ( (pointClicked.x <= Corner2.x + 8 && pointClicked.x >= Corner1.x - 8) 
+		&& ( (pointClicked.y >= Corner1.y - 8 && pointClicked.y <= Corner1.y + 8) 
+		  || (pointClicked.y >= Corner2.y - 8 && pointClicked.y <= Corner2.y + 8) )
 								||
-		 ( (pointClicked.y <= Corner2.y + 3 && pointClicked.y >= Corner1.y - 3) 
-			&& ( (pointClicked.x >= Corner1.x - 3 && pointClicked.x <= Corner1.x + 3) 
-			  || (pointClicked.x >= Corner2.x - 3 && pointClicked.x <= Corner2.x + 3) ) ) );
+		 ( (pointClicked.y <= Corner2.y + 8 && pointClicked.y >= Corner1.y - 8) 
+			&& ( (pointClicked.x >= Corner1.x - 8 && pointClicked.x <= Corner1.x + 8) 
+			  || (pointClicked.x >= Corner2.x - 8 && pointClicked.x <= Corner2.x + 8) ) ) );
 }
 
 void CRectangle::PrintInfo(Output* pOut) const

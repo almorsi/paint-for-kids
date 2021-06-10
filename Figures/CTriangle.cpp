@@ -63,7 +63,7 @@ bool CTriangle::isInsideMe(Point p) const
 	float Area3 = getTriArea(point2,point3,p);
 	float sumArea = Area1 + Area2 + Area3;
 
-	bool equalAreaCond = sumArea/area >= 0.9f && sumArea/area <= 1.1f;
+	bool equalAreaCond = sumArea/area >= 0.85f && sumArea/area <= 1.15f;
 
 	if (FigGfxInfo.isFilled)
 	{
@@ -71,14 +71,15 @@ bool CTriangle::isInsideMe(Point p) const
 	}
 	else //not filled
 	{
+		//this test will fail if the user clilck on the corner of atriagle because there is now two area approah zero
 		//fixed
 		//bug, if p is in the same line as any one of the bases it will return incorrect value
-		//the point is on triangle if one of the areas approaches zero
+		//the point is on triangle if one or two of the areas approaches zero
 		float minArea = min(Area1, min(Area2, Area3));
 		//after getting the minArea calculating the ratio of minArea with respect to the other areas
 		float areaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
 		//this ratio must approach one for the point to be on the triangle
-		return equalAreaCond && (areaRatio >= 0.9f && areaRatio <= 1.1f);
+		return equalAreaCond && (areaRatio >= 0.85f && areaRatio <= 1.15f);
 		//
 	}
 }

@@ -25,3 +25,8 @@ void ChngBkgndClr::Execute()
 
 	UI.BkGrndColor = newColor;//setting the background color to the choosen color
 }
+
+ChngBkgndClr::~ChngBkgndClr()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_BK_CLR);
+}

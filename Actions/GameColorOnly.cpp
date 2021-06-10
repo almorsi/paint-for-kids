@@ -14,6 +14,11 @@ bool GameColorOnly::isRightChoise(CFigure* fig) const
 	return fig->isMyFigColorType(figClrType);
 }
 
+GameColorOnly::~GameColorOnly()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_CLR_ONLY);
+}
+
 void GameColorOnly::setFigClrType()
 {
 	std::random_device rd;

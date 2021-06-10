@@ -54,3 +54,8 @@ void AddTriAction::Execute()
 	//Add the Triangle to the list of figures
 	pManager->AddFigure(R);
 }
+
+AddTriAction::~AddTriAction()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_TRI);
+}

@@ -16,4 +16,5 @@ public:
 	//Add Circle to the ApplicationManager
 	virtual void Execute();
 
+	virtual ~AddCircleAction();
 };

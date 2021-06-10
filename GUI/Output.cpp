@@ -136,6 +136,14 @@ void Output::zoomOut() const
 {
 	UI.scalingFactor *= 0.9f;
 }
+void Output::highlightItem(int index)
+{
+	toolBar->hightlightItem(index);
+}
+void Output::UnhighlightItem(int index)
+{
+	toolBar->UnhightlightItem(index);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void Output::PrintMessage(string msg) const	//Prints a message on status bar
