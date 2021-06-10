@@ -68,33 +68,49 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case DRAW_LINE:
 		std::cout << "Action: DRAW_LINE" << std::endl;
+		pOut->highlightItem(ITM_LINE);
+		pOut->drawToolBar();
 		pAct = new AddLineAction(this);
 		break;
 	case DRAW_RECT:
+		pOut->highlightItem(ITM_RECT);
+		pOut->drawToolBar();
 		std::cout << "Action: DRAW_RECT" << std::endl;
 		pAct = new AddRectAction(this);
 		break;
 	case DRAW_TRI:
+		pOut->highlightItem(ITM_TRI);
+		pOut->drawToolBar();
 		std::cout << "Action: DRAW_TRI" << std::endl;
 		pAct = new AddTriAction(this);
 		break;
 	case DRAW_CIRC:
+		pOut->highlightItem(ITM_CIRC);
+		pOut->drawToolBar();
 		std::cout << "Action: DRAW_CIRC" << std::endl;
 		pAct = new AddCircleAction(this);
 		break;
 	case CHNG_DRAW_CLR:
+		pOut->highlightItem(ITM_DRAW_CLR);
+		pOut->drawToolBar();
 		std::cout << "Action: CHNG_DRAW_CLR" << std::endl;
 		pAct = new ChngDrawClr(this);
 		break;
 	case CHNG_FILL_CLR:
+		pOut->highlightItem(ITM_FILL_CLR);
+		pOut->drawToolBar();
 		std::cout << "Action: CHNG_FILL_CLR" << std::endl;
 		pAct = new ChngFillClr(this);
 		break;
 	case CHNG_BK_CLR:
+		pOut->highlightItem(ITM_BK_CLR);
+		pOut->drawToolBar();
 		std::cout << "Action: CHNG_BK_CLR" << std::endl;
 		pAct = new ChngBkgndClr(this);
 		break;
 	case SELECT:
+		pOut->highlightItem(ITM_SELECT);
+		pOut->drawToolBar();
 		std::cout << "Action: SELECT" << std::endl;
 		pAct = new Select(this);
 		break;

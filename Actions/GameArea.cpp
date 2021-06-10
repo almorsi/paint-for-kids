@@ -36,3 +36,8 @@ bool GameArea::isRightChoise(CFigure* fig) const
 	else//TYPE_SMALLEST
 		return pManager->isSmallestArea(fig);
 }
+
+GameArea::~GameArea()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_AREA);
+}

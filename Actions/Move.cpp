@@ -55,5 +55,5 @@ void Move::Execute()
 
 Move::~Move()
 {
-	//no new no delete
+	pManager->GetOutput()->UnhighlightItem(ITM_MOVE);
 }

@@ -48,3 +48,8 @@ void AddLineAction::Execute()
 	//Add the Line to the list of figures
 	pManager->AddFigure(R);
 }
+
+AddLineAction::~AddLineAction()
+{
+	pManager->GetOutput()->UnhighlightItem(ITM_LINE);
+}

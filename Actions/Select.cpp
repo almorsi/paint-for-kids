@@ -124,6 +124,19 @@ void Select::Execute()
 	//this is required because copy can override cut and vise versa
 	while (actAfterSelect == COPY || actAfterSelect == CUT)
 	{
+		if (actAfterSelect == COPY)
+		{
+			pManager->GetOutput()->highlightItem(ITM_COPY);
+			pManager->GetOutput()->UnhighlightItem(ITM_CUT);
+			pManager->GetOutput()->drawToolBar();
+		}
+		else if (actAfterSelect == CUT)
+		{
+			pManager->GetOutput()->highlightItem(ITM_CUT);
+			pManager->GetOutput()->UnhighlightItem(ITM_COPY);
+			pManager->GetOutput()->drawToolBar();
+		}
+
 		actBeforePaste = actAfterSelect;
 		actAfterSelect = pManager->GetUserAction();
 	}
@@ -153,24 +166,37 @@ void Select::executeActionAfterSelect(ActionType)
 	switch (actAfterSelect)
 	{
 	case CHNG_DRAW_CLR:
+		pManager->GetOutput()->highlightItem(ITM_DRAW_CLR);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new ChngDrawClr(pManager, selectedFigures, selectedFigCount);
 		break;
 	case CHNG_FILL_CLR:
+		pManager->GetOutput()->highlightItem(ITM_FILL_CLR);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new ChngFillClr(pManager, selectedFigures, selectedFigCount);
 		break;
 	case DEL:
+		pManager->GetOutput()->highlightItem(ITM_DEL);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new Delete(pManager, selectedFigures, selectedFigCount);
 		break;
 	case MOVE:
+		pManager->GetOutput()->highlightItem(ITM_MOVE);
+		pManager->GetOutput()->drawToolBar();
 		pAct = new Move(pManager, selectedFigures, selectedFigCount,  firstSelectedFigure);
 		break;
 	case PASTE:
 	{
+		pManager->GetOutput()->highlightItem(ITM_PASTE);
+		pManager->GetOutput()->drawToolBar();
+
 		if (actBeforePaste == COPY)//select -> copy -> paste -> move 
 		{
 			//create copy action, and execute it
 			Copy* copyAction = new Copy(pManager, selectedFigures, selectedFigCount, firstSelectedFigure);
 			copyAction->Execute();
+			pManager->GetOutput()->UnhighlightItem(ITM_COPY);
+			pManager->GetOutput()->drawToolBar();
 
 			//create Paste Action, that take its parameters from copy action
 			pAct = new Paste(pManager, copyAction->getCopiedFigures(), copyAction->getNOfFigsToCopy(), copyAction->getFirstSelectedCopy());
@@ -199,6 +225,9 @@ void Select::executeActionAfterSelect(ActionType)
 			//delete delete action :D
 			delete delAction;
 			delAction = NULL;
+
+			pManager->GetOutput()->UnhighlightItem(ITM_CUT);
+			pManager->GetOutput()->drawToolBar();
 
 			actAfterSelect = DEL;//this to avoide unselect null figures
 		}
@@ -255,4 +284,8 @@ Select::~Select()
 	delete[] selectedFigures;
 	delete[] numberedClicked;
 	delete[] isSelectedArr;
+
+	pManager->GetOutput()->UnhighlightItem(ITM_SELECT);
+	pManager->GetOutput()->UnhighlightItem(ITM_COPY);//this because the user can cancel this operation without pasting
+	pManager->GetOutput()->UnhighlightItem(ITM_CUT);//this because the user can cancel this operation without pasting
 }
