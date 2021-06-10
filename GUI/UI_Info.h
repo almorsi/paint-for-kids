@@ -2,10 +2,13 @@
 #define UI_INFO_H
 
 #include "..\CMUgraphicsLib\CMUgraphics.h"
-
+#include "..\DEFS.h"
 //User Interface information file.
 //This file contains info that is needed by Input and Output classes to
 //handle the user interface
+
+void worldToScreen(Point& point);
+void screenToWorld(Point& point);
 
 enum GUI_MODE	//Graphical user interface mode
 {
@@ -102,7 +105,8 @@ struct UI_Info	//User Interface Info.
 		FreeSpaceInToolBar,	//realated to the item widht
 		BarPadding;			//padding in the (tool/status)bar between the items and the drawing area
 
-	
+	float scalingFactor;	
+
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
 	color HighlightColor;	//Highlighting color

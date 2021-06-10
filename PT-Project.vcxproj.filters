@@ -206,6 +206,9 @@
     <ClCompile Include="utilities\Vec2.cpp">
       <Filter>2D Vector</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\UI_util.cpp">
+      <Filter>GUI Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DEFS.h" />

@@ -196,6 +196,7 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="GUI\ToolBar.cpp" />
+    <ClCompile Include="GUI\UI_util.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utilities\Vec2.cpp" />
   </ItemGroup>
