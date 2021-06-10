@@ -8,37 +8,12 @@
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 #include "Actions\Select.h"
 #include "Actions\Load.h"
-
 #include "Actions\ToPlay.h"
-
 #include "Actions\Save.h"
 #include "Actions\Delete.h"
+#include <assert.h>
 
 Point ApplicationManager::point = { 0, 0 };
-
-void ApplicationManager::reArrangeFigList(int deletedFigs)
-{
-	int nOfUnDeletedFigs = FigCount - deletedFigs;
-
-	//figList is called by deleteFigures and there are some figures need to be reArranged
-	//first getting the notNulled figures from figList
-	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
-	for (int i = 0, j = 0; i < FigCount && j < nOfUnDeletedFigs; i++)
-	{
-		if (FigList[i] != NULL)//store it in notNulledFigures
-		{
-			notNulledFigures[j] = FigList[i];
-			FigList[i] = NULL;
-			j++;
-		}
-	}
-	//reArrange figList to only contain the notNUlledfigures
-	for (int i = 0; i < nOfUnDeletedFigs; i++)
-	{
-		FigList[i] = notNulledFigures[i];
-	}
-	delete[] notNulledFigures;
-}
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -245,23 +220,58 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	if(FigCount < MaxFigCount )
 		FigList[FigCount++] = pFig;	
 }
-void ApplicationManager::deleteFigures(CFigure** figsArray, const int size)
+//delete figures from figList
+void ApplicationManager::deleteFigures(CFigure** figsToDelete, const int size)
 {
-	int deletedCount = 0;//counter to count the deleted figures
 	for (int i = 0; i < size; i++)
 	{
-		if (figsArray[i] != NULL)//the fig is selected
-		{
-			delete GetFigure(figsArray[i]);
-			GetFigure(figsArray[i]) = NULL;
-			figsArray[i] = NULL;//must be nulled here also 
-			deletedCount++;
-		}
+		assert(figsToDelete[i] != NULL);
+
+		delete GetFigure(figsToDelete[i]); //free figure's memory
+		GetFigure(figsToDelete[i]) = NULL; //null it in figList
+		figsToDelete[i] = NULL;//must be nulled here also, to avoid unselect deleted figure 
 	}
 	//rearrange FigList
-	reArrangeFigList(deletedCount);
-	//need to resize the figList and figCount
-	FigCount -= deletedCount;
+	reArrangeFigList(size);
+	//update figCount
+	FigCount -= size;
+}
+void ApplicationManager::reArrangeFigList(int deletedFigsCount)
+{
+	int nOfUnDeletedFigs = FigCount - deletedFigsCount;
+
+	//figList is called by deleteFigures and there are some figures need to be reArranged
+	//first getting the notNulled figures from figList
+	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
+	for (int i = 0, j = 0; i < FigCount && j < nOfUnDeletedFigs; i++)
+	{
+		if (FigList[i] != NULL)//store it in notNulledFigures
+		{
+			notNulledFigures[j] = FigList[i];
+			FigList[i] = NULL;
+			j++;
+		}
+	}
+	//reArrange figList to only contain the notNUlledfigures
+	for (int i = 0; i < nOfUnDeletedFigs; i++)
+	{
+		FigList[i] = notNulledFigures[i];
+	}
+	delete[] notNulledFigures;
+}
+bool ApplicationManager::isSmallestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if (!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
+			return false;
+	return true;
+}
+bool ApplicationManager::isLargestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if (!FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea())
+			return false;
+	return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(Point p) const
@@ -281,6 +291,9 @@ CFigure* ApplicationManager::GetFigure(int index) const
 {
 	if(index < FigCount)
 		return FigList[index];
+
+	assert(false);
+	return NULL;
 }
 CFigure*& ApplicationManager::GetFigure(CFigure* fig) 
 {
@@ -289,6 +302,8 @@ CFigure*& ApplicationManager::GetFigure(CFigure* fig)
 		if (FigList[i] == fig)
 			return FigList[i];
 
+	assert(false);
+	return fig;
 }
 int ApplicationManager::getFigCount() const
 {
@@ -498,24 +513,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {	
-	pOut->drawToolBar();
 	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
-}
-bool ApplicationManager::isSmallestArea(CFigure* fig) const
-{
-	for (int i = 0; i < FigCount; i++)
-		if(!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
-			return false;
-	return true;
-}
-bool ApplicationManager::isLargestArea(CFigure* fig) const
-{
-	for (int i = 0; i < FigCount; i++)
-		if ( !FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea() )
-			return false;
-	return true;
+	pOut->drawToolBar();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

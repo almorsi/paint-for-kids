@@ -32,9 +32,9 @@ private:
 	static Point point; // this to make GetUserAction take defualt Point
 
 private:
-	void reArrangeFigList(int deletedFigs);
-	CFigure *GetFigure(int index) const; //Search for a figure given an index 
-	CFigure*& GetFigure(CFigure* fig) ; //Search for a figure return it 
+	void reArrangeFigList(int);
+	CFigure *GetFigure(int) const; //Search for a figure given an index 
+	CFigure*& GetFigure(CFigure*) ; //Search for a figure return it 
 public:	
 
 	ApplicationManager(); 
@@ -46,17 +46,17 @@ public:
 	void ExecuteAction(ActionType) ; //Creates an action and executes it
 	
 	// -- Figures Management Functions
-	CFigure *GetFigure(Point p) const; //Search for a figure given a point inside the figure
-	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
+	CFigure *GetFigure(Point) const; //Search for a figure given a point inside the figure
+	void AddFigure(CFigure*); //Adds a new figure to the FigList
 	//the array passed must be gauranteed it has the same number of figCount
-	void deleteFigures(CFigure** figsArray, const int size); //delete the figures passed
+	void deleteFigures(CFigure**,const int); //delete the figures passed
 	int getFigCount() const; //getting the current fig count
-	int getIndexOf(CFigure* fig) const; //getting the index of the passed figure in figList;
-	int FromClrToInt(color c);
-	color FromIntToClr(int n);
-	void saveData(ofstream &OutFile);
-	void loadData(ifstream& Infile);
-	void loadDataFigs(vector<string>& data);
+	int getIndexOf(CFigure*) const; //getting the index of the passed figure in figList;
+	int FromClrToInt(color);
+	color FromIntToClr(int);
+	void saveData(ofstream&);
+	void loadData(ifstream&);
+	void loadDataFigs(vector<string>&);
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
@@ -64,8 +64,8 @@ public:
 
 	// -- play mode functions
 
-	bool isSmallestArea(CFigure* fig) const;
-	bool isLargestArea(CFigure* fig) const;
+	bool isSmallestArea(CFigure*) const;
+	bool isLargestArea(CFigure*) const;
 };
 
 #endif
