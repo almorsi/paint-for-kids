@@ -15,14 +15,14 @@ Output::Output()
 	//DToolBar = new ToolBar(DRAW_ITM_COUNT);
 	//Initialize user interface parameters
 	UI.InterfaceMode		= MODE_DRAW;
-	UI.FreeSpaceInToolBar	= 1;
+	UI.FreeSpaceInToolBar	= 3;
 	UI.MenuItemWidth		= 48;
 	UI.MenuItemHeight		= 48;
 	UI.BarPadding			= 2;
 
 	UI.width				= UI.MaxNItems * UI.MenuItemWidth + UI.FreeSpaceInToolBar * UI.MenuItemWidth;
-	//UI.height				= UI.MenuItemHeight * UI.MaxNItems - UI.FreeSpaceInToolBar * UI.MenuItemWidth;
-	UI.height = 800;
+	UI.height				= UI.MenuItemHeight * UI.MaxNItems - UI.FreeSpaceInToolBar * UI.MenuItemWidth;
+	//UI.height = 800;
 	UI.wx					= 200;//the window x position relative to the screen
 	UI.wy					= 10;//the window y position relative to the screen // to fit Mohammad screen
 
@@ -39,7 +39,8 @@ Output::Output()
 	UI.StatusBarColor		= color(250, 255, 204);		//same as the tool bar color
 	UI.PenWidth				= 3;						//width of the figures frames
 
-	
+	UI.scalingFactor		= 1.0f;						//scaling factor to zoom IN and out
+		
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	//Change the title
@@ -127,6 +128,14 @@ void Output::ClearDrawArea() const
 	pWind->DrawRectangle(0, UI.ToolBarHeight , UI.width, UI.height - UI.StatusBarHeight);
 	
 }
+void Output::zoomIn() const
+{
+	UI.scalingFactor *= 1.1f;
+}
+void Output::zoomOut() const
+{
+	UI.scalingFactor *= 0.9f;
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void Output::PrintMessage(string msg) const	//Prints a message on status bar
@@ -178,6 +187,8 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	else	
 		style = FRAME;
 
+	worldToScreen(P1);
+	worldToScreen(P2);
 	
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
 	
@@ -195,6 +206,8 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected ) c
 	
 	drawstyle style = FRAME;
 
+	worldToScreen(P1);
+	worldToScreen(P2);
 
 	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
 
@@ -218,6 +231,8 @@ void Output::DrawCirc(Point P1, int r, GfxInfo CircleGfxInfo, bool selected) con
 	else
 		style = FRAME;
 
+	worldToScreen(P1);
+	r = int(r * UI.scalingFactor);
 
 	pWind->DrawCircle(P1.x, P1.y, r, style);
 }
@@ -240,6 +255,9 @@ void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool sele
 	else
 		style = FRAME;
 
+	worldToScreen(P1);
+	worldToScreen(P2);
+	worldToScreen(P3);
 
 	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
 

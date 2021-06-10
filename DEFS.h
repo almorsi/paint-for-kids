@@ -30,13 +30,10 @@ enum ActionType //The actions supported (you can add more if needed)
 	CUT,			//Cut figures
 	PASTE,			//paste figures
 	RESIZE,			//Resize a figure(s)
-	ROTATE,			//Rotate a figure(s)
-	SEND_BACK,		//Send a figure to the back of all figures
-	BRNG_FRNT,		//Bring a figure to the front of all figures
+	ZOOM_IN,		//Zoom In
+	ZOOM_OUT,		//Zoom Out
 	SAVE,			//Save the whole graph to a file
 	LOAD,			//Load a graph from a file
-	REDO,           //Undo action
-	UNDO,           //Redo action
 
 	//Play mode actions
 	RE_PLAY,		//RePlay the game

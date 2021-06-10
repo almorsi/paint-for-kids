@@ -74,13 +74,10 @@ ActionType Input::GetUserAction(Point& p) const
 			case ITM_CUT		: return CUT		  ;
 			case ITM_PASTE		: return PASTE		  ;
 			case ITM_RESIZE		: return RESIZE		  ;
-			case ITM_ROTATE		: return ROTATE		  ;
-			case ITM_SEND_BACK	: return SEND_BACK	  ;
-			case ITM_BRNG_FRNT	: return BRNG_FRNT    ; 
+			case ITM_ZOOMIN		: return ZOOM_IN	  ;
+			case ITM_ZOOMOUT	: return ZOOM_OUT	  ;
 			case ITM_SAVE		: return SAVE		  ;
 			case ITM_LOAD		: return LOAD		  ;
-			case ITM_UNDO		: return UNDO		  ;
-			case ITM_REDO		: return REDO		  ;
 			case ITM_EXIT		: return EXIT		  ;
 			
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -90,6 +87,7 @@ ActionType Input::GetUserAction(Point& p) const
 		//[2] User clicks on the drawing area
 		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
+			screenToWorld(p);
 			return DRAWING_AREA;	
 		}
 		
@@ -119,6 +117,7 @@ ActionType Input::GetUserAction(Point& p) const
 		//[2] User clicks on the drawing area
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
+			screenToWorld(p);
 			return DRAWING_AREA;
 		}
 

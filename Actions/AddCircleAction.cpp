@@ -20,11 +20,12 @@ void AddCircleAction::ReadActionParameters()
 
 	//Read 1st edge and store in point P1
 	pIn->GetPointClicked(P1.x, P1.y);
-
+	screenToWorld(P1);
 	pOut->PrintMessage("New Circle: Click at second edge");
 
 	//Read 2nd edge and store in point P2
 	pIn->GetPointClicked(P2.x, P2.y);
+	screenToWorld(P2);
 
 	CircleGfxInfo.isFilled = false;	//default is not filled
 	CircleGfxInfo.FillClr = WHITE;	//default to White, to make the colorType notFilled, this is a must
