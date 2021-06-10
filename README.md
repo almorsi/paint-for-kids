@@ -5,27 +5,27 @@
 
 ## Features
 ### Draw Mode:paintbrush:
-- [ ] Add Figures
-- [ ] Change Cureent Colors
-- [ ] Select Figure(s)
-- [ ] Resize Figure(s)
-- [ ] Zoom in/out Graph
-- [ ] Delete Figures
-- [ ] Move Figure(s)
-- [ ] Copy Figure(s)
-- [ ] Cut Figure(s)
-- [ ] Paste Figure(s)
-- [ ] Save Graph
-- [ ] Load Graph
-- [ ] Switch to Play Mode
-- [ ] Exit
+- [x] Add Figures
+- [x] Change Cureent Colors
+- [x] Select Figure(s)
+- [x] Resize Figure(s)
+- [x] Zoom in/out Graph
+- [x] Delete Figures
+- [x] Move Figure(s)
+- [x] Copy Figure(s)
+- [x] Cut Figure(s)
+- [x] Paste Figure(s)
+- [x] Save Graph
+- [x] Load Graph
+- [x] Switch to Play Mode
+- [x] Exit
 ### Play Mode:cartwheeling::sparkles:
-- [ ] Pick & Hide
-  - [ ] Figure Type Game
-  - [ ] Figures Fill color Game
-  - [ ] Figure Type and Color Game
-  - [ ] Figure Area Game
-- [ ] Switch to Draw Mode 
+- [x] Pick & Hide
+  - [x] Figure Type Game
+  - [x] Figures Fill color Game
+  - [x] Figure Type and Color Game
+  - [x] Figure Area Game
+- [x] Switch to Draw Mode 
 
 ## Requirements To Run:stop_sign:
 this code will run only on **_visual stuido 19_**, and not on other versions.
