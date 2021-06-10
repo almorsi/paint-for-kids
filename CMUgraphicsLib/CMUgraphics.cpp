@@ -11,6 +11,7 @@ This file was last modified on 05.16.1999
 #include "CMUgraphics.h"
 #include "error.h"
 #include "windowinput.h"
+#include "..\resource.h"
 
 // Keeps track of key and mouse input and redirects it to the
 // appropriate window object
@@ -208,14 +209,14 @@ hInstance(GetModuleHandle(0)), iWindowWidth(iWindWidth), iWindowHeight(iWindHeig
 	wndcWindow.cbClsExtra = 0;
 	wndcWindow.cbWndExtra = 0;
 	wndcWindow.hInstance = hInstance;
-	wndcWindow.hIcon = NULL;
+	wndcWindow.hIcon = LoadIcon(hInstance,MAKEINTRESOURCE(IDI_MYICON1));
 	wndcWindow.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndcWindow.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndcWindow.lpszMenuName = NULL;
 	wndcWindow.lpszClassName = ccDefWindClassName;
 	RegisterClass(&wndcWindow);
 
-	hwndWindow = CreateWindow(ccDefWindClassName, ccDefWindTitle, WS_CAPTION | WS_SYSMENU | WS_VISIBLE | WS_MINIMIZEBOX , iWindXPos, 
+	hwndWindow = CreateWindow(ccDefWindClassName, ccDefWindTitle, WS_CAPTION  | WS_VISIBLE | WS_SYSMENU , iWindXPos, 
 		                      iWindYPos, iWindowWidth + GetSystemMetrics(SM_CXEDGE), 
 							  iWindowHeight + GetSystemMetrics(SM_CYCAPTION) + GetSystemMetrics(SM_CYEDGE) - 1, // Not sure why I need to subtract 1
 							  HWND_DESKTOP, NULL, hInstance, 0);

@@ -128,8 +128,12 @@
     <ClInclude Include="Actions\GameColorShape.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
 </Project>
