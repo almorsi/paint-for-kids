@@ -98,32 +98,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		std::cout << "Action: SELECT" << std::endl;
 		pAct = new Select(this);
 		break;
-	case DEL:
-		std::cout << "Action: DEL" << std::endl;
+	case ZOOM_IN:
+		std::cout << "Action: Zoom IN" << std::endl;
 		break;
-	case MOVE:
-		std::cout << "Action: MOVE" << std::endl;
-		break;
-	case COPY:
-		std::cout << "Action: COPY" << std::endl;
-		break;
-	case CUT:
-		std::cout << "Action: CUT" << std::endl;
-		break;
-	case PASTE:
-		std::cout << "Action: PASTE" << std::endl;
-		break;
-	case RESIZE:
-		std::cout << "Action: RESIZE" << std::endl;
-		break;
-	case ROTATE:
-		std::cout << "Action: ROTATE" << std::endl;
-		break;
-	case SEND_BACK:
-		std::cout << "Action: SEND_BACK" << std::endl;
-		break;
-	case BRNG_FRNT:
-		std::cout << "Action: BRNG_FRNT" << std::endl;
+	case ZOOM_OUT:
+		std::cout << "Action: Zoom Out" << std::endl;
 		break;
 	case SAVE:
 		std::cout << "Action: SAVE" << std::endl;
@@ -159,27 +138,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		}
 	}
-	case REDO:
-		std::cout << "Action: REDO" << std::endl;
-		break;
-	case UNDO:
-		std::cout << "Action: UNDO" << std::endl;
-		break;
-	case RE_PLAY:
-		std::cout << "Action: RE_PLAY" << std::endl;
-		break;
-	case SHAPE_ONLY:
-		std::cout << "Action: SHAPE_ONLY" << std::endl;
-		break;
-	case CLR_ONLY:
-		std::cout << "Action: CLR_ONLY" << std::endl;
-		break;
-	case SHAPE_N_CLR:
-		std::cout << "Action: SHAPE_N_CLR" << std::endl;
-		break;
-	case AREA:
-		std::cout << "Action: AREA" << std::endl;
-		break;
 	case EXIT:
 	{
 		pOut->PrintMessage(std::string("<< choose 1 if you want to save and choose 0 if you want to close >>"));//checks if user will save or close

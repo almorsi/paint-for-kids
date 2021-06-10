@@ -15,14 +15,14 @@ Output::Output()
 	//DToolBar = new ToolBar(DRAW_ITM_COUNT);
 	//Initialize user interface parameters
 	UI.InterfaceMode		= MODE_DRAW;
-	UI.FreeSpaceInToolBar	= 1;
+	UI.FreeSpaceInToolBar	= 3;
 	UI.MenuItemWidth		= 48;
 	UI.MenuItemHeight		= 48;
 	UI.BarPadding			= 2;
 
 	UI.width				= UI.MaxNItems * UI.MenuItemWidth + UI.FreeSpaceInToolBar * UI.MenuItemWidth;
-	//UI.height				= UI.MenuItemHeight * UI.MaxNItems - UI.FreeSpaceInToolBar * UI.MenuItemWidth;
-	UI.height = 800;
+	UI.height				= UI.MenuItemHeight * UI.MaxNItems - UI.FreeSpaceInToolBar * UI.MenuItemWidth;
+	//UI.height = 800;
 	UI.wx					= 200;//the window x position relative to the screen
 	UI.wy					= 10;//the window y position relative to the screen // to fit Mohammad screen
 

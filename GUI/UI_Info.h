@@ -38,13 +38,10 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_CUT,		//cut selected items
 	ITM_PASTE,		//paste seleted items
 	ITM_RESIZE,     //Resize selected item
-	ITM_ROTATE,     //Rotate seleted item
-	ITM_SEND_BACK,  //Send back selected item
-	ITM_BRNG_FRNT,  //Send front selected item
+	ITM_ZOOMIN,		//Zoom the whole graph IN
+	ITM_ZOOMOUT,	//Zoom the whole graph Out
 	ITM_SAVE,       //Save data
 	ITM_LOAD,       //Load data
-	ITM_UNDO,       //Undo action
-	ITM_REDO,       //redo action
 	ITM_EXIT,		//Exit item
 
 	DRAW_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum
