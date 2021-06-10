@@ -27,6 +27,8 @@ public:
 	void drawCleanStatusBar() const;	//Clears the status bar
 	void ClearDrawArea()  const;		//Clears the drawing area
 
+	void zoomIn() const;
+	void zoomOut() const;
 
 	
 	// -- Figures Drawing functions

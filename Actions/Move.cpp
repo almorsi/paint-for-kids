@@ -24,7 +24,7 @@ void Move::ReadActionParameters()
 	pOut->PrintMessage("Click on a Point to move to");//ask the user to click on the destaintation point
 
 	pIn->GetPointClicked(newPointClicked);//getting the destatnation point
-
+	screenToWorld(newPointClicked);
 	//do some linear algebra to calculate the incremental vec
 	Vec2 newPClic = { newPointClicked.x, newPointClicked.y };
 	Vec2 criticPoint = { firstSelectedFig->getCriticalPoint().x,

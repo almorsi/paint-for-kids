@@ -46,8 +46,8 @@ void GameAction::Execute()
                 nOfWrongAns++;
 
             fig->setHidden(true);
-            printGameState();
             pManager->UpdateInterface();
+            printGameState();
         }
 
         if (isGameOver())

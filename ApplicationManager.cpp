@@ -100,8 +100,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case ZOOM_IN:
 		std::cout << "Action: Zoom IN" << std::endl;
+		pOut->zoomIn();
 		break;
 	case ZOOM_OUT:
+		pOut->zoomOut();
 		std::cout << "Action: Zoom Out" << std::endl;
 		break;
 	case SAVE:
@@ -475,6 +477,7 @@ void ApplicationManager::UpdateInterface() const
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 	pOut->drawToolBar();
+	pOut->drawCleanStatusBar();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
