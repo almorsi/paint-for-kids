@@ -1,7 +1,7 @@
 #include "ColorWin.h"
 #include <iostream>
 
-ColorWin::ColorWin(ColorType clrToChage)
+ColorWin::ColorWin(WindowColorType clrToChage)
 {
 
 	CWI.menuItemWidth = 48;
@@ -37,7 +37,7 @@ window* ColorWin::createWind()
 void ColorWin::drawItems()
 {
 	std::string basePath = "images\\MenuItems\\C\\";
-	int nCol = CHNG_COLR_ITM_COUNT / 2;
+	int nCol = CHNG_COLR_ITM_COUNT / 2;//asumming even count
 	int nRow = 2;
 	
 	//initialize the file name by mapping from 2D coordinates to 1D array
@@ -56,7 +56,7 @@ color ColorWin::getColorClicked() const
 	int x,y;
 	pWin->WaitMouseClick(x, y);
 	
-	//mapping from 2D coordinated to 1D array
+	//mapping from 2D coordinates to 1D array
 	int indexClicked = (x / CWI.menuItemWidth) + (y / CWI.menuItemHeight)*(CHNG_COLR_ITM_COUNT/2);
 
 	switch (indexClicked)
@@ -76,7 +76,7 @@ color ColorWin::getColorClicked() const
 		{
 		case BACKGROUND: return UI.BkGrndColor;
 		case DRAW: return UI.DrawColor;
-		default /*ITM_FILL*/: return UI.FillColor;
+		default /*FILL*/: return UI.FillColor;
 		}
 	}
 	}

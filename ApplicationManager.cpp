@@ -8,37 +8,12 @@
 #include "Actions\ChangeColorActions\ChngFillClr.h"
 #include "Actions\Select.h"
 #include "Actions\Load.h"
-
 #include "Actions\ToPlay.h"
-
 #include "Actions\Save.h"
 #include "Actions\Delete.h"
+#include <assert.h>
 
 Point ApplicationManager::point = { 0, 0 };
-
-void ApplicationManager::reArrangeFigList(int deletedFigs)
-{
-	int nOfUnDeletedFigs = FigCount - deletedFigs;
-
-	//figList is called by deleteFigures and there are some figures need to be reArranged
-	//first getting the notNulled figures from figList
-	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
-	for (int i = 0, j = 0; i < FigCount && j < nOfUnDeletedFigs; i++)
-	{
-		if (FigList[i] != NULL)//store it in notNulledFigures
-		{
-			notNulledFigures[j] = FigList[i];
-			FigList[i] = NULL;
-			j++;
-		}
-	}
-	//reArrange figList to only contain the notNUlledfigures
-	for (int i = 0; i < nOfUnDeletedFigs; i++)
-	{
-		FigList[i] = notNulledFigures[i];
-	}
-	delete[] notNulledFigures;
-}
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -245,23 +220,58 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	if(FigCount < MaxFigCount )
 		FigList[FigCount++] = pFig;	
 }
-void ApplicationManager::deleteFigures(CFigure** figsArray, const int size)
+//delete figures from figList
+void ApplicationManager::deleteFigures(CFigure** figsToDelete, const int size)
 {
-	int deletedCount = 0;//counter to count the deleted figures
 	for (int i = 0; i < size; i++)
 	{
-		if (figsArray[i] != NULL)//the fig is selected
-		{
-			delete GetFigure(figsArray[i]);
-			GetFigure(figsArray[i]) = NULL;
-			figsArray[i] = NULL;//must be nulled here also 
-			deletedCount++;
-		}
+		assert(figsToDelete[i] != NULL);
+
+		delete GetFigure(figsToDelete[i]); //free figure's memory
+		GetFigure(figsToDelete[i]) = NULL; //null it in figList
+		figsToDelete[i] = NULL;//must be nulled here also, to avoid unselect deleted figure 
 	}
 	//rearrange FigList
-	reArrangeFigList(deletedCount);
-	//need to resize the figList and figCount
-	FigCount -= deletedCount;
+	reArrangeFigList(size);
+	//update figCount
+	FigCount -= size;
+}
+void ApplicationManager::reArrangeFigList(int deletedFigsCount)
+{
+	int nOfUnDeletedFigs = FigCount - deletedFigsCount;
+
+	//figList is called by deleteFigures and there are some figures need to be reArranged
+	//first getting the notNulled figures from figList
+	CFigure** notNulledFigures = new CFigure * [nOfUnDeletedFigs]();//initialize them to NULL
+	for (int i = 0, j = 0; i < FigCount && j < nOfUnDeletedFigs; i++)
+	{
+		if (FigList[i] != NULL)//store it in notNulledFigures
+		{
+			notNulledFigures[j] = FigList[i];
+			FigList[i] = NULL;
+			j++;
+		}
+	}
+	//reArrange figList to only contain the notNUlledfigures
+	for (int i = 0; i < nOfUnDeletedFigs; i++)
+	{
+		FigList[i] = notNulledFigures[i];
+	}
+	delete[] notNulledFigures;
+}
+bool ApplicationManager::isSmallestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if (!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
+			return false;
+	return true;
+}
+bool ApplicationManager::isLargestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if (!FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea())
+			return false;
+	return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(Point p) const
@@ -281,6 +291,9 @@ CFigure* ApplicationManager::GetFigure(int index) const
 {
 	if(index < FigCount)
 		return FigList[index];
+
+	assert(false);
+	return NULL;
 }
 CFigure*& ApplicationManager::GetFigure(CFigure* fig) 
 {
@@ -289,6 +302,8 @@ CFigure*& ApplicationManager::GetFigure(CFigure* fig)
 		if (FigList[i] == fig)
 			return FigList[i];
 
+	assert(false);
+	return fig;
 }
 int ApplicationManager::getFigCount() const
 {
@@ -377,12 +392,14 @@ void ApplicationManager::loadData(ifstream& Infile)
 		{
 			UI.DrawColor = FromIntToClr(std::stoi(Data[0]));
 			UI.FillColor = FromIntToClr(std::stoi(Data[1]));
-			//if loaded it fill all un filled shapes with this color
 			UI.BkGrndColor = FromIntToClr(std::stoi(Data[2]));
 		}
 		else if (rownum == 1)
 		{
-			//FigCount = std::stoi(Data[0]);
+			//bug must be fixed this will diff if the user choose to delecte then load
+			//or save the current and load the file (drawing the loaded with the current drawn)
+			//this line->//FigCount = std::stoi(Data[0]);
+			//
 		}
 		else
 		{
@@ -406,7 +423,7 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		finish.y = std::stoi(data[5]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
 		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
-		FigGfxInfo.FillClr = pOut->getCrntFillColor();
+		FigGfxInfo.FillClr = WHITE;
 		FigGfxInfo.isFilled = false;
 		CFigure* fig = new CLine(ID,start, finish, FigGfxInfo);
 		AddFigure(fig);
@@ -423,7 +440,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		Corner2.y = std::stoi(data[5]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
 		if (std::stoi(data[7]) == 9)
+		{
 			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
 		else
 		{
 			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[7]));
@@ -447,7 +467,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		point3.y = std::stoi(data[7]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[8]));
 		if (std::stoi(data[9]) == 9)
+		{
 			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
 		else
 		{
 			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[9]));
@@ -469,7 +492,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 		radius = std::stoi(data[4]);
 		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[5]));
 		if (std::stoi(data[6]) == 9)
+		{
 			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
 		else
 		{
 			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[6]));
@@ -487,24 +513,10 @@ void ApplicationManager::loadDataFigs(vector<string>& data)
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {	
-	pOut->drawToolBar();
 	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
-}
-bool ApplicationManager::isSmallestArea(CFigure* fig) const
-{
-	for (int i = 0; i < FigCount; i++)
-		if(!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
-			return false;
-	return true;
-}
-bool ApplicationManager::isLargestArea(CFigure* fig) const
-{
-	for (int i = 0; i < FigCount; i++)
-		if ( !FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea() )
-			return false;
-	return true;
+	pOut->drawToolBar();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

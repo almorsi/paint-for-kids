@@ -42,13 +42,14 @@ void GameAction::Execute()
         {
             if (isRightChoise(fig))
                 nOfRightAns++;
-            else
+            else//wrong choise
                 nOfWrongAns++;
 
             fig->setHidden(true);
             printGameState();
             pManager->UpdateInterface();
         }
+
         if (isGameOver())
         {
             printGrade();
@@ -62,6 +63,7 @@ void GameAction::Execute()
         playAction = pIn->GetUserAction(pointClicked);
 
     } while (!isControlActoin(playAction));
+
     pOut->drawCleanStatusBar();
 }
 

@@ -82,7 +82,7 @@ enum ChngColorWindItem
 	CHNG_COLR_ITM_COUNT	//must be the last one, and prefered to be even number
 };
 
-enum ColorType
+enum WindowColorType
 {
 	BACKGROUND, //Background color
 	DRAW,		//drawing color

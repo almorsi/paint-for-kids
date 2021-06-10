@@ -13,10 +13,10 @@ void ChngFillClr::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 
-	pOut->openClrWin(FILL);
+	pOut->openClrWin(FILL);//open color window
 	pOut->PrintMessage("please choose a color from the window above");
-	clrToChng = pOut->getChangedColor();
-	pOut->closeClrWin();
+	newColor = pOut->getChangedColor();//getting the color chosen by the user
+	pOut->closeClrWin();//close color window
 
 	pOut->drawCleanStatusBar();
 }
@@ -25,11 +25,13 @@ void ChngFillClr::Execute()
 {
 	ReadActionParameters();
 
-	UI.FillColor = clrToChng;
+	//change the default fill color
+	UI.FillColor = newColor;
 
+	//change fill color of selected figures if there is any
 	for (int i = 0; i < nOfFigures; i++)
 	{
-		figuresToChangeTheirColor[i]->ChngFillClr(clrToChng);
+		figuresToChangeTheirColor[i]->ChngFillClr(newColor);
 	}
 
 }

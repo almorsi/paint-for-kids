@@ -3,6 +3,7 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
+	//making sure point1 is upper point of the triangle
 	if (P1.y > P3.y)
 	{
 		std::swap(P1.y, P3.y);
@@ -22,15 +23,135 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	point1 = P1;
 	point2 = P2;
 	point3 = P3;
+	//
+
 	figType = TYPE_TRIANGLE;
-	area = getTriArea(point1, point2, point3);
+
+	figtype = TRIANGLE;
+
 	ID=3300+newID++;
+	
+	//setting area and center of triangle
+	area = getTriArea(point1, point2, point3);
+
 	center.x = int(float(point1.x + point2.x + point3.x) / 3);
 	center.y = int(float(point1.y + point2.y + point3.y) / 3);
-	figtype = TRIANGLE;
 }
 
-CTriangle::CTriangle(int id,Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
+
+float CTriangle::getTriArea(Point p1, Point p2, Point p3) const
+{
+	//math :(
+	return std::abs(0.5f * (float((p1.x - p2.x) * (p1.y - p3.y)) - float((p1.x - p3.x) * (p1.y - p2.y))));
+}
+
+void CTriangle::Draw(Output* pOut) const
+{
+	//Call Output::DrawTri to draw a Triangle on the screen	
+	if(!isHidden())
+		pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
+}
+
+
+bool CTriangle::isInsideMe(Point p) const 
+{
+	if (isHidden())
+		return false;
+
+	float Area1 = getTriArea(point1,point2,p);
+	float Area2 = getTriArea(point1,point3,p);
+	float Area3 = getTriArea(point2,point3,p);
+	float sumArea = Area1 + Area2 + Area3;
+
+	bool equalAreaCond = sumArea/area >= 0.9f && sumArea/area <= 1.1f;
+
+	if (FigGfxInfo.isFilled)
+	{
+		return equalAreaCond;
+	}
+	else //not filled
+	{
+		//fixed
+		//bug, if p is in the same line as any one of the bases it will return incorrect value
+		//the point is on triangle if one of the areas approaches zero
+		float minArea = min(Area1, min(Area2, Area3));
+		//after getting the minArea calculating the ratio of minArea with respect to the other areas
+		float areaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
+		//this ratio must approach one for the point to be on the triangle
+		return equalAreaCond && (areaRatio >= 0.9f && areaRatio <= 1.1f);
+		//
+	}
+}
+
+
+void CTriangle::Move(Point newPoint)
+{
+	//some linear algebra
+	Vec2 v1 = Vec2(point1.x, point1.y);
+	Vec2 v2 = Vec2(point2.x, point2.y);
+	Vec2 v3 = Vec2(point3.x, point3.y);
+	Vec2 newP = Vec2(newPoint.x, newPoint.y);
+
+	Vec2 moveBy = (newP - v1).GetNormalized() * (newP - v1).GetLength();
+	v2 += moveBy;
+	v3 += moveBy;
+	point1 = newPoint;
+	point2 = {int(v2.x), int(v2.y)};
+	point3 = { int(v3.x), int(v3.y) };
+}
+
+Point CTriangle::getCriticalPoint() const
+{
+	return point1;
+}
+
+CFigure* CTriangle::getCopy() const
+{
+	return new CTriangle(point1, point2, point3, FigGfxInfo);
+}
+
+void CTriangle::Resize(float r)
+{
+	Vec2 v1 = Vec2(point1.x, point1.y);
+	Vec2 v2 = Vec2(point2.x, point2.y);
+	Vec2 v3 = Vec2(point3.x, point3.y);
+	Vec2 cent = Vec2(center.x, center.y);
+	//change from int to float
+	if (r >= 0.0f && r < 1.0f)
+	{
+		v1 = ((cent - v1) * (1.0f - r)) + v1;
+		v2 = ((cent - v2) * (1.0f - r)) + v2;
+		v3 = ((cent - v3) * (1.0f - r)) + v3;
+	}
+	else
+	{
+		v1 = cent - ((cent - v1) * r);
+		v2 = cent - ((cent - v2) * r);
+		v3 = cent - ((cent - v3) * r);
+	}
+	point1.x = int(v1.x);
+	point1.y = int(v1.y);
+	point2.x = int(v2.x);
+	point2.y = int(v2.y);
+	point3.x = int(v3.x);
+	point3.y = int(v3.y);
+	//bug fixed
+	area = getTriArea(point1, point2, point3);
+	//
+}
+
+void CTriangle::Save(ofstream& OutFile)
+{
+	OutFile << figtype << "," << (ID) << "," << point1.x<<","<<point1.y<<","  << point2.x << "," << point2.y << ","  << point3.x << "," << point3.y << "," << drawclr << "," << fillclr << std::endl;
+}
+
+void CTriangle::PrintInfo(Output* pOut) const 
+{
+	pOut->PrintMessage(std::string("<<ID: ")+std::to_string(ID)+" <<Vertices: ( " + std::to_string(point1.x)+", "+ std::to_string(point1.y)+ " ), ( " + std::to_string(point2.x)+ ", " + std::to_string(point2.y)+ " ), ( " + std::to_string(point3.x)+ ", " + std::to_string(point3.y)+" ) <<Area: "+std::to_string(int(area)) + " <<center: ( " + std::to_string(center.x) + ", " + std::to_string(center.y) + " )");
+}
+
+
+CTriangle::CTriangle(int id, Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
@@ -60,120 +181,3 @@ CTriangle::CTriangle(int id,Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo)
 	center.y = int(float(point1.y + point2.y + point3.y) / 3.0f);
 	figtype = TRIANGLE;
 }
-
-
-float CTriangle::getTriArea(Point p1, Point p2, Point p3) const
-{
-	return std::abs(0.5f * (float((p1.x - p2.x) * (p1.y - p3.y)) - float((p1.x - p3.x) * (p1.y - p2.y))));
-}
-
-void CTriangle::Resize(float r)
-{
-	Vec2 v1 = Vec2(point1.x, point1.y);
-	Vec2 v2 = Vec2(point2.x, point2.y);
-	Vec2 v3 = Vec2(point3.x, point3.y);
-	Vec2 cent = Vec2(center.x, center.y);
-	//change from int to float
-	if (r >= 0.0f && r < 1.0f)
-	{
-		v1 = ((cent - v1) * (1.0f - r)) + v1;
-		v2 = ((cent - v2) * (1.0f - r)) + v2;
-		v3 = ((cent - v3) * (1.0f - r)) + v3;
-	}
-	else
-	{
-		v1 = cent - ((cent - v1) * r);
-		v2 = cent - ((cent - v2) * r);
-		v3 = cent - ((cent - v3) * r);
-	}
-	point1.x = int(v1.x);
-	point1.y = int(v1.y);
-	point2.x = int(v2.x);
-	point2.y = int(v2.y);
-	point3.x = int(v3.x);
-	point3.y = int(v3.y);
-	//bug
-	area = getTriArea(point1, point2, point3);
-	//
-}
-
-void CTriangle::Draw(Output* pOut) const
-{
-	//Call Output::DrawTri to draw a Triangle on the screen	
-	if(!isHidden())
-		pOut->DrawTri(point1, point2,point3, FigGfxInfo, Selected);
-}
-
-
-bool CTriangle::isInsideMe(Point p) const 
-{
-	if (isHidden())
-		return false;
-
-	float Area1 = getTriArea(point1,point2,p);
-	float Area2 = getTriArea(point1,point3,p);
-	float Area3 = getTriArea(point2,point3,p);
-	float sumArea = Area1 + Area2 + Area3;
-	if (FigGfxInfo.isFilled)
-	{
-		return min(sumArea, area) / max(sumArea, area) >= 0.9 && min(sumArea, area) / max(sumArea, area) <= 1.1;
-		//return std::abs(sumArea - area) >= 0.0f && std::abs(sumArea - area) <= 0.1f;
-	}
-	else //not filled
-	{
-		//fixed
-		//bug, if p is in the same line as any one of the bases it will return incorrect value
-		//the point is on triangle if one of the areas approaches zero
-		float minArea = min(Area1, min(Area2, Area3));
-		//after getting the minArea calculating the ratio of minArea with respect to the other areas
-		float areaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
-		//this ratio must approach one for the point to be on the triangle
-		return (areaRatio >= 0.9f && areaRatio <= 1.1f) 
-			&& (min(sumArea, area) / max(sumArea, area) >= 0.9 && min(sumArea, area) / max(sumArea, area) <= 1.1);
-		//
-	}
-}
-
-
-void CTriangle::Move(Point newPoint)
-{
-	Vec2 v1 = Vec2(point1.x, point1.y);
-	Vec2 v2 = Vec2(point2.x, point2.y);
-	Vec2 v3 = Vec2(point3.x, point3.y);
-	Vec2 newP = Vec2(newPoint.x, newPoint.y);
-
-	Vec2 moveBy = (newP - v1).GetNormalized() * (newP - v1).GetLength();
-	v2 += moveBy;
-	v3 += moveBy;
-	point1 = newPoint;
-	point2 = {int(v2.x), int(v2.y)};
-	point3 = { int(v3.x), int(v3.y) };
-}
-
-void CTriangle::moveBy(Vec2 incr)
-{
-	Vec2 newP = Vec2(point1.x, point1.y) + incr;
-	Point newPoint = { int(newP.x), int(newP.y) };
-	Move(newPoint);
-}
-
-Point CTriangle::getCriticalPoint() const
-{
-	return point1;
-}
-
-CFigure* CTriangle::getCopy() const
-{
-	return new CTriangle(point1, point2, point3, FigGfxInfo);
-}
-
-void CTriangle::Save(ofstream& OutFile)
-{
-	OutFile << figtype << "," << (ID) << "," << point1.x<<","<<point1.y<<","  << point2.x << "," << point2.y << ","  << point3.x << "," << point3.y << "," << drawclr << "," << fillclr << std::endl;
-}
-
-void CTriangle::PrintInfo(Output* pOut) const 
-{
-	pOut->PrintMessage(std::string("<<ID: ")+std::to_string(ID)+" <<Vertices: ( " + std::to_string(point1.x)+", "+ std::to_string(point1.y)+ " ), ( " + std::to_string(point2.x)+ ", " + std::to_string(point2.y)+ " ), ( " + std::to_string(point3.x)+ ", " + std::to_string(point3.y)+" ) <<Area: "+std::to_string(int(area)) + " <<center: ( " + std::to_string(center.x) + ", " + std::to_string(center.y) + " )");
-}
-

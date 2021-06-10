@@ -4,10 +4,15 @@
 class Paste : public Action
 {
 private:
+
 	CFigure** copiedFigures;//pointer to the copied Figures returned by Copy
+
 	CFigure* firstCopiedfig;//pointer to the first one copied figure returned by Copy
+
 	Move* moveAction;//paste needs move action to do the job
-	int nOfCopiedFigs;//size of the copied figures
+
+	const int nOfCopiedFigs;//size of the copied figures
+
 public:
 	Paste(ApplicationManager* pApp, CFigure** copiedFigs, const int nCopied, CFigure* firstCopied); //constructor
 

@@ -10,10 +10,14 @@ Delete::Delete(ApplicationManager* pApp, CFigure** selectedFigs, const int size)
 
 void Delete::ReadActionParameters()
 {
-	//already readed by select action
+	//already readed by select action, i.e. selected figure will be deleted
 }
 
 void Delete::Execute()
 {
 	pManager->deleteFigures(figsToDelete, nToDeleted);
+}
+
+Delete::~Delete()
+{
 }

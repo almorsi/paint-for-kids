@@ -8,25 +8,35 @@ class GameAction : public Action
 protected:
 
 	CFigure** FiguresDrawn;
+
 	const int nOfFiguresDrawn;
+
 	Output* pOut;
 	Input* pIn;
+
 	ActionType& playAction;
-	std::string gameLable;//each class should implement has itself
+
+	std::string gameLable;//each class should implement it itself
+
 	Point pointClicked;
+
 	int nOfRightAns;
 	int nOfWrongAns;
 
-protected:
+private:
 
 	bool isControlActoin(ActionType act) const;
-	bool isGameOver() const;
 	void printGameState() const;
 	void printGrade()const;
-	virtual bool isRightChoise(CFigure* fig) const = 0;//each class should has itself
+
+protected:
+
+	bool isGameOver() const;
+	virtual bool isRightChoise(CFigure* fig) const = 0;//each subclass should implement itself
 	void setGameLabel(std::string str);
 
 public:
+
 	GameAction(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay); //constructor
 
 	//Reads parameters required for action to execute (code depends on action type)

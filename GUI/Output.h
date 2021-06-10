@@ -11,13 +11,14 @@ private:
 	ToolBar* toolBar;	//Pointer to the play toolbar
 	ColorWin* clrWin;
 	//private funcitons
+private:
 	void clearToolBar() const;			//clears the toolbar
 public:
 	Output();		
 
 	window* CreateWind(int, int, int , int) const; //creates the application window
 	Input* CreateInput()  const;		//creates a pointer to the Input object	
-	void openClrWin(ColorType);			//create and open clr window
+	void openClrWin(WindowColorType);			//create and open clr window
 	void closeClrWin();					//close and free the memory of color win
 
 	//this funciton MUST be called whenever the user change the inerface mode.
@@ -34,14 +35,12 @@ public:
 	void DrawCirc(Point P1, int r, GfxInfo CircleGfxInfo, bool selected = false) const; //Draw a circle
 	void DrawTri(Point P1, Point P2,Point P3, GfxInfo TriGfxInfo, bool selected = false) const; //Draw a Triangle
 	
-	///Make similar functions for drawing all other figures.
-	
 	void PrintMessage(string msg) const;	//Print a message on Status bar
 
 	color getCrntDrawColor() const;			//get current drwawing color
 	color getCrntFillColor() const;			//get current filling color
 	int getCrntPenWidth() const;			//get current pen width
-	color getChangedColor() const;			//get color to change
+	color getChangedColor() const;			//get color to change from color window
 
 	
 	~Output();

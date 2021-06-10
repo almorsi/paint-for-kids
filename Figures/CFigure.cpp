@@ -9,10 +9,11 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	center = { 0, 0 };
 	Selected = false;
 
-	hidden = false;
-	changeColorType(FigGfxInfo.FillClr);
-	figType = NON;
+	//ammar, play mode
+	hidden = false;//the figure is not hidden by default
+	changeColorType(FigGfxInfo.FillClr);//setting the color type according to fill color, play mode need this
 
+	//mohammed needs
 	drawclr = static_cast <drawColorType>(FromClrToInt(FigGfxInfo.DrawClr));
 	fillclr = static_cast<fillColorType>(FromClrToInt(FigGfxInfo.FillClr));
 
@@ -26,6 +27,14 @@ void CFigure::SetSelected(bool s)
 bool CFigure::IsSelected() const
 {	return Selected; }
 
+
+void CFigure::moveBy(Vec2 incr)
+{
+	//moving the critical point by the incremantal vector and then move the whole figure to that new point
+	Vec2 newP = Vec2(this->getCriticalPoint().x, this->getCriticalPoint().y) + incr;
+	Point newPoint = { int(newP.x), int(newP.y) };
+	this->Move(newPoint);
+}
 
 void CFigure::setHidden(bool h)
 {
@@ -52,29 +61,6 @@ float CFigure::getArea() const
 	return area;
 }
 
-int CFigure::FromClrToInt(color c)
-{
-	if (c.ucBlue == BLACK.ucBlue && c.ucGreen == BLACK.ucGreen && c.ucRed == BLACK.ucRed)
-		return 0;
-	else if (c.ucBlue == GRAY.ucBlue && c.ucGreen == GRAY.ucGreen && c.ucRed == GRAY.ucRed)
-		return 1;
-	else if (c.ucBlue == BLUE.ucBlue && c.ucGreen == BLUE.ucGreen && c.ucRed == BLUE.ucRed)
-		return 2;
-	else if (c.ucBlue == CYAN.ucBlue && c.ucGreen == CYAN.ucGreen && c.ucRed == CYAN.ucRed)
-		return 3;
-	else if (c.ucBlue == GREEN.ucBlue && c.ucGreen == GREEN.ucGreen && c.ucRed == GREEN.ucRed)
-		return 4;
-	else if (c.ucBlue == YELLOW.ucBlue && c.ucGreen == YELLOW.ucGreen && c.ucRed == YELLOW.ucRed)
-		return 5;
-	else if (c.ucBlue == BROWN.ucBlue && c.ucGreen == BROWN.ucGreen && c.ucRed == BROWN.ucRed)
-		return 6;
-	else if (c.ucBlue == ORANGE.ucBlue && c.ucGreen == ORANGE.ucGreen && c.ucRed == ORANGE.ucRed)
-		return 7;
-	else if (c.ucBlue == RED.ucBlue && c.ucGreen == RED.ucGreen && c.ucRed == RED.ucRed)
-		return 8;
-	else
-		return 9;
-}
 
 
 void CFigure::ChngDrawClr(color Dclr)
@@ -85,21 +71,13 @@ void CFigure::ChngDrawClr(color Dclr)
 
 void CFigure::ChngFillClr(color Fclr)
 {	
-
 	changeColorType(Fclr);
-	if (colortype == TYPE_NO_FILL)
-	{
-		//this check is because that if the user decide to change the fill color and then press cancel putten
-		//the issue will be in the first time the user does so, this check will keep the figure unFilled
-		FigGfxInfo.isFilled = false;
-	}
-	else
+	if (colortype != TYPE_NO_FILL)
 	{
 		FigGfxInfo.isFilled = true;
 		FigGfxInfo.FillClr = Fclr;
-    fillclr=static_cast<fillColorType>(FromClrToInt(Fclr));
+		fillclr=static_cast<fillColorType>(FromClrToInt(Fclr));
 	}
-
 }
 
 
@@ -146,4 +124,28 @@ void CFigure::changeColorType(color clr)
 	{
 		colortype = TYPE_NO_FILL;
 	}
+}
+
+int CFigure::FromClrToInt(color c)
+{
+	if (c.ucBlue == BLACK.ucBlue && c.ucGreen == BLACK.ucGreen && c.ucRed == BLACK.ucRed)
+		return 0;
+	else if (c.ucBlue == GRAY.ucBlue && c.ucGreen == GRAY.ucGreen && c.ucRed == GRAY.ucRed)
+		return 1;
+	else if (c.ucBlue == BLUE.ucBlue && c.ucGreen == BLUE.ucGreen && c.ucRed == BLUE.ucRed)
+		return 2;
+	else if (c.ucBlue == CYAN.ucBlue && c.ucGreen == CYAN.ucGreen && c.ucRed == CYAN.ucRed)
+		return 3;
+	else if (c.ucBlue == GREEN.ucBlue && c.ucGreen == GREEN.ucGreen && c.ucRed == GREEN.ucRed)
+		return 4;
+	else if (c.ucBlue == YELLOW.ucBlue && c.ucGreen == YELLOW.ucGreen && c.ucRed == YELLOW.ucRed)
+		return 5;
+	else if (c.ucBlue == BROWN.ucBlue && c.ucGreen == BROWN.ucGreen && c.ucRed == BROWN.ucRed)
+		return 6;
+	else if (c.ucBlue == ORANGE.ucBlue && c.ucGreen == ORANGE.ucGreen && c.ucRed == ORANGE.ucRed)
+		return 7;
+	else if (c.ucBlue == RED.ucBlue && c.ucGreen == RED.ucGreen && c.ucRed == RED.ucRed)
+		return 8;
+	else
+		return 9;
 }

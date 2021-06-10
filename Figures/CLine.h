@@ -10,17 +10,20 @@ private:
 	Point finish;
 	int length;
 public:
-	CLine(Point, Point, GfxInfo FigureGfxInfo);
-	CLine(int ,Point, Point, GfxInfo FigureGfxInfo);
-	virtual void ChngFillClr(color Fclr);	//override this function in Cline only to make the use change the drawing color when he/she change the line fill color
-	virtual void Resize(float r);
-	virtual void Draw(Output* pOut) const;
-	virtual bool isInsideMe(Point p) const;
-	virtual void PrintInfo(Output* pOut) const;
-	virtual void Move(Point newPoint);
-	virtual void moveBy(Vec2 incr);
-	virtual Point getCriticalPoint() const;
-	virtual CFigure* getCopy() const;
-	virtual void Save(ofstream& OutFile);
+	CLine(Point, Point, GfxInfo);
+	virtual void Draw(Output*) const;
+
+	//ammmar functions
+	virtual bool isInsideMe(Point) const;
+	virtual void Move(Point);
+	virtual Point getCriticalPoint() const;//center is the critical point for Circle
+	virtual CFigure* getCopy() const;//return a copy of the current object
+	virtual void ChngFillClr(color Fclr);//changing the fill color of a line means changing its draw color
+
+	//mohammed functions
+	CLine(int, Point, Point, GfxInfo);
+	virtual void Save(ofstream&);
+	virtual void PrintInfo(Output*) const;
+	virtual void Resize(float);
 };
 
