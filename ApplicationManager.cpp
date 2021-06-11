@@ -37,8 +37,7 @@ ActionType ApplicationManager::GetUserAction(Point& p) const
 	//Ask the input to get the action from the user.
 	return pIn->GetUserAction(p);		
 }
-////////////////////////////////////////////////////////////////////////////////////
-//Creates an action and executes it
+
 void ApplicationManager::ExecuteAction(ActionType ActType) 
 {
 	Action* pAct = NULL;
@@ -186,6 +185,150 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+
+void ApplicationManager::saveData(ofstream& OutFile)
+{
+	OutFile << FromClrToInt(UI.DrawColor) << "," << FromClrToInt(UI.FillColor) << "," << FromClrToInt(UI.BkGrndColor) << std::endl;
+	OutFile << FigCount << std::endl;
+	for (int i = 0; i < FigCount; i++)
+	{
+		FigList[i]->Save(OutFile);
+	}
+}
+
+void ApplicationManager::loadData(ifstream& Infile)
+{
+	std::string line;
+	int rownum = 0; //row number counter
+	while (std::getline(Infile, line)) //takes file data row by row 
+	{
+		vector<string> Data;
+		std::istringstream s(line);
+		std::string field;
+		while (getline(s, field, ','))
+		{
+			Data.push_back(field); //put each string indivually in a vector
+			std::cout << field << endl;
+		}
+		if (rownum == 0)
+		{
+			UI.DrawColor = FromIntToClr(std::stoi(Data[0]));
+			UI.FillColor = FromIntToClr(std::stoi(Data[1]));
+			UI.BkGrndColor = FromIntToClr(std::stoi(Data[2]));
+		}
+		else if (rownum == 1)
+		{
+			//The number of figures is not important due to the nature of this code as the figures are redrawn
+			//FigCount = std::stoi(Data[0]);
+		}
+		else
+		{
+			loadDataFigs(Data);
+		}
+		rownum++;
+	}
+}
+//The following function rearrange data from the saved file to match figure constructor according to type then creates a figure
+void ApplicationManager::loadDataFigs(vector<string>& data)
+{
+	if (std::stoi(data[0]) == 0)
+	{
+		Point start, finish;
+		GfxInfo FigGfxInfo;
+		int ID;
+		ID = std::stoi(data[1]);
+		start.x = std::stoi(data[2]);
+		start.y = std::stoi(data[3]);
+		finish.x = std::stoi(data[4]);
+		finish.y = std::stoi(data[5]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		FigGfxInfo.FillClr = WHITE;
+		FigGfxInfo.isFilled = false;
+		CFigure* fig = new CLine(ID, start, finish, FigGfxInfo);
+		AddFigure(fig);
+	}
+	else if (std::stoi(data[0]) == 1)
+	{
+		Point Corner1, Corner2;
+		GfxInfo FigGfxInfo;
+		int ID;
+		ID = std::stoi(data[1]);
+		Corner1.x = std::stoi(data[2]);
+		Corner1.y = std::stoi(data[3]);
+		Corner2.x = std::stoi(data[4]);
+		Corner2.y = std::stoi(data[5]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
+		if (std::stoi(data[7]) == 9)
+		{
+			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
+		else
+		{
+			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[7]));
+			FigGfxInfo.isFilled = true;
+		}
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		CFigure* fig = new CRectangle(ID, Corner1, Corner2, FigGfxInfo);
+		AddFigure(fig);
+	}
+	else if (std::stoi(data[0]) == 2)
+	{
+		Point point1, point2, point3;
+		GfxInfo FigGfxInfo;
+		int ID;
+		ID = std::stoi(data[1]);
+		point1.x = std::stoi(data[2]);
+		point1.y = std::stoi(data[3]);
+		point2.x = std::stoi(data[4]);
+		point2.y = std::stoi(data[5]);
+		point3.x = std::stoi(data[6]);
+		point3.y = std::stoi(data[7]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[8]));
+		if (std::stoi(data[9]) == 9)
+		{
+			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
+		else
+		{
+			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[9]));
+			FigGfxInfo.isFilled = true;
+		}
+
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		CFigure* fig = new CTriangle(ID, point1, point2, point3, FigGfxInfo);
+		AddFigure(fig);
+	}
+	else
+	{
+		Point center;
+		int radius, ID;
+		GfxInfo FigGfxInfo;
+		ID = std::stoi(data[1]);
+		center.x = std::stoi(data[2]);
+		center.y = std::stoi(data[3]);
+		radius = std::stoi(data[4]);
+		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[5]));
+		if (std::stoi(data[6]) == 9)
+		{
+			FigGfxInfo.isFilled = false;
+			FigGfxInfo.FillClr = WHITE;
+		}
+		else
+		{
+			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[6]));
+			FigGfxInfo.isFilled = true;
+		}
+		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
+		CFigure* fig = new CCircle(ID, center, radius, FigGfxInfo);
+		AddFigure(fig);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+//Creates an action and executes it
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
@@ -235,22 +378,7 @@ void ApplicationManager::reArrangeFigList(int deletedFigsCount)
 	}
 	delete[] notNulledFigures;
 }
-bool ApplicationManager::isSmallestArea(CFigure* fig) const
-{
-	for (int i = 0; i < FigCount; i++)
-		if (!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
-			return false;
-	return true;
-}
-bool ApplicationManager::isLargestArea(CFigure* fig) const
-{
-	for (int i = 0; i < FigCount; i++)
-		if (!FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea())
-			return false;
-	return true;
-}
-////////////////////////////////////////////////////////////////////////////////////
-CFigure *ApplicationManager::GetFigure(Point p) const
+CFigure* ApplicationManager::GetFigure(Point p) const
 {
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return NULL
@@ -265,35 +393,21 @@ CFigure *ApplicationManager::GetFigure(Point p) const
 }
 CFigure* ApplicationManager::GetFigure(int index) const
 {
-	if(index < FigCount)
+	if (index < FigCount)
 		return FigList[index];
 
 	assert(false);
 	return NULL;
 }
-CFigure*& ApplicationManager::GetFigure(CFigure* fig) 
+CFigure*& ApplicationManager::GetFigure(CFigure* fig)
 {
-	
+
 	for (int i = 0; i < FigCount; i++)
 		if (FigList[i] == fig)
 			return FigList[i];
 
 	assert(false);
 	return fig;
-}
-int ApplicationManager::getFigCount() const
-{
-	return FigCount;
-}
-int ApplicationManager::getIndexOf(CFigure* fig) const
-{
-	if (fig != NULL)
-	{
-		for (int i = 0; i < FigCount; i++)
-			if (fig == FigList[i])
-				return i;
-	}
-	return -1;
 }
 int ApplicationManager::FromClrToInt(color c)
 {
@@ -318,15 +432,6 @@ int ApplicationManager::FromClrToInt(color c)
 	else //if called by color then 9 means white if it is called by fill the it is nofill
 		return 9;
 }
-void ApplicationManager::saveData(ofstream &OutFile)
-{
-	OutFile << FromClrToInt(UI.DrawColor) << "," << FromClrToInt(UI.FillColor) << "," << FromClrToInt(UI.BkGrndColor) << std::endl;
-	OutFile << FigCount << std::endl;
-	for (int i = 0; i < FigCount; i++)
-	{
-		FigList[i]->Save(OutFile);
-	}
-}
 color ApplicationManager::FromIntToClr(int n)
 {
 	if (n == 0)
@@ -350,138 +455,7 @@ color ApplicationManager::FromIntToClr(int n)
 	else
 		return WHITE;
 }
-void ApplicationManager::loadData(ifstream& Infile)
-{
-	std::string line;
-	int rownum = 0; //row number counter
-	while (std::getline(Infile, line)) //takes file data row by row 
-	{
-		vector<string> Data;
-		std::istringstream s(line);
-		std::string field;
-		while (getline(s, field, ','))
-		{
-			Data.push_back(field); //put each string indivually in a vector
-			std::cout << field << endl;
-		}
-		if (rownum == 0)
-		{
-			UI.DrawColor = FromIntToClr(std::stoi(Data[0]));
-			UI.FillColor = FromIntToClr(std::stoi(Data[1]));
-			UI.BkGrndColor = FromIntToClr(std::stoi(Data[2]));
-		}
-		else if (rownum == 1)
-		{
-			//bug must be fixed this will diff if the user choose to delecte then load
-			//or save the current and load the file (drawing the loaded with the current drawn)
-			//this line->//FigCount = std::stoi(Data[0]);
-			//
-		}
-		else
-		{
-			loadDataFigs(Data);
-		}
-		rownum++;
-	}
-}
-//The following function rearrange data from the saved file to match figure constructor according to type then creates a figure
-void ApplicationManager::loadDataFigs(vector<string>& data)
-{
-	if (std::stoi(data[0]) == 0)
-	{
-		Point start, finish;
-		GfxInfo FigGfxInfo;
-		int ID;
-		ID = std::stoi(data[1]);
-		start.x = std::stoi(data[2]);
-		start.y = std::stoi(data[3]);
-		finish.x = std::stoi(data[4]);
-		finish.y = std::stoi(data[5]);
-		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
-		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
-		FigGfxInfo.FillClr = WHITE;
-		FigGfxInfo.isFilled = false;
-		CFigure* fig = new CLine(ID,start, finish, FigGfxInfo);
-		AddFigure(fig);
-	}
-	else if (std::stoi(data[0]) == 1)
-	{
-		Point Corner1, Corner2;
-		GfxInfo FigGfxInfo;
-		int ID;
-		ID = std::stoi(data[1]);
-		Corner1.x = std::stoi(data[2]);
-		Corner1.y = std::stoi(data[3]);
-		Corner2.x = std::stoi(data[4]);
-		Corner2.y = std::stoi(data[5]);
-		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[6]));
-		if (std::stoi(data[7]) == 9)
-		{
-			FigGfxInfo.isFilled = false;
-			FigGfxInfo.FillClr = WHITE;
-		}
-		else
-		{
-			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[7]));
-			FigGfxInfo.isFilled = true;
-		}
-		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
-		CFigure* fig = new CRectangle(ID,Corner1, Corner2, FigGfxInfo);
-		AddFigure(fig);
-	}
-	else if (std::stoi(data[0]) == 2)
-	{
-		Point point1, point2, point3;
-		GfxInfo FigGfxInfo;
-		int ID;
-		ID = std::stoi(data[1]);
-		point1.x = std::stoi(data[2]);
-		point1.y = std::stoi(data[3]);
-		point2.x = std::stoi(data[4]);
-		point2.y = std::stoi(data[5]);
-		point3.x = std::stoi(data[6]);
-		point3.y = std::stoi(data[7]);
-		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[8]));
-		if (std::stoi(data[9]) == 9)
-		{
-			FigGfxInfo.isFilled = false;
-			FigGfxInfo.FillClr = WHITE;
-		}
-		else
-		{
-			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[9]));
-			FigGfxInfo.isFilled = true;
-		}
 
-		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
-		CFigure* fig = new CTriangle(ID,point1, point2, point3,FigGfxInfo);
-		AddFigure(fig);
-	}
-	else
-	{
-		Point center;
-		int radius,ID;
-		GfxInfo FigGfxInfo;
-		ID = std::stoi(data[1]);
-		center.x = std::stoi(data[2]);
-		center.y = std::stoi(data[3]);
-		radius = std::stoi(data[4]);
-		FigGfxInfo.DrawClr = FromIntToClr(std::stoi(data[5]));
-		if (std::stoi(data[6]) == 9)
-		{
-			FigGfxInfo.isFilled = false;
-			FigGfxInfo.FillClr = WHITE;
-		}
-		else
-		{
-			FigGfxInfo.FillClr = FromIntToClr(std::stoi(data[6]));
-			FigGfxInfo.isFilled = true;
-		}
-		FigGfxInfo.BorderWdth = pOut->getCrntPenWidth();
-		CFigure* fig = new CCircle(ID,center, radius, FigGfxInfo);
-		AddFigure(fig);
-	}
-}
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -503,6 +477,41 @@ Input *ApplicationManager::GetInput() const
 Output *ApplicationManager::GetOutput() const
 {	return pOut; }
 ////////////////////////////////////////////////////////////////////////////////////
+
+//==================================================================================//
+//							Play Mode functions          							//
+//==================================================================================//
+bool ApplicationManager::isSmallestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if (!FigList[i]->isHidden() && fig->getArea() > FigList[i]->getArea())
+			return false;
+	return true;
+}
+bool ApplicationManager::isLargestArea(CFigure* fig) const
+{
+	for (int i = 0; i < FigCount; i++)
+		if (!FigList[i]->isHidden() && fig->getArea() < FigList[i]->getArea())
+			return false;
+	return true;
+}
+////////////////////////////////////////////////////////////////////////////////////
+ 
+int ApplicationManager::getFigCount() const
+{
+	return FigCount;
+}
+int ApplicationManager::getIndexOf(CFigure* fig) const
+{
+	if (fig != NULL)
+	{
+		for (int i = 0; i < FigCount; i++)
+			if (fig == FigList[i])
+				return i;
+	}
+	return -1;
+}
+///////////////////////////////////////////////////////////////////////////////////
 //Destructor
 ApplicationManager::~ApplicationManager()
 {

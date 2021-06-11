@@ -16,13 +16,13 @@ public:
 	CCircle(Point, Point, GfxInfo);
 	virtual void Draw(Output*) const;
 
-	//ammmar functions
+
 	virtual bool isInsideMe(Point) const;
 	virtual void Move(Point);
 	virtual Point getCriticalPoint() const;//center is the critical point for Circle
 	virtual CFigure* getCopy() const;//return a copy of the current object
 
-	//mohammed functions
+	
 	CCircle(int ,Point , int , GfxInfo);
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;

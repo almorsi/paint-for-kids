@@ -26,6 +26,7 @@ public:
 	void drawToolBar()  const;			//this funciton MUST be called 
 	void drawCleanStatusBar() const;	//Clears the status bar
 	void ClearDrawArea()  const;		//Clears the drawing area
+	void PrintMessage(string msg) const;	//Print a message on Status bar
 
 	void zoomIn() const;
 	void zoomOut() const;
@@ -38,8 +39,7 @@ public:
 	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const; //Draw a line
 	void DrawCirc(Point P1, int r, GfxInfo CircleGfxInfo, bool selected = false) const; //Draw a circle
 	void DrawTri(Point P1, Point P2,Point P3, GfxInfo TriGfxInfo, bool selected = false) const; //Draw a Triangle
-	
-	void PrintMessage(string msg) const;	//Print a message on Status bar
+
 
 	color getCrntDrawColor() const;			//get current drwawing color
 	color getCrntFillColor() const;			//get current filling color

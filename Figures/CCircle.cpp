@@ -106,25 +106,31 @@ CCircle::CCircle(int id,Point cent, int r, GfxInfo FigureGfxInfo)
 
 void CCircle::Save(ofstream& OutFile)
 {
+	//saves data
 	OutFile << figtype << "," << ID << "," << center.x << "," << center.y << "," << radius << "," << drawclr << "," << fillclr<<std::endl;
 }
 
 void CCircle::Resize(float r)
 {
-	radius = int(float(radius) * r);
-	area = 3.1415f * radius * radius;
+	
+	radius = int(float(radius) * r); //multiply the ratio to radius to get resized radius
+	area = 3.1415f * radius * radius; //get new resized area
 
-
+	//redfine points as vectors to calculate new postion of resized figure
 	Vec2 v1 = Vec2(point1.x, point1.y);
 	Vec2 v2 = Vec2(point2.x, point2.y);
 	Vec2 cent = Vec2(center.x,center.y);
+
+
 	if (r >= 0.0f && r < 1.0f)
 	{
+		//if the ratio is smaller then one the function calculates the vector from point to center and multiply by ratio
 		v1 = ((cent - v1) * (1.0f - r)) + v1;
 		v2 = ((cent - v2) * (1.0f - r)) + v2;
 	}
 	else
 	{
+		//if the ratio is bigger than one the function calulates the vector from center to point and multiply by ratio
 		v1 = cent - ((cent - v1) * r);
 		v2 = cent - ((cent - v2) * r);
 	}

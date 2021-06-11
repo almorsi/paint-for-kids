@@ -11,7 +11,7 @@ public:
 	CTriangle(Point, Point, Point, GfxInfo);
 	virtual void Draw(Output*) const;
 
-	//ammmar functions
+	
 	virtual bool isInsideMe(Point) const;
 	virtual void Move(Point);
 	virtual Point getCriticalPoint() const;//center is the critical point for Circle
@@ -20,8 +20,8 @@ private:
 	float getTriArea(Point p1, Point p2, Point p3)const;//return area of triangle
 
 public:
-	//mohammed functions
-	CTriangle(int, Point, Point, Point, GfxInfo);
+	
+	CTriangle(int, Point, Point, Point, GfxInfo);//overloaded constructor used when loading data
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;
 	virtual void Resize(float);

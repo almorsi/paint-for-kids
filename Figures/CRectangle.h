@@ -12,7 +12,7 @@ public:
 	CRectangle(Point, Point, GfxInfo);
 	virtual void Draw(Output*) const;
 
-	//ammmar functions
+	
 	virtual bool isInsideMe(Point) const;
 	virtual void Move(Point);
 	virtual Point getCriticalPoint() const;//center is the critical point for Circle
@@ -21,8 +21,8 @@ private:
 	bool isOnRect(Point p) const;//check if the point on the border of the rectangle
 
 public:
-	//mohammed functions
-	CRectangle(int, Point, Point, GfxInfo);
+	
+	CRectangle(int, Point, Point, GfxInfo);//overloaded constructor used when loading data
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;
 	virtual void Resize(float);

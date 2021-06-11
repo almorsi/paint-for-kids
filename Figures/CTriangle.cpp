@@ -113,32 +113,38 @@ CFigure* CTriangle::getCopy() const
 
 void CTriangle::Resize(float r)
 {
+	//redfine points as vectors to calculate new postion of resized figure
 	Vec2 v1 = Vec2(point1.x, point1.y);
 	Vec2 v2 = Vec2(point2.x, point2.y);
 	Vec2 v3 = Vec2(point3.x, point3.y);
 	Vec2 cent = Vec2(center.x, center.y);
-	//change from int to float
+
 	if (r >= 0.0f && r < 1.0f)
 	{
+		//if the ratio is smaller then one the function calculates the vector from point to center and multiply by ratio
+		v1 = ((cent - v1) * (1.0f - r)) + v1;
 		v1 = ((cent - v1) * (1.0f - r)) + v1;
 		v2 = ((cent - v2) * (1.0f - r)) + v2;
 		v3 = ((cent - v3) * (1.0f - r)) + v3;
 	}
 	else
 	{
+		//if the ratio is bigger than one the function calulates the vector from center to point and multiply by ratio
 		v1 = cent - ((cent - v1) * r);
 		v2 = cent - ((cent - v2) * r);
 		v3 = cent - ((cent - v3) * r);
 	}
+
+	//
 	point1.x = int(v1.x);
 	point1.y = int(v1.y);
 	point2.x = int(v2.x);
 	point2.y = int(v2.y);
 	point3.x = int(v3.x);
 	point3.y = int(v3.y);
-	//bug fixed
-	area = getTriArea(point1, point2, point3);
-	//
+
+	area = getTriArea(point1, point2, point3);//recalculate resized figure area
+	
 }
 
 void CTriangle::Save(ofstream& OutFile)

@@ -87,7 +87,7 @@ ActionType Input::GetUserAction(Point& p) const
 		//[2] User clicks on the drawing area
 		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
-			screenToWorld(p);
+			screenToWorld(p);//convert to world coordinate
 			return DRAWING_AREA;	
 		}
 		
@@ -117,7 +117,7 @@ ActionType Input::GetUserAction(Point& p) const
 		//[2] User clicks on the drawing area
 		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
-			screenToWorld(p);
+			screenToWorld(p);//convert to world coordinate
 			return DRAWING_AREA;
 		}
 
