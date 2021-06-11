@@ -17,7 +17,7 @@ protected:
 	Point center;
 	GfxInfo FigGfxInfo;	//Figure graphis info
 
-	//ammar, play mode members
+	
 	bool hidden; // ture if the figure is hidden
 	FigureType figType;//figure type see DEFS.h
 	FigureColorType colortype;//figureColorType see DEFS.h
@@ -33,7 +33,7 @@ public:
 	bool IsSelected() const;	//check whether fig is selected
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 
-	//mohammed implement the following functions
+
 	int FromClrToInt(color c);//used to be able to save colors as intgers in save files
 	virtual void Resize(float r) = 0;                   //Resize figures
 	//done//this function should be reImplemented in each subclass to print the proper information
@@ -42,7 +42,7 @@ public:
 	virtual void ChngFillClr(color Fclr);	//changes the figure's filling color
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 
-	//ammar implement the following functions
+	
 	//select needs
 	virtual bool isInsideMe(Point clickedPoint) const = 0;	//check if the point is inside the figure
 	//

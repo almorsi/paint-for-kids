@@ -13,7 +13,7 @@ public:
 	CLine(Point, Point, GfxInfo);
 	virtual void Draw(Output*) const;
 
-	//ammmar functions
+
 	virtual bool isInsideMe(Point) const;
 	virtual void Move(Point);
 	virtual Point getCriticalPoint() const;//center is the critical point for Circle
