@@ -22,14 +22,14 @@ void ToPlay::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("Please choose an operational game mode(figures only, shape only, shape and color only, area only");
+	pOut->PrintMessage("Please choose an operational game mode(figures only, shape only, shape and color only, area only), or switch back to draw mode");
 
 	//make sure the user choose an operational action to exectue
+	//oerational action means he must choose a game or switch back to draw mode
 	do
 	{
 		playAction = pIn->GetUserAction();
 	} while (!isOperationalAction(playAction));
-	//
 
 	pOut->drawCleanStatusBar();
 }
@@ -46,7 +46,8 @@ void ToPlay::Execute()
 			doPlayAction(playAction);
 			break;//break play mode and go back to draw mode
 		}
-
+		
+		//if user choose a game mode will enter this loop
 		do
 		{
 			doPlayAction(playAction);//actionAfterPlay will update it self throw this function, i.e. passed by refrence

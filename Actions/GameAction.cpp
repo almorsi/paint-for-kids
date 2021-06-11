@@ -29,13 +29,10 @@ void GameAction::ReadActionParameters()
 void GameAction::Execute()
 {
     ReadActionParameters();
-    do
-    {
-        if (isControlActoin(playAction))
-        {
-            break;
-        }
 
+    while (!isControlActoin(playAction))
+    {
+ 
         CFigure* fig = pManager->GetFigure(pointClicked);
 
         if (fig != NULL)
@@ -53,6 +50,8 @@ void GameAction::Execute()
         if (isGameOver())
         {
             printGrade();
+
+            //the game is over the user should choose a control action
             do
             {
                 playAction = pIn->GetUserAction();
@@ -62,18 +61,11 @@ void GameAction::Execute()
 
         playAction = pIn->GetUserAction(pointClicked);
 
-    } while (!isControlActoin(playAction));
+    }
 
     pOut->drawCleanStatusBar();
 }
 
-GameAction::~GameAction()
-{
-    for (int i = 0; i < nOfFiguresDrawn; i++)
-    {
-        FiguresDrawn[i]->setHidden(false);
-    }
-}
 bool GameAction::isControlActoin(ActionType act) const
 {
     return act == RE_PLAY || act == TO_DRAW || act == SHAPE_ONLY
@@ -109,3 +101,11 @@ void GameAction::setGameLabel(std::string str)
     gameLable = str;
 }
 
+
+GameAction::~GameAction()
+{
+    for (int i = 0; i < nOfFiguresDrawn; i++)
+    {
+        FiguresDrawn[i]->setHidden(false);
+    }
+}

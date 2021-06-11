@@ -17,7 +17,7 @@ protected:
 
 	ActionType& playAction;
 
-	std::string gameLable;//each class should implement it itself
+	std::string gameLable;//each class should has its game label
 
 	Point pointClicked;
 
@@ -45,12 +45,6 @@ public:
 
 	//Execute action (code depends on action type)
 	virtual void Execute();
-
-	//To undo this action (code depends on action type)
-	//virtual void Undo()=0;
-
-	//To redo this action (code depends on action type)
-	//virtual void Redo()=0;
 
 	virtual ~GameAction();
 };
