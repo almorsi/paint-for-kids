@@ -7,17 +7,17 @@ class Select : public Action
 {
 private:
 
-	CFigure** selectedFigures; // array of selected figures that maps the figList in appManager 
+	CFigure** selectedFigures; // array of selected figures
+
+	int selectedFigCount;	//count of the selected figure, updated after each select
 
 	CFigure* firstSelectedFigure;//pointer to the first selected figure
 
-	int* numberedClicked;//array of numbers that maps the clicked figure to number of clicked actions
+	int* numberedClicked;//array to assign a number to the selected figure, this is used to get the first selected
+
+	int countClicked;//to count the cllick on the figure
 
 	bool* isSelectedArr;//array of boolean to that maps the figList (true if selected , false otherwise)
-
-	int countClicked;//counter to the clicked actions
-
-	int selectedFigCount;	//count of figure selected
 
 	const int nCurrentlyDrawn;//the number of currently drawn figures in the drawing area
 
