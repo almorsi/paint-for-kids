@@ -19,11 +19,16 @@ void AddLineAction::ReadActionParameters()
 
 	//Read starting point and store in point P1
 	pIn->GetPointClicked(P1.x, P1.y);
+
+	//convert from screen coordinates to world coordinates
 	screenToWorld(P1);
+
 	pOut->PrintMessage("New Line: Click at end of the line");
 
 	//Read endong point and store in point P2
 	pIn->GetPointClicked(P2.x, P2.y);
+
+	//convert from screen coordinates to world coordinates
 	screenToWorld(P2);
 
 	LineGfxInfo.isFilled = false;	//default is not filled

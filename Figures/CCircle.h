@@ -22,7 +22,7 @@ public:
 	virtual Point getCriticalPoint() const;//center is the critical point for Circle
 	virtual CFigure* getCopy() const;//return a copy of the current object
 
-	//mohammed functions
+	
 	CCircle(int ,Point , int , GfxInfo);
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;

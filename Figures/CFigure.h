@@ -22,10 +22,10 @@ protected:
 	FigureType figType;//figure type see DEFS.h
 	FigureColorType colortype;//figureColorType see DEFS.h
 
-	//mohamed members
-	drawColorType drawclr;
-	fillColorType fillclr;
-	figureType figtype;
+	
+	drawColorType drawclr;//enum used to determine drawing color
+	fillColorType fillclr;//enum used to determine fill color
+	figureType figtype;//enum used to determine figure type
 
 public:
 	CFigure(GfxInfo FigureGfxInfo);
@@ -34,7 +34,7 @@ public:
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 
 	//mohammed implement the following functions
-	int FromClrToInt(color c);
+	int FromClrToInt(color c);//used to be able to save colors as intgers in save files
 	virtual void Resize(float r) = 0;                   //Resize figures
 	//done//this function should be reImplemented in each subclass to print the proper information
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar

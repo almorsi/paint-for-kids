@@ -19,11 +19,16 @@ void AddRectAction::ReadActionParameters()
 	
 	//Read 1st corner and store in point P1
 	pIn->GetPointClicked(P1.x, P1.y);
+
+	//convert from screen coordinates to world coordinates
 	screenToWorld(P1);
+
 	pOut->PrintMessage("New Rectangle: Click at second corner");
 
 	//Read 2nd corner and store in point P2
 	pIn->GetPointClicked(P2.x, P2.y);
+
+	//convert from screen coordinates to world coordinates
 	screenToWorld(P2);
 
 	RectGfxInfo.isFilled = false;	//default is not filled

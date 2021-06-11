@@ -6,9 +6,13 @@
 class Resize : public Action
 {
 private:
-	CFigure** figsToResize;//the deleted figures
-	const int nToResize;//number of figures that will be deleted
+
+	CFigure** figsToResize;//the resized figures
+
+	const int nToResize;//number of figures that will be resized
+
 	float rsize;//the ratio to resize taken from the user
+
 public:
 	Resize(ApplicationManager* pApp, CFigure** selectedFigs, const int size);//constructor
 

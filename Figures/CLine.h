@@ -20,8 +20,8 @@ public:
 	virtual CFigure* getCopy() const;//return a copy of the current object
 	virtual void ChngFillClr(color Fclr);//changing the fill color of a line means changing its draw color
 
-	//mohammed functions
-	CLine(int, Point, Point, GfxInfo);
+	
+	CLine(int, Point, Point, GfxInfo);//overloaded constructor used when loading data
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;
 	virtual void Resize(float);

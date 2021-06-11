@@ -21,8 +21,8 @@ private:
 	bool isOnRect(Point p) const;//check if the point on the border of the rectangle
 
 public:
-	//mohammed functions
-	CRectangle(int, Point, Point, GfxInfo);
+	
+	CRectangle(int, Point, Point, GfxInfo);//overloaded constructor used when loading data
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;
 	virtual void Resize(float);

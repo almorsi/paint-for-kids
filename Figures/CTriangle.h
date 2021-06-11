@@ -20,8 +20,8 @@ private:
 	float getTriArea(Point p1, Point p2, Point p3)const;//return area of triangle
 
 public:
-	//mohammed functions
-	CTriangle(int, Point, Point, Point, GfxInfo);
+	
+	CTriangle(int, Point, Point, Point, GfxInfo);//overloaded constructor used when loading data
 	virtual void Save(ofstream&);
 	virtual void PrintInfo(Output*) const;
 	virtual void Resize(float);

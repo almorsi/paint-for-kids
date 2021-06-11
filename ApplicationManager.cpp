@@ -372,10 +372,8 @@ void ApplicationManager::loadData(ifstream& Infile)
 		}
 		else if (rownum == 1)
 		{
-			//bug must be fixed this will diff if the user choose to delecte then load
-			//or save the current and load the file (drawing the loaded with the current drawn)
-			//this line->//FigCount = std::stoi(Data[0]);
-			//
+			//The number of figures is not important due to the nature of this code as the figures are redrawn
+			//FigCount = std::stoi(Data[0]);
 		}
 		else
 		{
