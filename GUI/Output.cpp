@@ -59,6 +59,19 @@ Input* Output::CreateInput() const
 	return pIn;
 }
 
+//======================================================================================//
+//								Interface Functions										//
+//======================================================================================//
+
+window* Output::CreateWind(int w, int h, int x, int y) const
+{ 
+	window* pW = new window(w, h, x, y);
+	pW->SetBrush(UI.BkGrndColor);
+	pW->SetPen(UI.BkGrndColor, 1);
+	pW->DrawRectangle(0, UI.ToolBarHeight, w, h);	
+	return pW;
+}
+
 void Output::openClrWin(WindowColorType clrToChange)
 {
 	assert(clrWin == NULL);
@@ -72,18 +85,26 @@ void Output::closeClrWin()
 	clrWin = NULL;
 }
 
-//======================================================================================//
-//								Interface Functions										//
-//======================================================================================//
-
-window* Output::CreateWind(int w, int h, int x, int y) const
-{ 
-	window* pW = new window(w, h, x, y);
-	pW->SetBrush(UI.BkGrndColor);
-	pW->SetPen(UI.BkGrndColor, 1);
-	pW->DrawRectangle(0, UI.ToolBarHeight, w, h);	
-	return pW;
+void Output::zoomIn() const
+{
+	UI.scalingFactor *= 1.1f;
 }
+
+void Output::zoomOut() const
+{
+	UI.scalingFactor *= 0.9f;
+}
+
+void Output::highlightItem(int index)
+{
+	toolBar->hightlightItem(index);
+}
+
+void Output::UnhighlightItem(int index)
+{
+	toolBar->UnhightlightItem(index);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::drawCleanStatusBar() const
 {
@@ -128,24 +149,7 @@ void Output::ClearDrawArea() const
 	pWind->DrawRectangle(0, UI.ToolBarHeight , UI.width, UI.height - UI.StatusBarHeight);
 	
 }
-void Output::zoomIn() const
-{
-	UI.scalingFactor *= 1.1f;
-}
-void Output::zoomOut() const
-{
-	UI.scalingFactor *= 0.9f;
-}
-void Output::highlightItem(int index)
-{
-	toolBar->hightlightItem(index);
-}
-void Output::UnhighlightItem(int index)
-{
-	toolBar->UnhightlightItem(index);
-}
 //////////////////////////////////////////////////////////////////////////////////////////
-
 void Output::PrintMessage(string msg) const	//Prints a message on status bar
 {
 	drawCleanStatusBar();	//First clear the status bar
@@ -194,7 +198,8 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	}
 	else	
 		style = FRAME;
-
+	
+	//convert from world coordinate to screen coordinate
 	worldToScreen(P1);
 	worldToScreen(P2);
 	
@@ -214,6 +219,7 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected ) c
 	
 	drawstyle style = FRAME;
 
+	//convert from world coordinate to screen coordinate
 	worldToScreen(P1);
 	worldToScreen(P2);
 
@@ -239,6 +245,7 @@ void Output::DrawCirc(Point P1, int r, GfxInfo CircleGfxInfo, bool selected) con
 	else
 		style = FRAME;
 
+	//convert from world coordinate to screen coordinate
 	worldToScreen(P1);
 	r = int(r * UI.scalingFactor);
 
@@ -263,6 +270,7 @@ void Output::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool sele
 	else
 		style = FRAME;
 
+	//convert from world coordinate to screen coordinate
 	worldToScreen(P1);
 	worldToScreen(P2);
 	worldToScreen(P3);
