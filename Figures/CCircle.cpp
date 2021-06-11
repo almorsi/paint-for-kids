@@ -113,6 +113,23 @@ void CCircle::Resize(float r)
 {
 	radius = int(float(radius) * r);
 	area = 3.1415f * radius * radius;
+
+
+	Vec2 v1 = Vec2(point1.x, point1.y);
+	Vec2 v2 = Vec2(point2.x, point2.y);
+	Vec2 cent = Vec2(center.x,center.y);
+	if (r >= 0.0f && r < 1.0f)
+	{
+		v1 = ((cent - v1) * (1.0f - r)) + v1;
+		v2 = ((cent - v2) * (1.0f - r)) + v2;
+	}
+	else
+	{
+		v1 = cent - ((cent - v1) * r);
+		v2 = cent - ((cent - v2) * r);
+	}
+	point1 = {int(v1.x),int(v1.y)};
+	point2 = {int(v2.x),int(v2.y)};
 }
 
 void CCircle::PrintInfo(Output* pOut) const
