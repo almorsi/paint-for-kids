@@ -4,7 +4,7 @@
 <img src="https://github.com/ammar-nasser/paint-for-kids/blob/master/images/example-run.gif" width="1000" height="600">
 
 ## Features
-### Draw Mode:paintbrush:
+#### Draw Mode:paintbrush:
 - [x] Add Figures
 - [x] Change Cureent Colors
 - [x] Select Figure(s)
@@ -19,7 +19,7 @@
 - [x] Load Graph
 - [x] Switch to Play Mode
 - [x] Exit
-### Play Mode:cartwheeling::sparkles:
+#### Play Mode:cartwheeling::sparkles:
 - [x] Pick & Hide
   - [x] Figure Type Game
   - [x] Figures Fill color Game
