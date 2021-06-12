@@ -16,13 +16,16 @@ void Load::ReadActionParameters()
 
 	//open file to be able to read data
 	InFile.open(namecsv);
+
+	if (InFile.is_open())
+		pManager->loadData(InFile);
+
 	pOut->drawCleanStatusBar();
 }
 
 void Load::Execute()
 {
 	ReadActionParameters();
-	pManager->loadData(InFile);
 }
 
 Load::~Load()

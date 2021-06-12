@@ -33,8 +33,7 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo)
 	Vec2 vCorner1 = Vec2(Corner1.x, Corner1.y);
 	Vec2 vCorner2 = Vec2(Corner2.x, Corner2.y);
 	Vec2 vCenter = ((vCorner2 - vCorner1) * 0.5f) + vCorner1;
-	center.x = int(vCenter.x);
-	center.y = int(vCenter.y);
+	center = { int(vCenter.x), int(vCenter.y) };
 }
 	
 
@@ -73,8 +72,10 @@ void CRectangle::Move(Point newPoint)
 	cor2 += (newP - cor1).GetNormalized() * (newP - cor1).GetLength();
 
 	Corner1 = newPoint;
-	Corner2.x = int(cor2.x);
-	Corner2.y = int(cor2.y);
+	Corner2 = { int(cor2.x), int(cor2.y) };
+
+	Vec2 cent = ((newP - cor2) * 0.5f) + cor2;
+	center = {int(cent.x), int(cent.y)};
 }
 
 Point CRectangle::getCriticalPoint() const
@@ -136,8 +137,7 @@ CRectangle::CRectangle(int id, Point P1, Point P2, GfxInfo FigureGfxInfo)
 	Vec2 v1 = Vec2(Corner1.x, Corner1.y);
 	Vec2 v2 = Vec2(Corner2.x, Corner2.y);
 	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
-	center.x = int(cent.x);
-	center.y = int(cent.y);
+	center = {int(cent.x), int(cent.y)};
 	figtype = RECTANGLE;
 }
 
@@ -161,12 +161,9 @@ void CRectangle::Resize(float r)
 		v2 = cent - ((cent - v2) * r);
 	}
 	//new resized data
-	Corner1.x = int(v1.x);
-	Corner1.y = int(v1.y);
-	Corner2.x = int(v2.x);
-	Corner2.y = int(v2.y);
+	Corner1 = { int(v1.x), int(v1.y) };
+	Corner2 = { int(v2.x),int(v2.y) };
 	area = float(abs((Corner1.x - Corner2.x) * (Corner1.y - Corner2.y)));
 	cent = ((v1 - v2) * 0.5) + v2;
-	center.x = int(cent.x);
-	center.y = int(cent.y);
+	center = { int(cent.x), int(cent.y) };
 }

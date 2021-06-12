@@ -20,7 +20,6 @@
 //Main class that manages everything in the application.
 class ApplicationManager
 {
-	friend class Select;//to get Access of getFigure functions
 public:
 	static constexpr int MaxFigCount = 200 ;	//Max no of figures
 
@@ -38,7 +37,6 @@ private:
 private:
 	// -- Figures Management Functions
 	void reArrangeFigList(int);
-	CFigure *GetFigure(int) const; //Search for a figure given an index 
 	CFigure*& GetFigure(CFigure*) ; //Search for a figure return it 
 
 public:	
@@ -56,6 +54,7 @@ public:
 	
 	// -- Figures Management Functions
 	CFigure *GetFigure(Point) const; //Search for a figure given a point inside the figure
+	CFigure *GetFigure(int) const; //Search for a figure given an index 
 	void AddFigure(CFigure*); //Adds a new figure to the FigList
 	void deleteFigures(CFigure**,const int); //delete the figures passed
 	int FromClrToInt(color);

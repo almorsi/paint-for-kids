@@ -111,8 +111,11 @@ void CTriangle::Move(Point newPoint)
 	v2 += moveBy;
 	v3 += moveBy;
 	point1 = newPoint;
-	point2 = {int(v2.x), int(v2.y)};
+	point2 = { int(v2.x), int(v2.y) };
 	point3 = { int(v3.x), int(v3.y) };
+
+	center.x = int(float(point1.x + point2.x + point3.x) / 3);
+	center.y = int(float(point1.y + point2.y + point3.y) / 3);
 }
 
 Point CTriangle::getCriticalPoint() const
@@ -150,12 +153,9 @@ void CTriangle::Resize(float r)
 	}
 
 	//
-	point1.x = int(v1.x);
-	point1.y = int(v1.y);
-	point2.x = int(v2.x);
-	point2.y = int(v2.y);
-	point3.x = int(v3.x);
-	point3.y = int(v3.y);
+	point1 = { int(v1.x), int(v1.y) };
+	point2 = { int(v2.x), int(v2.y) };
+	point3 = { int(v3.x), int(v3.y) };
 
 	area = getTriArea(point1, point2, point3);//recalculate resized figure area
 	

@@ -4,7 +4,7 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
-    //making sure the start point is the left point
+	//making sure the start point is the left point
 	if (p1.x < p2.x)
 	{
 		start = p1;
@@ -15,7 +15,7 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 		start = p2;
 		finish = p1;
 	}
-    //
+	//
 
 	figType = TYPE_LINE;
 
@@ -26,12 +26,11 @@ CLine::CLine(Point p1, Point p2, GfxInfo FigureGfxInfo)
 	area = 0.0f;//always zero
 
 	//setting center and lenght of the line
-	length = int( sqrt(float( (start.x-finish.x)*(start.x - finish.x) )-float( (start.y - finish.y)*(start.y - finish.y) ) ) );
+	length = int(sqrt(float((start.x - finish.x) * (start.x - finish.x)) - float((start.y - finish.y) * (start.y - finish.y))));
 	Vec2 v1 = Vec2(start.x, start.y);
 	Vec2 v2 = Vec2(finish.x, finish.y);
 	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
-	center.x = int(cent.x);
-	center.y = int(cent.y);
+	center = {int(cent.x), int(cent.y)};
 }
 
 
@@ -69,6 +68,9 @@ bool CLine::isInsideMe(Point p) const
 
 	 start = newPoint;
 	 finish = { int(end.x), int(end.y) };
+
+	 Vec2 cent = ((strt - end) * 0.5f) + end;
+	 center = { int(cent.x), int(cent.y) };
  }
 
  void CLine::PrintInfo(Output* pOut) const
@@ -112,14 +114,11 @@ void CLine::Resize(float r)
 		v2 = cent - ((cent - v2) * r);
 	}
 	//resized data
-	start.x = int(v1.x);
-	start.y = int(v1.y);
-	finish.x = int(v2.x);
-	finish.y = int(v2.y);
+	start = { int(v1.x),int(v1.y) };
+	finish = { int(v2.x), int(v2.y) };
 	length = int(sqrt(float((start.x - finish.x) * (start.x - finish.x)) - float((start.y - finish.y) * (start.y - finish.y))));
 	cent = ((v1 - v2) * 0.5) + v2;
-	center.x = int(cent.x);
-	center.y = int(cent.y);
+	center = { int(cent.x),int(cent.y) };
 }
 
  void CLine::Save(ofstream& OutFile)
@@ -127,30 +126,29 @@ void CLine::Resize(float r)
 	 OutFile << figtype << "," << (ID) << "," << start.x << "," << start.y << "," << finish.x << "," << finish.y << "," << drawclr <<std::endl;
  }
 
-CLine::CLine(int id,Point p1, Point p2, GfxInfo FigureGfxInfo)
-	:
-	CFigure(FigureGfxInfo)
-{
+ CLine::CLine(int id, Point p1, Point p2, GfxInfo FigureGfxInfo)
+	 :
+	 CFigure(FigureGfxInfo)
+ {
 
-	if (p1.x < p2.x)
-	{
-		start = p1;
-		finish = p2;
-	}
-	else
-	{
-		start = p2;
-		finish = p1;
-	}
+	 if (p1.x < p2.x)
+	 {
+		 start = p1;
+		 finish = p2;
+	 }
+	 else
+	 {
+		 start = p2;
+		 finish = p1;
+	 }
 
-	figType = TYPE_LINE;
-	ID = id;
-	length = int(sqrt(float((start.x - finish.x) * (start.x - finish.x)) - float((start.y - finish.y) * (start.y - finish.y))));
-	Vec2 v1 = Vec2(start.x, start.y);
-	Vec2 v2 = Vec2(finish.x, finish.y);
-	Vec2 cent = ((v1 - v2) * 0.5f) + v2;
-	center.x = int(cent.x);
-	center.y = int(cent.y);
+	 figType = TYPE_LINE;
+	 ID = id;
+	 length = int(sqrt(float((start.x - finish.x) * (start.x - finish.x)) - float((start.y - finish.y) * (start.y - finish.y))));
+	 Vec2 v1 = Vec2(start.x, start.y);
+	 Vec2 v2 = Vec2(finish.x, finish.y);
+	 Vec2 cent = ((v1 - v2) * 0.5f) + v2;
+	 center = { int(cent.x), int(cent.y) };
 
 	area = 0.0f;//always zero
 

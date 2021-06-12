@@ -25,7 +25,7 @@ class color {
 
     bool operator==(const color& rhs) const 
     {
-        return ucRed == rhs.ucRed && ucBlue == rhs.ucBlue && ucGreen == rhs.ucGreen;
+        return (ucRed == rhs.ucRed) && (ucBlue == rhs.ucBlue) && (ucGreen == rhs.ucGreen);
     }
 
 };

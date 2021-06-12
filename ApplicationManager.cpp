@@ -131,7 +131,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->PrintMessage(std::string("<< choose 1 if you want to save before loading files and choose 0 if you want to load without saving >>"));//checks if user will save or close
 		bool choice = bool(std::stoi(pIn->GetSrting(pOut)));
 		pOut->drawCleanStatusBar();
-		if (choice == true)
+		if (choice)
 		{
 			pAct = new Save(this);
 			pAct->Execute();
@@ -144,7 +144,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Load(this);
 			break;
 		}
-		else
+		else//load without saving
 		{
 			pAct = new Delete(this, FigList, FigCount);
 			pAct->Execute();
@@ -342,18 +342,22 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 //delete figures from figList
 void ApplicationManager::deleteFigures(CFigure** figsToDelete, const int size)
 {
-	for (int i = 0; i < size; i++)
+	if (size > 0)
 	{
-		assert(figsToDelete[i] != NULL);
+		for (int i = 0; i < size; i++)
+		{
+			assert(figsToDelete[i] != NULL);
 
-		delete GetFigure(figsToDelete[i]); //free figure's memory
-		GetFigure(figsToDelete[i]) = NULL; //null it in figList
-		figsToDelete[i] = NULL;//must be nulled here also, to avoid unselect deleted figure 
+			delete GetFigure(figsToDelete[i]); //free figure's memory
+			GetFigure(figsToDelete[i]) = NULL; //null it in figList
+			figsToDelete[i] = NULL;//must be nulled here also, to avoid unselect deleted figure 
+		}
+
+		//rearrange FigList
+		reArrangeFigList(size);
+		//update figCount
+		FigCount -= size;
 	}
-	//rearrange FigList
-	reArrangeFigList(size);
-	//update figCount
-	FigCount -= size;
 }
 void ApplicationManager::reArrangeFigList(int deletedFigsCount)
 {

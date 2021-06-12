@@ -35,8 +35,7 @@ void CCircle::setCenterRadius()
 	Vec2 cent = ((vPoint1 - vPoint2) * 0.5f)+vPoint2;
 	//setting radius and center
 	radius = int((vPoint1 - cent).GetLength());
-	center.x = int(cent.x);
-	center.y = int(cent.y);
+	center = { int(cent.x),int(cent.y) };
 }
 
 void CCircle::Move(Point newPoint)
@@ -47,8 +46,7 @@ void CCircle::Move(Point newPoint)
 	Vec2 p1 = Vec2(point1.x, point1.y) + incr.GetNormalized() * incr.GetLength();
 	Vec2 p2 = Vec2(point2.x, point2.y) + incr.GetNormalized() * incr.GetLength();
 	//update center
-	center.x = newPoint.x;
-	center.y = newPoint.y;
+	center = newPoint;
 	//update points
 	point1 = { int(p1.x), int(p1.y) };
 	point2 = { int(p2.x), int(p2.y) };
@@ -80,15 +78,12 @@ bool CCircle::isInsideMe(Point clickedPoint) const
 	else //not filled
 	{
 		//ratio of distance over radius must approach one
-		return distance/ radius >= 0.9f && distance/radius <= 1.1f;
+		return distance/ radius >= 0.95f && distance/radius <= 1.05f;
 	}
 
 }
 
-//note: bug in all overloaded constructors in figures
-//bug here in the overloaded constructor must initialize point1, and point2, bug when coping loaded figures
-//must set point1, and point2 using center and radius passed 
-CCircle::CCircle(int id,Point cent, int r, GfxInfo FigureGfxInfo)
+CCircle::CCircle(int id, Point cent, int r, GfxInfo FigureGfxInfo)
 	:
 	CFigure(FigureGfxInfo)
 {
@@ -98,10 +93,13 @@ CCircle::CCircle(int id,Point cent, int r, GfxInfo FigureGfxInfo)
 
 	center = cent;
 	radius = r;
+
+	point1 = { cent.x + r, cent.y };
+	point2 = { cent.x - r, cent.y };
+	
 	ID = id;
 	area = 3.1415f * radius * radius;
 }
-//
 
 void CCircle::Save(ofstream& OutFile)
 {
