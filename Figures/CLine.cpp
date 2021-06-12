@@ -48,7 +48,6 @@ bool CLine::isInsideMe(Point p) const
 	if (isHidden())
 		return false;
 
-	//mohammed implement this function
 	Vec2 v1 = Vec2(start.x, start.y);
 	Vec2 v2 = Vec2(finish.x, finish.y);
 	Vec2 v3 = Vec2(p.x, p.y);

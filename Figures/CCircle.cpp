@@ -41,18 +41,17 @@ void CCircle::setCenterRadius()
 
 void CCircle::Move(Point newPoint)
 {
-	//bug
+	//getting the incremental vector
 	Vec2 incr = Vec2(newPoint.x, newPoint.y) - Vec2(center.x, center.y);
+	//getting new coordinates for point1, and point2
 	Vec2 p1 = Vec2(point1.x, point1.y) + incr.GetNormalized() * incr.GetLength();
 	Vec2 p2 = Vec2(point2.x, point2.y) + incr.GetNormalized() * incr.GetLength();
-	//
+	//update center
 	center.x = newPoint.x;
 	center.y = newPoint.y;
-	//bug fix
-	//must update point1, and point2 to avoid coping bugs
+	//update points
 	point1 = { int(p1.x), int(p1.y) };
 	point2 = { int(p2.x), int(p2.y) };
-	//
 }
 
 Point CCircle::getCriticalPoint() const

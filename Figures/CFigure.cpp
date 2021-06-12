@@ -9,11 +9,9 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	center = { 0, 0 };
 	Selected = false;
 
-	//ammar, play mode
 	hidden = false;//the figure is not hidden by default
 	changeColorType(FigGfxInfo.FillClr);//setting the color type according to fill color, play mode need this
 
-	//mohammed needs
 	drawclr = static_cast <drawColorType>(FromClrToInt(FigGfxInfo.DrawClr));
 	fillclr = static_cast<fillColorType>(FromClrToInt(FigGfxInfo.FillClr));
 
