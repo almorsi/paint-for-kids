@@ -63,7 +63,7 @@ bool CTriangle::isInsideMe(Point p) const
 	float Area3 = getTriArea(point2,point3,p);
 	float sumArea = Area1 + Area2 + Area3;
 
-	bool equalAreaCond = sumArea/area >= 0.85f && sumArea/area <= 1.15f;
+	bool equalAreaCond = sumArea/area >= 0.95f && sumArea/area <= 1.05f;
 
 	if (FigGfxInfo.isFilled)
 	{
@@ -71,16 +71,30 @@ bool CTriangle::isInsideMe(Point p) const
 	}
 	else //not filled
 	{
-		//this test will fail if the user clilck on the corner of atriagle because there is now two area approah zero
-		//fixed
-		//bug, if p is in the same line as any one of the bases it will return incorrect value
-		//the point is on triangle if one or two of the areas approaches zero
+		//the point is on triangle if one or two of the areas approaches zero,
+		//There are two cases
+		/*
+		* Case 1:
+		* If the user click on one of the corners then there are two areas approach zero with
+		* respect to the theird area(the greater one), so by getting the greater are and calculate
+		* the ratio of the other two(the smaller ones), so it is easy to prove that the sum of these ratios
+		* must be approach one for the point to be on one of corners.
+		*/
+		float maxArea = max(Area1, max(Area2, Area3));
+		float maxAreaRatio = (Area1 / maxArea) + (Area2 / maxArea) + (Area3 / maxArea);
+		bool isOnCorner = maxAreaRatio >= 0.9f && maxAreaRatio <= 1.1f;
+		/*
+		* Case 2:
+		* If the user dosn't click on one of the corners, that is click on the boundry of the triangle,
+		* then one of the areas must be very small comparing to the other two, from this we calculate
+		* the ratio of the smallest on to the three areas, the sum of these ratios must approach one 
+		* for the point to be on one of the edgs
+		*/
 		float minArea = min(Area1, min(Area2, Area3));
-		//after getting the minArea calculating the ratio of minArea with respect to the other areas
-		float areaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
-		//this ratio must approach one for the point to be on the triangle
-		return equalAreaCond && (areaRatio >= 0.85f && areaRatio <= 1.15f);
-		//
+		float minAreaRatio = (minArea / Area1) + (minArea / Area2) + (minArea / Area3);
+		bool isOnEdge = minAreaRatio >= 0.9f && minAreaRatio <= 1.1f;
+
+		return equalAreaCond && (isOnCorner || isOnEdge);
 	}
 }
 
