@@ -1,6 +1,7 @@
-#include "GameColorOnly.h"
-#include <random>
 #include <assert.h>
+
+#include "GameColorOnly.h"
+
 GameColorOnly::GameColorOnly(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay)
 	:
 	GameAction(pApp, figs, size, actionAfterPlay)
@@ -21,8 +22,6 @@ GameColorOnly::~GameColorOnly()
 
 void GameColorOnly::setFigClrType()
 {
-	std::random_device rd;
-	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(0, 9);//10 color types are allowed
 
 	do

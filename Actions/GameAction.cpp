@@ -1,14 +1,16 @@
+#include <assert.h>
+
 #include "GameAction.h"
 
 #include "..\ApplicationManager.h"
-#include <assert.h>
 
 GameAction::GameAction(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay)
     :
     Action(pApp),
     FiguresDrawn(figs),
     nOfFiguresDrawn(size),
-    playAction(actionAfterPlay)
+    playAction(actionAfterPlay),
+    rng(rd())
 {
     assert(size > 0);
     pOut = pManager->GetOutput();

@@ -1,15 +1,15 @@
-#include "..\ApplicationManager.h"
+#include <assert.h>
+
 #include "GameArea.h"
 
-#include <random>
-#include <assert.h>
+#include "..\ApplicationManager.h"
+
+
 GameArea::GameArea(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay)
 	:
 	GameAction(pApp, figs, size, actionAfterPlay)
 {
 	assert(size > 0);
-	std::random_device rd;
-	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(0, 1);//2 area types are allowed(largest , smallest)
 
 	//always there is a right choise, unless there is no figures drawn

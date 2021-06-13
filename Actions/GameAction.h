@@ -1,8 +1,9 @@
 #pragma once
+#include <string>
+#include <random>
 #include "Action.h"
 #include "..\ApplicationManager.h"
 #include "..\Figures\CFigure.h"
-#include <string>
 //base class for all game actions
 class GameAction : public Action
 {
@@ -23,6 +24,9 @@ protected:
 
 	int nOfRightAns;
 	int nOfWrongAns;
+
+	std::random_device rd;
+	std::mt19937 rng;
 
 private:
 

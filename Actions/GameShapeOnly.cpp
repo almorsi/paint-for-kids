@@ -1,6 +1,7 @@
-#include "GameShapeOnly.h"
-#include <random>
 #include <assert.h>
+
+#include "GameShapeOnly.h"
+
 GameShapeOnly::GameShapeOnly(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay)
     :
     GameAction(pApp, figs, size, actionAfterPlay)
@@ -25,8 +26,7 @@ GameShapeOnly::~GameShapeOnly()
 
 void GameShapeOnly::setFigType()
 {
-    std::random_device rd;
-    std::mt19937 rng(rd());
+
     std::uniform_int_distribution<int> dist(0, 3);//3 figures only
 
     do

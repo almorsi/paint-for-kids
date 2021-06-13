@@ -1,5 +1,7 @@
-#include "GameColorShape.h"
 #include <assert.h>
+
+#include "GameColorShape.h"
+
 GameColorShape::GameColorShape(ApplicationManager* pApp, CFigure** figs, const int size, ActionType& actionAfterPlay)
 	:
 	GameAction(pApp, figs, size, actionAfterPlay),
